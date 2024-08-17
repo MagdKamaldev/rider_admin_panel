@@ -99,7 +99,7 @@ class RiderCard extends StatelessWidget {
             Text(
               rider.hubName ==null || rider.hubName ==""? 'N/A': rider.hubName!,
               style: TextStyles.headings
-                  .copyWith(color: AppColors.prussianBlue, fontSize: 16),
+                  .copyWith(color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
             ),
             const SizedBox(height: 8.0),
             Text('User ID: ${rider.userId ?? 'N/A'}'),

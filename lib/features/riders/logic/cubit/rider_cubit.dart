@@ -54,7 +54,6 @@ class RiderCubit extends Cubit<RiderState> {
     response.fold(
       (l) => emit(DeleteRiderFailure(l.message)),
       (r) {
-       // riders.removeWhere((element) => element.id == r.id);
         emit(DeleteRiderSuccess(r));
       },
     );
@@ -66,7 +65,6 @@ class RiderCubit extends Cubit<RiderState> {
     response.fold(
       (l) => emit(ChangeRiderHubFailure(l.message)),
       (r) {
-        //riders[riders.indexWhere((element) => element.id == r.id)] = r;
         emit(ChangeRiderHubSuccess(r));
       },
     );
