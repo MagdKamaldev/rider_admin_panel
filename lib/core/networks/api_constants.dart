@@ -28,7 +28,7 @@ class ApiConstants {
 //Rider
 static const String fetchRiders = "admin/FetchRiders";
 static const String deleteRider = "admin/DeleteRider";
-
+static const String editRiderHub = "admin/EditRiderHub";
 }
 
 

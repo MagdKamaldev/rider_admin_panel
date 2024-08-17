@@ -10,6 +10,8 @@ import 'package:tayar_admin_panel/features/Branches/logic/cubit/branch_cubit.dar
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 
+
+//make an add rider screen that takes a hub which is selected and name and national id and mobile number and make it like :
 class AddBranchScreen extends StatefulWidget {
   const AddBranchScreen({super.key});
 

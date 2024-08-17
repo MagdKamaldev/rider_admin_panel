@@ -22,6 +22,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  double railWidth = 72.0; // Default width of the NavigationRail
+  final double expandedRailWidth =
+      200.0; // Expanded width of the NavigationRail
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -50,7 +54,6 @@ class HomeScreenState extends State<HomeScreen> {
           return LayoutBuilder(
             builder: (context, constraints) {
               bool isWideScreen = constraints.maxWidth > 800;
-
               return Scaffold(
                 appBar: AppBar(
                   actions: [
@@ -89,10 +92,14 @@ class HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            for (int i = 0; i < HomeCubit.get(context).titles.length; i++)
+                            for (int i = 0;
+                                i < HomeCubit.get(context).titles.length;
+                                i++)
                               ListTile(
+                                leading: HomeCubit.get(context).screenIcons[i],
                                 title: Text(HomeCubit.get(context).titles[i]),
-                                selected: i == HomeCubit.get(context).selectedIndex,
+                                selected:
+                                    i == HomeCubit.get(context).selectedIndex,
                                 onTap: () {
                                   setState(() {
                                     HomeCubit.get(context).selectedIndex = i;
@@ -106,19 +113,43 @@ class HomeScreenState extends State<HomeScreen> {
                 body: isWideScreen
                     ? Row(
                         children: [
-                          NavigationRail(
-                            selectedIndex: HomeCubit.get(context).selectedIndex,
-                            onDestinationSelected: (int index) {
+                          MouseRegion(
+                            onEnter: (_) {
                               setState(() {
-                                HomeCubit.get(context).selectedIndex = index;
+                                railWidth = expandedRailWidth;
                               });
                             },
-                            labelType: NavigationRailLabelType.all,
-                            destinations: List.generate(
-                              HomeCubit.get(context).titles.length,
-                              (index) => NavigationRailDestination(
-                                icon: HomeCubit.get(context).screenIcons[index], // You can customize this icon
-                                label: Text(HomeCubit.get(context).titles[index]),
+                            onExit: (_) {
+                              setState(() {
+                                railWidth = 72.0;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              width: railWidth,
+                              child: NavigationRail(
+                                selectedIndex:
+                                    HomeCubit.get(context).selectedIndex,
+                                onDestinationSelected: (int index) {
+                                  setState(() {
+                                    HomeCubit.get(context).selectedIndex =
+                                        index;
+                                  });
+                                },
+                                labelType: railWidth > 72.0
+                                    ? NavigationRailLabelType.all
+                                    : NavigationRailLabelType.none,
+                                destinations: List.generate(
+                                  HomeCubit.get(context).titles.length,
+                                  (index) => NavigationRailDestination(
+                                    icon: HomeCubit.get(context)
+                                        .screenIcons[index],
+                                    label: railWidth > 72.0
+                                        ? Text(HomeCubit.get(context)
+                                            .titles[index])
+                                        : const Text(""),
+                                  ),
+                                ),
                               ),
                             ),
                           ),

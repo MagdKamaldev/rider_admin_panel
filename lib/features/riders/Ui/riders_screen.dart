@@ -4,14 +4,13 @@ import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
+import 'package:tayar_admin_panel/features/riders/Ui/add_rider_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/riders_card.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
 
 class RidersScreen extends StatelessWidget {
-  const RidersScreen({
-    super.key,
-  });
+  const RidersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,58 +33,62 @@ class RidersScreen extends StatelessWidget {
               RiderCubit(getIt<RiderRepoImpl>())..fetchRiders(),
           child: BlocBuilder<RiderCubit, RiderState>(
             builder: (context, state) {
-              if (state is! FetchRidersLoading) {
-                if (RiderCubit.get(context).riders.isEmpty) {
-                  return SizedBox(
-                    width: constraints.maxWidth,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: constraints.maxHeight * 0.4,
-                        ),
-                        Text(
-                          "No Riders Yet !",
-                          style: TextStyles.headings.copyWith(
-                            color: AppColors.prussianBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: constraints.maxHeight * 0.35,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: defaultButton(
-                              function: () {
-                                //  navigateTo(context, const AddRiderScreen());
-                              },
-                              context: context,
-                              text: "Add Rider",
-                              width: constraints.maxWidth * 0.8 < 500
-                                  ? constraints.maxWidth * 0.8
-                                  : 500),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return GridView.builder(
-                    padding: const EdgeInsets.all(8.0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      childAspectRatio: aspectRatio,
-                    ),
-                    itemCount: RiderCubit.get(context).riders.length,
-                    itemBuilder: (context, index) {
-                      final rider = RiderCubit.get(context).riders[index];
-                      return RiderCard(rider: rider);
-                    },
-                  );
-                }
-              } else {
+              if (state is FetchRidersLoading) {
                 return const Center(child: CircularProgressIndicator());
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: defaultButton(
+                        function: () {
+                          navigateTo(context, const AddRiderScreen());
+                        },
+                        context: context,
+                        text: "Add Rider",
+                        width: constraints.maxWidth * 0.8 < 200
+                            ? constraints.maxWidth * 0.8
+                            : 200,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Expanded(
+                      child: RiderCubit.get(context).riders.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "No Riders Yet!",
+                                    style: TextStyles.headings.copyWith(
+                                      color: AppColors.prussianBlue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : GridView.builder(
+                              padding: const EdgeInsets.all(8.0),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: columns,
+                                crossAxisSpacing: 8.0,
+                                mainAxisSpacing: 8.0,
+                                childAspectRatio: aspectRatio,
+                              ),
+                              itemCount: RiderCubit.get(context).riders.length,
+                              itemBuilder: (context, index) {
+                                final rider =
+                                    RiderCubit.get(context).riders[index];
+                                return RiderCard(rider: rider);
+                              },
+                            ),
+                    ),
+                  ],
+                );
               }
             },
           ),
