@@ -66,12 +66,8 @@ class HubsRepoImpl implements HubsRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, dynamic>> updateHub(Hub hub) {
-    // TODO: implement updateHub
-    throw UnimplementedError();
-  }
-
+  
+  
   @override
   Future<Either<Failure, dynamic>> createHub(String name, int managerId) async {
     try {
@@ -98,6 +94,24 @@ class HubsRepoImpl implements HubsRepo {
           endPoint: ApiConstants.fetchHub, jwt: kTokenBox.get(kTokenBoxString));
       Hub hub = Hub.fromJson(response["data"]);
       return Right(hub);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
+  }
+  
+  @override
+  Future<Either<Failure, dynamic>> updateHub(String name, int managerId, int id) async{
+    try {
+      final response = await apiServices.post(
+        data: {"name": name, "manager_id": managerId, "id": id},
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.editHub,
+      );
+      return Right(response);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));

@@ -31,15 +31,15 @@ class ManagersRepoImpl implements ManagersRepo {
   }
 
   @override
-  Future<Either<Failure, ManagerModel>> deleteManager(int id) async{
-   try{
+  Future<Either<Failure, ManagerModel>> deleteManager(int id) async {
+    try {
       final response = await apiServices.post(
         data: {"id": id},
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.deleteManager,
       );
       return Right(ManagerModel.fromJson(response));
-   }catch (e) {
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       } else {
@@ -68,10 +68,16 @@ class ManagersRepoImpl implements ManagersRepo {
   }
 
   @override
-  Future<Either<Failure, ManagerModel>> updateManager(String name,String password,int id) async {
+  Future<Either<Failure, ManagerModel>> updateManager(
+      String name, String password, int id) async {
     try {
       final response = await apiServices.post(
-        data: {"username": name, "password": password, "permission": 3,"id":id},
+        data: {
+          "username": name,
+          "password": password,
+          "permission": 3,
+          "id": id
+        },
         jwt: kTokenBox.get(kTokenBoxString).toString(),
         endPoint: ApiConstants.updateManager,
       );
@@ -82,7 +88,6 @@ class ManagersRepoImpl implements ManagersRepo {
       } else {
         return Left(ServerFailure(e.toString()));
       }
-      }
-   
+    }
   }
 }

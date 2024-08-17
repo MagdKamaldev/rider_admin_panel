@@ -149,7 +149,7 @@ class HubTableState extends State<HubTable> {
             DataCell(Text(formattedDateTime, style: TextStyles.tableRow)),
             DataCell(Text(formattedDateUpTime, style: TextStyles.tableRow)),
              DataCell(Row(children: [IconButton(onPressed: (){
-              navigateTo(context, const EditHubScreen());
+              navigateTo(context,  EditHubScreen(id:hub.id!,name: hub.name!,managerId: hub.managerId!));
             }, icon: const Icon(Icons.edit_note,color: Colors.grey,),), const   SizedBox(width: 30,), IconButton(onPressed: (){
               showDialog(context: context, builder: (context){
                 return BlocProvider(

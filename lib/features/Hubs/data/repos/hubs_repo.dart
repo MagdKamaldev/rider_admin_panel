@@ -8,6 +8,6 @@ abstract class HubsRepo {
   Future<Either<Failure, List<Hub>>> getHubs();
   Future<Either<Failure, Hub>> getHub(int id);
   Future<Either<Failure, dynamic>> createHub(String name, int managerId);
-  Future<Either<Failure, dynamic>> updateHub(Hub hub);
+  Future<Either<Failure, dynamic>> updateHub(String name, int managerId, int id);
   Future<Either<Failure, dynamic>> deleteHub(int id);
 }

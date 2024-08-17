@@ -167,7 +167,7 @@ class FranchiseTableState extends State<FranchiseTable> {
     children: [
       IconButton(
         onPressed: () {
-          navigateTo(context, const EditFranchiseScreen());
+          navigateTo(context, UpdateFranchiseScreen(id: franchise.id!,name: franchise.name!,));
         },
         icon: const Icon(
           Icons.edit_note,

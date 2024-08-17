@@ -43,7 +43,6 @@ class BranchCubit extends Cubit<BranchState> {
         emit(AddBranchErrorState(l.message));
       },
       (r) {
-        showErrorSnackbar(context, "Success");
         emit(AddBranchSuccessState());
       },
     );
@@ -76,6 +75,21 @@ class BranchCubit extends Cubit<BranchState> {
       },
       (r) {
         emit(DeleteBranchSuccess());
+      },
+    );
+  }
+
+  void updateBranch(BuildContext context, String name, String address, int hubId,
+      int franchiseId, int id) async {
+    emit(UpdateBranchLoading());
+    final response = await repo.updateBranch(id, name,address, hubId, franchiseId,);
+    response.fold(
+      (l) {
+        showErrorSnackbar(context, l.message);
+        emit(UpdateBranchError(l.message));
+      },
+      (r) {
+        emit(UpdateBranchSuccess());
       },
     );
   }

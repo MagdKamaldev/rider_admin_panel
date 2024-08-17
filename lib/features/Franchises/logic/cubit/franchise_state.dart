@@ -38,3 +38,13 @@ final class DeleteFranchiseError extends FranchiseState {
 
   DeleteFranchiseError(this.message);
 }
+
+final class UpdateFranchiseLoading extends FranchiseState {}
+
+final class UpdateFranchiseSuccess extends FranchiseState {}
+
+final class UpdateFranchiseError extends FranchiseState {
+  final String message;
+
+  UpdateFranchiseError(this.message);
+}

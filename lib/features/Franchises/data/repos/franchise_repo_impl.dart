@@ -30,14 +30,15 @@ class FranchiseRepoImpl extends FranchiseRepo {
   }
 
   @override
-  Future<Either<Failure, FranchiseModel>> deleteFranchise(int id) async{
+  Future<Either<Failure, dynamic>> deleteFranchise(int id) async{
     try{
       final response = await apiServices.post(
         data: {"id": id},
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.deleteFranchise,
       );
-      return Right(FranchiseModel.fromJson(response));
+      return Right(response);
+      
     }catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
@@ -65,11 +66,24 @@ class FranchiseRepoImpl extends FranchiseRepo {
       }
     }
   }
-
+  
   @override
-  Future<Either<Failure, FranchiseModel>> updateFranchise(
-      FranchiseModel franchise) {
-    // TODO: implement updateFranchise
-    throw UnimplementedError();
+  Future<Either<Failure, dynamic>> updateFranchise(String name, int id) async{
+    try{
+      final response = await apiServices.post(
+        data: {"name": name, "id": id},
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.editFranchise,
+      );
+      return Right(response);
+    }catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
   }
+
+
 }

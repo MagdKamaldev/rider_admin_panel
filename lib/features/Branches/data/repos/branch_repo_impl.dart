@@ -97,4 +97,28 @@ class BranchRepoImpl implements BranchRepo {
       }
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> updateBranch(int id, String name, String address, int hubId, int franchiseId) async{
+    try{
+      final response = await apiServices.post(
+        data: {
+          "id": id,
+          "name": name,
+          "address": address,
+          "hub_id": hubId,
+          "franchise_id": franchiseId
+        },
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.editBranch,
+      );
+      return Right(response);
+    }catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
+  }
 }

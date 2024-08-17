@@ -9,7 +9,8 @@ import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 
 class EditManagerScreen extends StatefulWidget {
   final int managerId;
-  const EditManagerScreen({super.key, required this.managerId,});
+  final String name;
+  const EditManagerScreen({super.key, required this.managerId, required this.name,});
 
   @override
   EditManagerScreenState createState() => EditManagerScreenState();
@@ -25,6 +26,7 @@ class EditManagerScreenState extends State<EditManagerScreen> {
     super.initState();
     _nameController = TextEditingController();
     _passwordController = TextEditingController();
+    _nameController.text = widget.name;
   }
 
   @override

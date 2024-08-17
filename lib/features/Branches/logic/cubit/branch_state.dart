@@ -46,3 +46,12 @@ final class DeleteBranchError extends BranchState {
   final String message;
   DeleteBranchError(this.message);
 }
+
+final class UpdateBranchLoading extends BranchState {}
+
+final class UpdateBranchSuccess extends BranchState {}
+
+final class UpdateBranchError extends BranchState {
+  final String message;
+  UpdateBranchError(this.message);
+}

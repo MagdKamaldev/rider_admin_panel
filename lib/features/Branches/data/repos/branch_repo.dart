@@ -9,6 +9,8 @@ abstract class BranchRepo {
   Future<Either<Failure, void>> addShopBranch(
       String name, String address, int hubId, int franchiseId);
   Future<Either<Failure, List<BranchModel>>> getBranches();
+  Future<Either<Failure, void>> updateBranch(
+      int id, String name, String address, int hubId, int franchiseId);
   Future<Either<Failure, void>> deleteBranch(int id);
 }
 
