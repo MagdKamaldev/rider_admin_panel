@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
+import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 part 'rider_state.dart';
 
@@ -53,8 +54,33 @@ class RiderCubit extends Cubit<RiderState> {
     response.fold(
       (l) => emit(DeleteRiderFailure(l.message)),
       (r) {
-        riders.removeWhere((element) => element.id == r.id);
+       // riders.removeWhere((element) => element.id == r.id);
         emit(DeleteRiderSuccess(r));
+      },
+    );
+  }
+
+  void changeRiderHub(int riderId, int hubId) async {
+    emit(ChangeRiderHubLoading());
+    final response = await repo.changeRiderHub(riderId, hubId);
+    response.fold(
+      (l) => emit(ChangeRiderHubFailure(l.message)),
+      (r) {
+        //riders[riders.indexWhere((element) => element.id == r.id)] = r;
+        emit(ChangeRiderHubSuccess(r));
+      },
+    );
+  }
+
+  List<Hub> hubs = [];
+
+  void fetchHubs() async {
+    final response = await repo.fetchHubs();
+    response.fold(
+      (l) => emit(FetchRidersFailure(l.message)),
+      (r) {
+        hubs = r;
+        emit(FetchHubsSuccess(hubs));
       },
     );
   }

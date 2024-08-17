@@ -51,3 +51,27 @@ final class DeleteRiderFailure extends RiderState {
   final String message;
   DeleteRiderFailure(this.message);
 }
+
+final class ChangeRiderHubLoading extends RiderState {}
+
+final class ChangeRiderHubSuccess extends RiderState {
+  final RiderModel rider;
+  ChangeRiderHubSuccess(this.rider);
+}
+
+final class ChangeRiderHubFailure extends RiderState {
+  final String message;
+  ChangeRiderHubFailure(this.message);
+}
+
+final class FetchHubsLoading extends RiderState {}
+
+final class FetchHubsSuccess extends RiderState {
+  final List<Hub> hubs;
+  FetchHubsSuccess(this.hubs);
+}
+
+final class FetchHubsFailure extends RiderState {
+  final String message;
+  FetchHubsFailure(this.message);
+}

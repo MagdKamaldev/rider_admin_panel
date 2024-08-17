@@ -6,6 +6,7 @@ import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/features/riders/Ui/change_rider_hub.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
 
@@ -39,9 +40,11 @@ class RiderCard extends StatelessWidget {
                         showDeleteRider(context);
                         break;
                       case 1:
+
                         // Handle edit rider action
                         break;
                       case 2:
+                      navigateTo(context, ChangeRiderHubScreen(riderId: rider.id!,));
                         // Handle change hub action
                         break;
                     }
@@ -88,13 +91,13 @@ class RiderCard extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             Text(
-              rider.name ?? 'N/A',
+              rider.name ==null || rider.name ==""? 'N/A': rider.name!,
               style:
                   TextStyles.headings.copyWith(color: AppColors.prussianBlue),
             ),
             const SizedBox(height: 5.0),
             Text(
-              rider.hubName ?? 'N/A',
+              rider.hubName ==null || rider.hubName ==""? 'N/A': rider.hubName!,
               style: TextStyles.headings
                   .copyWith(color: AppColors.prussianBlue, fontSize: 16),
             ),

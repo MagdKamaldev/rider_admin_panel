@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:tayar_admin_panel/core/constants.dart';
 import 'package:tayar_admin_panel/core/networks/api_constants.dart';
 import 'package:tayar_admin_panel/core/networks/api_services.dart';
 import 'package:tayar_admin_panel/core/networks/errors.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
+import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo.dart';
 
 class RiderRepoImpl implements RidersRepo {
@@ -65,6 +67,36 @@ class RiderRepoImpl implements RidersRepo {
       return Right(RiderModel.fromJson(response));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RiderModel>> changeRiderHub(int riderId, int hubId) async{
+    try {
+      final response = await apiServices.post(
+        data: {"rider_id": riderId, "hub_id": hubId},
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.editRiderHub,
+      );
+      return Right(RiderModel.fromJson(response));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Hub>>> fetchHubs() async {
+    try {
+      final response = await apiServices.get(
+          endPoint: "admin/FetchHubs", jwt: kTokenBox.get(kTokenBoxString));
+      var hubsList = response["data"] as List<dynamic>;
+      return Right(hubsList.map<Hub>((e) => Hub.fromJson(e)).toList());
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
     }
   }
 }
