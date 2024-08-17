@@ -18,7 +18,7 @@ class ManagersRepoImpl implements ManagersRepo {
       final response = await apiServices.post(
         data: {"username": name, "password": password, "permission": 3},
         jwt: kTokenBox.get(kTokenBoxString),
-        endPoint: ApiConstants.register,
+        endPoint: ApiConstants.registerUser,
       );
       return Right(ManagerModel.fromJson(response));
     } catch (e) {
@@ -79,7 +79,7 @@ class ManagersRepoImpl implements ManagersRepo {
           "id": id
         },
         jwt: kTokenBox.get(kTokenBoxString).toString(),
-        endPoint: ApiConstants.updateManager,
+        endPoint: ApiConstants.updateUser,
       );
       return Right(ManagerModel.fromJson(response));
     } catch (e) {

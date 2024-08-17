@@ -6,6 +6,7 @@ import 'package:tayar_admin_panel/features/Franchises/data/repos/franchise_repo_
 import 'package:tayar_admin_panel/features/Hubs/data/repos/hubs_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Managers/data/repos/managers_repo_impl.dart';
 import 'package:tayar_admin_panel/features/login/data/repos/login_repo_impl.dart';
+import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 
 final getIt = GetIt.instance;
 void setupLocator() {
@@ -42,4 +43,9 @@ void setupLocator() {
       apiServices: getIt<ApiServices>(),
     ),
   );
+getIt.registerLazySingleton<RiderRepoImpl>(
+  () => RiderRepoImpl(
+    apiServices: getIt<ApiServices>(),
+  ),
+);
 }

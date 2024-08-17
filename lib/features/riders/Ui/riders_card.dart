@@ -35,19 +35,25 @@ class RiderCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text(
-              'Name: ${rider.name ?? 'N/A'}',
-              style: TextStyles.headings.copyWith(color: AppColors.prussianBlue),
+              rider.name ?? 'N/A',
+              style:
+                  TextStyles.headings.copyWith(color: AppColors.prussianBlue),
             ),
-            SizedBox(height: 8.0),
+             const SizedBox(height: 8.0),
+            Text(
+              rider.hubName ?? 'N/A',
+              style:
+                  TextStyles.headings.copyWith(color: AppColors.prussianBlue, fontSize: 16),
+            ),
+            const SizedBox(height: 8.0),
             Text('User ID: ${rider.userId ?? 'N/A'}'),
             Text('National ID: ${rider.nationalId ?? 'N/A'}'),
             Text('Phone: ${rider.mobileNumber ?? 'N/A'}'),
-            Text('Hub: ${rider.hubId ?? 'N/A'}'),
             Text('Queue No: ${rider.queueNo ?? 'N/A'}'),
             Text('Current Order ID: ${rider.currentOrderId ?? 'N/A'}'),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

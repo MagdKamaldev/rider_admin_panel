@@ -8,7 +8,6 @@ import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Managers/UI/add_manager_screen.dart';
 import 'package:tayar_admin_panel/features/Managers/UI/manager_table.dart';
-import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/manager_model.dart';
 import 'package:tayar_admin_panel/features/Managers/data/repos/managers_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Managers/logic/cubit/managers_cubit.dart';
 

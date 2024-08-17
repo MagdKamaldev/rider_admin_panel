@@ -8,6 +8,7 @@ class RiderModel {
   String? nationalId;
   String? mobileNumber;
   int? hubId;
+  String ? hubName;
   int? lat;
   int? lng;
   String? locationUpdatedAt;
@@ -28,6 +29,7 @@ class RiderModel {
     this.nationalId,
     this.mobileNumber,
     this.hubId,
+    this.hubName,
     this.lat,
     this.lng,
     this.locationUpdatedAt,
@@ -53,6 +55,7 @@ class RiderModel {
         nationalId: json['national_id'] as String?,
         mobileNumber: json['mobile_number'] as String?,
         hubId: json['hub_id'] as int?,
+        hubName: json['hub_name'] as String?,
         lat: json['lat'] as int?,
         lng: json['lng'] as int?,
         locationUpdatedAt: json['location_updated_at'] as String?,
@@ -74,6 +77,7 @@ class RiderModel {
         'national_id': nationalId,
         'mobile_number': mobileNumber,
         'hub_id': hubId,
+        'hub_name': hubName,
         'lat': lat,
         'lng': lng,
         'location_updated_at': locationUpdatedAt,

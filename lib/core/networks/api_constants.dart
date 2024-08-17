@@ -2,10 +2,11 @@ class ApiConstants {
   static const String serverIp = "localhost";
   static const String baseUrl = 'http://$serverIp:3006/api/';
   static const String login = 'login';
-  //manager
-  static const String register = 'admin/register';
+  //User
+  static const String registerUser = 'admin/register';
+  static const String updateUser = 'admin/EditUser';
+  //Manager
   static const String fetchManagers = 'admin/FetchManagers';
-  static const String updateManager = 'admin/EditUser';
   static const String deleteManager = 'admin/DeleteManager';
   //branch
   static const String fetchBranchData = "admin/FetchDataRequiredForBranch";
@@ -24,6 +25,10 @@ class ApiConstants {
   static const String fetchHub = "admin/FetchHubByID";
   static const String editHub = "admin/EditHub";
   static const String deleteHub = "admin/DeleteHub";
+//Rider
+static const String fetchRiders = "admin/FetchRiders";
+static const String deleteRider = "admin/DeleteRider";
+
 }
 
 

@@ -83,7 +83,7 @@ class HubsScreen extends StatelessWidget {
                               constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width,
                               ),
-                              child: HubTable(),
+                              child: const HubTable(),
                             ),
                           ),
                         ),
