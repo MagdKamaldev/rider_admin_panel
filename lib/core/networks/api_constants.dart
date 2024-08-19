@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String serverIp = "localhost";
+  static const String serverIp = "192.168.1.2";
   static const String baseUrl = 'http://$serverIp:3006/api/';
   static const String login = 'login';
   //User

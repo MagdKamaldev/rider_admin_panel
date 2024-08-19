@@ -7,6 +7,7 @@ import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/change_rider_hub.dart';
+import 'package:tayar_admin_panel/features/riders/Ui/change_rider_shift_time.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
 
@@ -44,8 +45,19 @@ class RiderCard extends StatelessWidget {
                         // Handle edit rider action
                         break;
                       case 2:
-                      navigateTo(context, ChangeRiderHubScreen(riderId: rider.id!,));
+                        navigateTo(
+                            context,
+                            ChangeRiderHubScreen(
+                              riderId: rider.id!,
+                            ));
                         // Handle change hub action
+                        break;
+                      case 3:
+                        navigateTo(
+                            context,
+                            ChangeShiftTimes(
+                              riderId: rider.id!,
+                            ));
                         break;
                     }
                   },
@@ -71,6 +83,13 @@ class RiderCard extends StatelessWidget {
                         title: Text('Change Hub'),
                       ),
                     ),
+                    const PopupMenuItem<int>(
+                      value: 3,
+                      child: ListTile(
+                        leading: Icon(Icons.watch_later, color: Colors.green),
+                        title: Text('Change Shift Times'),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -91,15 +110,17 @@ class RiderCard extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             Text(
-              rider.name ==null || rider.name ==""? 'N/A': rider.name!,
+              rider.name == null || rider.name == "" ? 'N/A' : rider.name!,
               style:
                   TextStyles.headings.copyWith(color: AppColors.prussianBlue),
             ),
             const SizedBox(height: 5.0),
             Text(
-              rider.hubName ==null || rider.hubName ==""? 'N/A': rider.hubName!,
-              style: TextStyles.headings
-                  .copyWith(color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
+              rider.hubName == null || rider.hubName == ""
+                  ? 'N/A'
+                  : rider.hubName!,
+              style: TextStyles.headings.copyWith(
+                  color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
             ),
             const SizedBox(height: 8.0),
             Text('User ID: ${rider.userId ?? 'N/A'}'),
