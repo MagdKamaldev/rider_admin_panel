@@ -45,9 +45,9 @@ class HubCubit extends Cubit<HubState> {
     );
   }
 
-  void createHub(BuildContext context, String name, int managerId) async {
+  void createHub(BuildContext context, String name, int managerId,double lat ,double lng) async {
     emit(CreateHubLoading());
-    final response = await repo.createHub(name, managerId);
+    final response = await repo.createHub(name, managerId, lat,lng);
     response.fold(
       (l) {
         showErrorSnackbar(context, l.message);

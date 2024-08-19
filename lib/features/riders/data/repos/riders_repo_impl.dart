@@ -99,4 +99,22 @@ class RiderRepoImpl implements RidersRepo {
       }
     }
   }
+  
+  @override
+  Future<Either<Failure, RiderModel>> changeRiderShiftTime(int riderId, DateTime startTime, Duration shiftDuration) async{
+    try {
+      final response = await apiServices.post(
+        data: {
+          "rider_id": riderId,
+          "start_time": startTime.toIso8601String(),
+          "shift_duration": shiftDuration.inMinutes,
+        },
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.editRiderShiftTime,
+      );
+      return Right(RiderModel.fromJson(response));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

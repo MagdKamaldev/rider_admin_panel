@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:tayar_admin_panel/core/networks/error_snackbar.dart';
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
@@ -241,13 +242,18 @@ class AddHubScreenState extends State<AddHubScreen> {
                             defaultButton(
                               width: size.width < 700 ? size.width * 0.9 : 700,
                               function: () {
-                                if (_formKey.currentState!.validate()) {
+                                if (_formKey.currentState!.validate() &&
+                                    _selectedManager != null &&
+                                    _selectedLocation != null) {
                                   context.read<HubCubit>().createHub(
                                         context,
                                         _nameController.text,
                                         _selectedManager!.id!,
-                                        // _selectedLocation, // pass the selected location to the function
+                                        _selectedLocation!.latitude,
+                                        _selectedLocation!.longitude,
                                       );
+                                }else if(_selectedLocation ==null){
+                                  showErrorSnackbar(context, "please select the hub Location");
                                 }
                               },
                               context: context,

@@ -82,4 +82,6 @@ class RiderCubit extends Cubit<RiderState> {
       },
     );
   }
+
+  
 }

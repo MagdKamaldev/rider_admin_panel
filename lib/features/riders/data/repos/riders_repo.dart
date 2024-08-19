@@ -10,4 +10,5 @@ abstract class RidersRepo {
   Future<Either<Failure,RiderModel>> updateRider(RiderModel rider);
   Future<Either<Failure,List<Hub>>> fetchHubs();
   Future<Either<Failure,RiderModel>> changeRiderHub(int riderId,int hubId);
+  Future<Either<Failure,RiderModel>> changeRiderShiftTime(int riderId,DateTime startTime,Duration shiftDuration);
 }
