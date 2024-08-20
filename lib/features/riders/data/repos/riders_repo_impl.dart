@@ -12,6 +12,16 @@ class RiderRepoImpl implements RidersRepo {
   final ApiServices apiServices;
   RiderRepoImpl({required this.apiServices});
 
+  String _formatDateTimeWithOffset(DateTime dateTime) {
+    final duration = dateTime.timeZoneOffset;
+    final hours = duration.inHours.abs().toString().padLeft(2, '0');
+    final minutes = (duration.inMinutes.abs() % 60).toString().padLeft(2, '0');
+    final sign = duration.isNegative ? '-' : '+';
+    final formattedOffset = '$sign$hours:$minutes';
+
+    return "${dateTime.toIso8601String().split('.').first}$formattedOffset";
+  }
+
   @override
   Future<Either<Failure, RiderModel>> deleteRider(int id) async {
     try {
@@ -71,7 +81,8 @@ class RiderRepoImpl implements RidersRepo {
   }
 
   @override
-  Future<Either<Failure, RiderModel>> changeRiderHub(int riderId, int hubId) async{
+  Future<Either<Failure, RiderModel>> changeRiderHub(
+      int riderId, int hubId) async {
     try {
       final response = await apiServices.post(
         data: {"rider_id": riderId, "hub_id": hubId},
@@ -99,15 +110,20 @@ class RiderRepoImpl implements RidersRepo {
       }
     }
   }
-  
+
   @override
-  Future<Either<Failure, RiderModel>> changeRiderShiftTime(int riderId, DateTime startTime, Duration shiftDuration) async{
+  Future<Either<Failure, RiderModel>> changeRiderShiftTime(int riderId,
+      DateTime startTime, DateTime endTime, Duration shiftDuration) async {
     try {
+      print(_formatDateTimeWithOffset(startTime));
+      print(_formatDateTimeWithOffset(endTime));
+      print(shiftDuration.inMinutes);
       final response = await apiServices.post(
         data: {
           "rider_id": riderId,
-          "start_time": startTime.toIso8601String(),
-          "shift_duration": shiftDuration.inMinutes,
+          "open_at": _formatDateTimeWithOffset(startTime),
+          "close_at": _formatDateTimeWithOffset(endTime),
+          "duration": shiftDuration.inSeconds,
         },
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editRiderShiftTime,

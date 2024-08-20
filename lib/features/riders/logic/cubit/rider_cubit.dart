@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
+import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 part 'rider_state.dart';
 
@@ -83,5 +85,17 @@ class RiderCubit extends Cubit<RiderState> {
     );
   }
 
-  
+  void changeRiderShiftTime(int riderId,DateTime startTime,DateTime endTime,Duration shiftDuration,context) async {
+    emit(ChangeRiderShiftTimeLoading());
+    final response = await repo.changeRiderShiftTime(riderId, startTime, endTime,shiftDuration);
+    response.fold(
+      (l) => emit(ChangeRiderShiftTimeFailure(l.message)),
+      (r) {
+        navigateAndFinish(context, const HomeScreen());
+        emit(ChangeRiderShiftTimeSuccess(r));
+      },
+    );
+  }
+
+
 }

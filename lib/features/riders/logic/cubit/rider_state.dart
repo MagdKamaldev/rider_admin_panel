@@ -75,3 +75,15 @@ final class FetchHubsFailure extends RiderState {
   final String message;
   FetchHubsFailure(this.message);
 }
+
+final class ChangeRiderShiftTimeLoading extends RiderState {}
+
+final class ChangeRiderShiftTimeSuccess extends RiderState {
+  final RiderModel rider;
+  ChangeRiderShiftTimeSuccess(this.rider);
+}
+
+final class ChangeRiderShiftTimeFailure extends RiderState {
+  final String message;
+  ChangeRiderShiftTimeFailure(this.message);
+}

@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';  // Import the intl package
+import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
+import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
+import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
 
 class ChangeShiftTimes extends StatefulWidget {
   final int riderId;
   const ChangeShiftTimes({super.key, required this.riderId});
 
   @override
-  _ChangeShiftTimesState createState() => _ChangeShiftTimesState();
+  ChangeShiftTimesState createState() => ChangeShiftTimesState();
 }
 
-class _ChangeShiftTimesState extends State<ChangeShiftTimes> {
+class ChangeShiftTimesState extends State<ChangeShiftTimes> {
   TimeOfDay? _startTime;
   Duration _shiftDuration =
-      Duration(hours: 1, minutes: 0); // Default 1 hour shift duration
+      const Duration(hours: 1, minutes: 0); // Default 1 hour shift duration
   final _hoursController = TextEditingController();
   final _minutesController = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _selectStartTime() async {
     final TimeOfDay? time = await showTimePicker(
@@ -65,103 +71,144 @@ class _ChangeShiftTimesState extends State<ChangeShiftTimes> {
 
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Change Shift Times',
-          style: TextStyles.headings,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0)
-              .copyWith(top: size.height * 0.05),
-          child: SizedBox(
-            width: size.width,
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.asset("assets/images/clock.png",
-                    height: 100, width: 100, fit: BoxFit.cover),
-                SizedBox(height: size.height * 0.06),
-                TextButton(
-                  onPressed: _selectStartTime,
-                  style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    backgroundColor: AppColors.prussianBlue,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Text(
-                      _startTime != null
-                          ? 'Start Time: ${_startTime!.format(context)}'
-                          : 'Select Start Time',
-                      style: TextStyles.headings,
-                    ),
-                  ),
-                ),
-                SizedBox(height: size.height * 0.1),
-                Text(
-                  'Shift Duration:',
-                  style: TextStyles.headings
-                      .copyWith(color: AppColors.prussianBlue),
-                ),
-                SizedBox(height: size.height * 0.04),
-                SizedBox(
-                  width: size.width * 0.8 < 600 ? size.width * 0.8 : 600,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _hoursController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Hours',
-                            border: OutlineInputBorder(),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 12),
-                          ),
-                          onChanged: (_) => _updateDuration(),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          controller: _minutesController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Minutes',
-                            border: OutlineInputBorder(),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 12),
-                          ),
-                          onChanged: (_) => _updateDuration(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: size.height * 0.1),
-                if (endTime != null)
-                  Text(
-                    'End Time: ${endTime.format(context)}',
-                    style: TextStyles.headings
-                        .copyWith(color: AppColors.prussianBlue),
-                  ),
-                SizedBox(height: size.height * 0.1),
-                SizedBox(
-                    width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                    child: defaultButton(
-                        function: () {}, context: context, text: "Confirm")),
-                SizedBox(height: size.height * 0.06),
-              ],
+    return BlocProvider(
+      create: (context) => RiderCubit(getIt<RiderRepoImpl>()),
+      child: BlocBuilder<RiderCubit, RiderState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Change Shift Times',
+                style: TextStyles.headings,
+              ),
             ),
-          ),
-        ),
+            body: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0)
+                      .copyWith(top: size.height * 0.05),
+                  child: SizedBox(
+                    width: size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset("assets/images/clock.png",
+                            height: 100, width: 100, fit: BoxFit.cover),
+                        SizedBox(height: size.height * 0.06),
+                        TextButton(
+                          onPressed: _selectStartTime,
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            backgroundColor: AppColors.prussianBlue,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Text(
+                              _startTime != null
+                                  ? 'Start Time: ${_startTime!.format(context)}'
+                                  : 'Select Start Time',
+                              style: TextStyles.headings,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: size.height * 0.1),
+                        Text(
+                          'Shift Duration:',
+                          style: TextStyles.headings
+                              .copyWith(color: AppColors.prussianBlue),
+                        ),
+                        SizedBox(height: size.height * 0.04),
+                        SizedBox(
+                          width:
+                              size.width * 0.8 < 600 ? size.width * 0.8 : 600,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: _hoursController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Hours',
+                                    border: OutlineInputBorder(),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                  ),
+                                  onChanged: (_) => _updateDuration(),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: TextField(
+                                  controller: _minutesController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Minutes',
+                                    border: OutlineInputBorder(),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                  ),
+                                  onChanged: (_) => _updateDuration(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: size.height * 0.1),
+                        if (endTime != null)
+                          Text(
+                            'End Time: ${endTime.format(context)}',
+                            style: TextStyles.headings
+                                .copyWith(color: AppColors.prussianBlue),
+                          ),
+                        SizedBox(height: size.height * 0.1),
+                        if (state is ChangeRiderShiftTimeLoading)
+                          const Center(child: CircularProgressIndicator()),
+                        if (state is! ChangeRiderShiftTimeLoading)
+                          SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultButton(
+                                  function: () {
+                                    if (_startTime == null || endTime == null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Please select a start time.'),
+                                        ),
+                                      );
+                                      return;
+                                    } else {
+                                      if (_formKey.currentState!.validate()) {
+                                        final startDateTime = _timeOfDayToDateTime(
+                                            _startTime!);
+                                        final endDateTime =
+                                            _timeOfDayToDateTime(endTime);
+
+                                        context.read<RiderCubit>().changeRiderShiftTime(
+                                            widget.riderId,
+                                            startDateTime,
+                                            endDateTime,
+                                            _shiftDuration,context);
+                                      }
+                                    }
+                                  },
+                                  context: context,
+                                  text: "Confirm")),
+                        SizedBox(height: size.height * 0.06),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -177,5 +224,11 @@ class _ChangeShiftTimesState extends State<ChangeShiftTimes> {
     final endMinute = (startMinute + totalMinutes % 60) % 60;
 
     return TimeOfDay(hour: endHour, minute: endMinute);
+  }
+
+  DateTime _timeOfDayToDateTime(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    return DateTime(
+        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
   }
 }
