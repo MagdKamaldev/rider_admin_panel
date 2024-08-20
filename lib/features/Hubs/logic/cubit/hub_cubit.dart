@@ -76,9 +76,9 @@ class HubCubit extends Cubit<HubState> {
     );
   }
 
-  void updateHub(BuildContext context, String name, int managerID, int id) async {
+  void updateHub(BuildContext context, String name, int managerID, int id,double lat , double lng) async {
     emit(UpdateHubLoading());
-    final response = await repo.updateHub(name,managerID,id);
+    final response = await repo.updateHub(name,managerID,id,lat,lng);
     response.fold(
       (l) {
         showErrorSnackbar(context, l.message);

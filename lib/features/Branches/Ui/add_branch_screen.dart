@@ -1,7 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
+import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Branches/data/models/franchise_model/franchise_model.dart';
@@ -9,7 +12,6 @@ import 'package:tayar_admin_panel/features/Branches/data/repos/branch_repo_impl.
 import 'package:tayar_admin_panel/features/Branches/logic/cubit/branch_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
-
 
 //make an add rider screen that takes a hub which is selected and name and national id and mobile number and make it like :
 class AddBranchScreen extends StatefulWidget {
@@ -25,6 +27,41 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
   FranchiseModel? _selectedFranchise;
   TextEditingController nameController = TextEditingController();
   TextEditingController adressController = TextEditingController();
+  LatLng? _selectedLocation;
+  final MapController _mapController = MapController();
+  late final TextEditingController _latController;
+  late final TextEditingController _lngController;
+
+  void _updateLocationFromInput() {
+    final double? lat = double.tryParse(_latController.text);
+    final double? lng = double.tryParse(_lngController.text);
+    if (lat != null && lng != null) {
+      setState(() {
+        _selectedLocation = LatLng(lat, lng);
+      });
+    }
+  }
+
+  void _moveCameraToLocation() {
+    _updateLocationFromInput(); // Update location based on the latest input
+    if (_selectedLocation != null) {
+      _mapController.move(_selectedLocation!, _mapController.camera.zoom);
+    }
+  }
+
+  @override
+  void initState() {
+    _latController = TextEditingController();
+    _lngController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _latController.dispose();
+    _lngController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +83,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
           } else {
             return Scaffold(
               appBar: AppBar(
-                title:  Text("Add Branch",style: TextStyles.headings),
+                title: Text("Add Branch", style: TextStyles.headings),
               ),
               body: SingleChildScrollView(
                 child: SafeArea(
@@ -59,7 +96,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -79,7 +116,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                                 context: context,
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -99,7 +136,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                                 context: context,
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -131,7 +168,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -166,6 +203,106 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                               ),
                             ),
                             SizedBox(height: size.height * 0.1),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColors.prussianBlue, width: 4),
+                                  borderRadius: BorderRadius.circular(10)),
+                              width:
+                                  size.width < 1200 ? size.width * 0.9 : 1200,
+                              height: 600, // Set a fixed height for the map
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FlutterMap(
+                                  mapController: _mapController,
+                                  options: MapOptions(
+                                    onTap: (tapPosition, point) {
+                                      setState(() {
+                                        _selectedLocation = point;
+                                        _latController.text =
+                                            "${point.latitude}";
+                                        _lngController.text =
+                                            "${point.longitude}";
+                                      });
+                                    },
+                                    initialCenter: const LatLng(
+                                        30.059770120241655, 31.246124613945796),
+                                    initialZoom: 14,
+                                    maxZoom: 19,
+                                  ),
+                                  children: [
+                                    TileLayer(
+                                      urlTemplate:
+                                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                      userAgentPackageName: 'com.example.app',
+                                      maxNativeZoom: 19,
+                                    ),
+                                    if (_selectedLocation != null)
+                                      MarkerLayer(
+                                        markers: [
+                                          Marker(
+                                            point: _selectedLocation!,
+                                            width: 80,
+                                            height: 80,
+                                            child: const Icon(
+                                              Icons.location_pin,
+                                              size: 50,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.05),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.2 > 400
+                                      ? 400
+                                      : size.width * 0.2,
+                                  child: TextFormField(
+                                    controller: _latController,
+                                    decoration: const InputDecoration(
+                                      labelText: "Latitude",
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) =>
+                                        _updateLocationFromInput(),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                SizedBox(
+                                  width: size.width * 0.2 > 400
+                                      ? 400
+                                      : size.width * 0.2,
+                                  child: TextFormField(
+                                    controller: _lngController,
+                                    decoration: const InputDecoration(
+                                      labelText: "Longitude",
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) =>
+                                        _updateLocationFromInput(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: size.height * 0.02),
+                            defaultButton(
+                              function: _moveCameraToLocation,
+                              text: "Move Camera",
+                              context: context,
+                              width: size.width * 0.2 > 300
+                                  ? 300
+                                  : size.width * 0.2,
+                            ),
+                            SizedBox(height: size.height * 0.05),
                             if (state is! AddBranchLoadingState)
                               defaultButton(
                                 width: size.width * 0.8 < 700
@@ -179,6 +316,8 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                                           adressController.text,
                                           _selectedHub!.id!,
                                           _selectedFranchise!.id!,
+                                          _selectedLocation!.latitude,
+                                          _selectedLocation!.longitude,
                                         );
                                   }
                                 },

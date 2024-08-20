@@ -11,6 +11,8 @@ class Hub {
   String? name;
   List<BranchModel>? branches;
   List<RiderModel>? riders;
+  dynamic lat;
+  dynamic lng;
 
   Hub(
       {this.id,
@@ -20,7 +22,7 @@ class Hub {
       this.name,
       this.managerId,
       this.managerName,
-      this.branches,this.riders});
+      this.branches,this.riders,this.lat,this.lng});
 
   factory Hub.fromJson(Map<String, dynamic> json) => Hub(
         id: json['ID'] as int?,
@@ -40,6 +42,8 @@ class Hub {
                 .map((e) => BranchModel.fromJson(e))
                 .toList(),
                 riders: json['riders'] == null? null: (json['riders'] as List<dynamic>).map((e) => RiderModel.fromJson(e)).toList(),
+                lat: json['lat'],
+                lng: json['lng']
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,5 +56,7 @@ class Hub {
         'name': name,
         'shop_branches': branches?.map((e) => e.toJson()).toList(),
         "riders": riders?.map((e) => e.toJson()).toList(),
+        "lat": lat,
+        "lng": lng
       };
 }

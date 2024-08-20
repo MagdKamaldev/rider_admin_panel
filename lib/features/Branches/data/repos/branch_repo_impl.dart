@@ -41,7 +41,7 @@ class BranchRepoImpl implements BranchRepo {
 
   @override
   Future<Either<Failure, void>> addShopBranch(
-      String name, String address, int hubId, int franchiseId) async {
+      String name, String address, int hubId, int franchiseId,double lat,double lng) async {
     try {
       final response = await apiServices.post(
           endPoint: ApiConstants.addBranch,
@@ -49,7 +49,9 @@ class BranchRepoImpl implements BranchRepo {
             "name": name,
             "address": address,
             "hub_id": hubId,
-            "franchise_id": franchiseId
+            "franchise_id": franchiseId,
+            "lat":lat,
+            "lng":lng
           },
           jwt: kTokenBox.get(kTokenBoxString).toString());
       return Right(response);
@@ -99,7 +101,7 @@ class BranchRepoImpl implements BranchRepo {
   }
   
   @override
-  Future<Either<Failure, void>> updateBranch(int id, String name, String address, int hubId, int franchiseId) async{
+  Future<Either<Failure, void>> updateBranch(int id, String name, String address, int hubId, int franchiseId,double lat,double lng) async{
     try{
       final response = await apiServices.post(
         data: {
@@ -107,7 +109,9 @@ class BranchRepoImpl implements BranchRepo {
           "name": name,
           "address": address,
           "hub_id": hubId,
-          "franchise_id": franchiseId
+          "franchise_id": franchiseId,
+          "lat":lat,
+          "lng":lng
         },
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editBranch,

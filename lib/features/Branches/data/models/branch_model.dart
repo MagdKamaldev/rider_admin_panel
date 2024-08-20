@@ -9,8 +9,8 @@ class BranchModel {
   String? franchiseName;
   String? name;
   String? address;
-  int? lat;
-  int? lng;
+  dynamic lat;
+  dynamic lng;
 
   BranchModel({
     this.id,
@@ -42,8 +42,8 @@ class BranchModel {
         franchiseName: json['franchise_name'] as String?,
         name: json['name'] as String?,
         address: json['address'] as String?,
-        lat: json['lat'] as int?,
-        lng: json['lng'] as int?,
+        lat: json['lat'],
+        lng: json['lng'],
       );
 
   Map<String, dynamic> toJson() => {

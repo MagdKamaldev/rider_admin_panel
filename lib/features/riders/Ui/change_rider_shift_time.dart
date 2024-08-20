@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';  // Import the intl package
+import 'package:flutter_bloc/flutter_bloc.dart'; // Import the intl package
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
@@ -22,7 +21,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
       const Duration(hours: 1, minutes: 0); // Default 1 hour shift duration
   final _hoursController = TextEditingController();
   final _minutesController = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _selectStartTime() async {
     final TimeOfDay? time = await showTimePicker(

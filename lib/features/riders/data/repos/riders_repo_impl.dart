@@ -115,9 +115,6 @@ class RiderRepoImpl implements RidersRepo {
   Future<Either<Failure, RiderModel>> changeRiderShiftTime(int riderId,
       DateTime startTime, DateTime endTime, Duration shiftDuration) async {
     try {
-      print(_formatDateTimeWithOffset(startTime));
-      print(_formatDateTimeWithOffset(endTime));
-      print(shiftDuration.inMinutes);
       final response = await apiServices.post(
         data: {
           "rider_id": riderId,

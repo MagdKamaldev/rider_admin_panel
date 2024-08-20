@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 
 class CopyableText extends StatelessWidget {

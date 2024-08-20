@@ -104,10 +104,10 @@ class HubsRepoImpl implements HubsRepo {
   }
   
   @override
-  Future<Either<Failure, dynamic>> updateHub(String name, int managerId, int id) async{
+  Future<Either<Failure, dynamic>> updateHub(String name, int managerId, int id,double lat , double lng) async{
     try {
       final response = await apiServices.post(
-        data: {"name": name, "manager_id": managerId, "id": id},
+        data: {"name": name, "manager_id": managerId, "id": id, "lat": lat, "lng": lng},
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editHub,
       );
