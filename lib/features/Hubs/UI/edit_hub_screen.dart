@@ -11,6 +11,7 @@ import 'package:tayar_admin_panel/features/Hubs/logic/cubit/hub_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/manager_model.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class EditHubScreen extends StatefulWidget {
   final Hub hub;
@@ -38,7 +39,7 @@ class EditHubScreenState extends State<EditHubScreen> {
     _nameController.text = widget.hub.name!;
     _latController.text = widget.hub.lat.toString();
     _lngController.text = widget.hub.lng.toString();
-    _selectedLocation = LatLng(widget.hub.lat, widget.hub.lng);
+    _selectedLocation = LatLng(double.parse(widget.hub.lat.toString()), double.parse(widget.hub.lng.toString()));
   }
 
   @override
@@ -46,8 +47,6 @@ class EditHubScreenState extends State<EditHubScreen> {
     _nameController.dispose();
     _latController.dispose();
     _lngController.dispose();
-    _nameController.text = widget.hub.name!;
-    _selectedLocation = null;
     super.dispose();
   }
 
@@ -92,7 +91,7 @@ class EditHubScreenState extends State<EditHubScreen> {
 
             return Scaffold(
               appBar: AppBar(
-                title: Text("Edit Hubs", style: TextStyles.headings),
+                title: Text(S.of(context).editHub, style: TextStyles.headings),
               ),
               body: SingleChildScrollView(
                 child: SafeArea(
@@ -116,11 +115,11 @@ class EditHubScreenState extends State<EditHubScreen> {
                                 onSubmit: () {},
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
-                                    return "Please enter the Hub's name!";
+                                    return S.of(context).pleaseEnterHubName;
                                   }
                                   return null;
                                 },
-                                label: "Hub Name",
+                                label: S.of(context).hubName,
                                 prefix: Icons.person,
                                 context: context,
                               ),
@@ -132,7 +131,7 @@ class EditHubScreenState extends State<EditHubScreen> {
                                   : 700,
                               child: DropdownButtonFormField<ManagerModel>(
                                 value: _selectedManager,
-                                hint: const Text("Select Hub Manager"),
+                                hint: Text(S.of(context).selectHubManager),
                                 items: context
                                     .read<HubCubit>()
                                     .managers
@@ -149,13 +148,15 @@ class EditHubScreenState extends State<EditHubScreen> {
                                 },
                                 validator: (ManagerModel? value) {
                                   if (value == null) {
-                                    return "Please select a Hub Manager !";
+                                    return S
+                                        .of(context)
+                                        .selectHubManagerValidation;
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  labelText: "Branch Hub",
-                                  prefixIcon: Icon(Icons.work),
+                                decoration: InputDecoration(
+                                  labelText: S.of(context).hubManager,
+                                  prefixIcon: const Icon(Icons.work),
                                 ),
                               ),
                             ),
@@ -183,7 +184,7 @@ class EditHubScreenState extends State<EditHubScreen> {
                                       });
                                     },
                                     initialCenter:
-                                        LatLng(widget.hub.lat, widget.hub.lng),
+                                        LatLng(double.parse(widget.hub.lat.toString()), double.parse(widget.hub.lng.toString())),
                                     initialZoom: 14,
                                     maxZoom: 19,
                                   ),
@@ -223,9 +224,9 @@ class EditHubScreenState extends State<EditHubScreen> {
                                       : size.width * 0.2,
                                   child: TextFormField(
                                     controller: _latController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Latitude",
-                                      border: OutlineInputBorder(),
+                                    decoration: InputDecoration(
+                                      labelText: S.of(context).latitude,
+                                      border: const OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) =>
@@ -239,9 +240,9 @@ class EditHubScreenState extends State<EditHubScreen> {
                                       : size.width * 0.2,
                                   child: TextFormField(
                                     controller: _lngController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Longitude",
-                                      border: OutlineInputBorder(),
+                                    decoration: InputDecoration(
+                                      labelText: S.of(context).longitude,
+                                      border: const OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) =>
@@ -253,7 +254,7 @@ class EditHubScreenState extends State<EditHubScreen> {
                             SizedBox(height: size.height * 0.02),
                             defaultButton(
                               function: _moveCameraToLocation,
-                              text: "Move Camera",
+                              text: S.of(context).moveCamera,
                               context: context,
                               width: size.width * 0.2 > 300
                                   ? 300
@@ -278,7 +279,7 @@ class EditHubScreenState extends State<EditHubScreen> {
                                   }
                                 },
                                 context: context,
-                                text: "Edit Hub",
+                                text: S.of(context).editHub,
                               ),
                             if (state is UpdateHubLoading)
                               const Center(

@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Franchises/UI/edit_franchise_screen.d
 import 'package:tayar_admin_panel/features/Franchises/data/repos/franchise_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Franchises/logic/cubit/franchise_cubit.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class FranchiseTable extends StatefulWidget {
   const FranchiseTable({super.key});
@@ -73,7 +74,7 @@ class FranchiseTableState extends State<FranchiseTable> {
       columns: <DataColumn>[
         DataColumn(
           label: Text(
-            'Name',
+            S.of(context).name,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -85,7 +86,7 @@ class FranchiseTableState extends State<FranchiseTable> {
         ),
         DataColumn(
           label: Text(
-            'Branches',
+            S.of(context).branches,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -97,7 +98,7 @@ class FranchiseTableState extends State<FranchiseTable> {
         ),
         DataColumn(
           label: Text(
-            'Created At',
+            S.of(context).createdAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -109,7 +110,7 @@ class FranchiseTableState extends State<FranchiseTable> {
         ),
         DataColumn(
           label: Text(
-            'Updated At',
+            S.of(context).updatedAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -121,7 +122,7 @@ class FranchiseTableState extends State<FranchiseTable> {
         ),
         DataColumn(
           label: Text(
-            'Actions',
+            S.of(context).actions,
             style: TextStyles.tableHeadings,
           ),
         ),
@@ -156,65 +157,75 @@ class FranchiseTableState extends State<FranchiseTable> {
               Text(
                 franchise.shopBranches != null
                     ? franchise.shopBranches!.isEmpty
-                        ? "N/A"
+                        ? S.of(context).nA
                         : '[${franchise.shopBranches!.map((e) => e.name).join(", ")}]'
-                    : "N/A",
+                    : S.of(context).nA,
               ),
             ),
             DataCell(Text(formattedDateTime)),
             DataCell(Text(formattedDateUpTime)),
-              DataCell(Row(
-    children: [
-      IconButton(
-        onPressed: () {
-          navigateTo(context, UpdateFranchiseScreen(id: franchise.id!,name: franchise.name!,));
-        },
-        icon: const Icon(
-          Icons.edit_note,
-          color: Colors.grey,
-        ),
-      ),
-      const SizedBox(
-        width: 30,
-      ),
-      IconButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return BlocProvider(
-                    create: (context) =>
-                        FranchiseCubit(getIt<FranchiseRepoImpl>()),
-                    child: BlocBuilder<FranchiseCubit, FranchiseState>(
-                      builder: (context, state) => AlertDialog(
-                        title: const Text(
-                            "Are you sure you want to delete this Franchise?"),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                FranchiseCubit.get(context).deleteFranchise(
-                                    context, franchise.id!);
-                                navigateAndFinish(
-                                    context, const HomeScreen());
-                              },
-                              child: const Text("Yes")),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("No")),
-                        ],
+            DataCell(Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    navigateTo(
+                      context,
+                      UpdateFranchiseScreen(
+                        id: franchise.id!,
+                        name: franchise.name!,
                       ),
-                    ),
-                  );
-                });
-          },
-          icon: const Icon(
-            Icons.delete,
-            color: Colors.red,
-          ))
-    ],
-  )),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.edit_note,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return BlocProvider(
+                          create: (context) =>
+                              FranchiseCubit(getIt<FranchiseRepoImpl>()),
+                          child: BlocBuilder<FranchiseCubit, FranchiseState>(
+                            builder: (context, state) => AlertDialog(
+                              title: Text(S.of(context).confirmDelete),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    FranchiseCubit.get(context)
+                                        .deleteFranchise(
+                                            context, franchise.id!);
+                                    navigateAndFinish(
+                                        context, const HomeScreen());
+                                  },
+                                  child: Text(S.of(context).yes),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(S.of(context).no),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            )),
           ],
         );
       }).toList(),

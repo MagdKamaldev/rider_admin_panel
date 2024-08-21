@@ -8,6 +8,7 @@ import 'package:tayar_admin_panel/features/Hubs/UI/fixed_map.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/repos/hubs_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Hubs/logic/cubit/hub_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class HubDetails extends StatelessWidget {
   final int id;
@@ -19,6 +20,7 @@ class HubDetails extends StatelessWidget {
     ScrollController mainPageScrollBarController = ScrollController();
     ScrollController riderScrollBarController = ScrollController();
     ScrollController branchScrollBarController = ScrollController();
+
     return BlocProvider(
       create: (context) =>
           HubCubit(getIt<HubsRepoImpl>())..fetchHub(context, id),
@@ -29,7 +31,7 @@ class HubDetails extends StatelessWidget {
           } else if (HubCubit.get(context).hub == null) {
             return Scaffold(
                 appBar: AppBar(),
-                body: const Center(child: Text("No Data Found")));
+                body: Center(child: Text(S.of(context).noDataFound)));
           } else {
             Hub hub = HubCubit.get(context).hub!;
             return Scaffold(
@@ -49,26 +51,25 @@ class HubDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(hub.lat.toString()),
-                        //  Text(hub.lng.toString()),
                         // Manager Section
-                        _buildSectionTitle("Manager"),
+                        _buildSectionTitle(S.of(context).manager),
                         _buildManagerTile(hub.managerName!, size),
 
                         // Divider
                         Divider(height: size.height * 0.05, thickness: 2),
 
                         // Riders Section
-                        _buildSectionTitle("Riders"),
+                        _buildSectionTitle(S.of(context).riders),
                         Scrollbar(
                           controller: riderScrollBarController,
                           child: _buildScrollableList(
                             size: size,
-                            itemCount:
-                                hub.riders == null ? 0 : hub.riders!.length,
+                            itemCount: hub.riders == null ? 0 : hub.riders!.length,
                             itemBuilder: (context, index) {
-                              return _buildListItem(hub.riders![index].name!,
-                                  Icons.directions_bike, size);
+                              return _buildListItem(
+                                  hub.riders![index].name!,
+                                  Icons.directions_bike,
+                                  size);
                             },
                             heightFactor: 0.28,
                             scrollController: riderScrollBarController,
@@ -79,33 +80,27 @@ class HubDetails extends StatelessWidget {
                         Divider(height: size.height * 0.05, thickness: 2),
 
                         // Branches Section
-                        _buildSectionTitle("Branches"),
+                        _buildSectionTitle(S.of(context).branches),
                         Scrollbar(
                           controller: branchScrollBarController,
                           child: _buildScrollableList(
-                              size: size,
-                              itemCount: hub.branches == null
-                                  ? 0
-                                  : hub.branches!.length,
-                              itemBuilder: (context, index) {
-                                return _buildListItem(
-                                    hub.branches![index].name!,
-                                    Icons.store,
-                                    size);
-                              },
-                              heightFactor: 0.28,
-                              scrollController: branchScrollBarController),
+                            size: size,
+                            itemCount: hub.branches == null ? 0 : hub.branches!.length,
+                            itemBuilder: (context, index) {
+                              return _buildListItem(
+                                  hub.branches![index].name!,
+                                  Icons.store,
+                                  size);
+                            },
+                            heightFactor: 0.28,
+                            scrollController: branchScrollBarController),
                         ),
-                        SizedBox(
-                          height: size.height * 0.01,
-                        ),
+                        SizedBox(height: size.height * 0.01),
                         Align(
                             alignment: Alignment.center,
                             child: FixedMap(
                                 fixedLocation: LatLng(hub.lat, hub.lng))),
-                        SizedBox(
-                          height: size.height * 0.05,
-                        ),
+                        SizedBox(height: size.height * 0.05),
                       ],
                     ),
                   ),

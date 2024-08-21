@@ -9,14 +9,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   int selectedIndex = 0;
 
-  List<String> titles = [
-    'Dashboard',
-    'Branches',
-    'Hubs',
-    'Managers',
-    'Franchises',
-    "Riders"
-  ];
 
   List<Widget> screenIcons = const [
     Icon(Icons.dashboard),

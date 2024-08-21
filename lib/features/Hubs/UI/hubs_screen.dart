@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Hubs/UI/add_hub_screen.dart';
 import 'package:tayar_admin_panel/features/Hubs/UI/hub_table.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/repos/hubs_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Hubs/logic/cubit/hub_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class HubsScreen extends StatelessWidget {
   const HubsScreen({super.key});
@@ -34,7 +35,7 @@ class HubsScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   Text(
-                    "No Hubs Yet !",
+                    S.of(context).noHubsYet,
                     style: TextStyles.headings
                         .copyWith(color: AppColors.prussianBlue),
                   ),
@@ -48,7 +49,7 @@ class HubsScreen extends StatelessWidget {
                           navigateTo(context, const AddHubScreen());
                         },
                         context: context,
-                        text: "Add Hub",
+                        text: S.of(context).addHub,
                         width: size.width * 0.8 < 500 ? size.width * 0.8 : 500),
                   ),
                 ],
@@ -60,14 +61,14 @@ class HubsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: defaultButton(
                         function: () {
                           navigateTo(context, const AddHubScreen());
                         },
                         context: context,
-                        text: "Add Hub",
+                        text: S.of(context).addHub,
                         width: size.width * 0.8 < 200 ? size.width * 0.8 : 200),
                   ),
                   Expanded(
@@ -90,7 +91,6 @@ class HubsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                 
                 ],
               ),
             );

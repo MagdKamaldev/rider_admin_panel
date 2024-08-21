@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Branches/data/models/branch_model.dar
 import 'package:tayar_admin_panel/features/Branches/data/repos/branch_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Branches/logic/cubit/branch_cubit.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class BranchTable extends StatefulWidget {
   const BranchTable({super.key});
@@ -58,8 +59,8 @@ class BranchTableState extends State<BranchTable> {
       sortColumnIndex: _sortColumnIndex,
       sortAscending: _isAscending,
       dividerThickness: 0.0,
-      headingRowColor: WidgetStateProperty.resolveWith<Color>(
-        (Set<WidgetState> states) {
+      headingRowColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
           return const Color.fromRGBO(
               241, 243, 249, 1); // Header background color
         },
@@ -70,7 +71,7 @@ class BranchTableState extends State<BranchTable> {
       columns: <DataColumn>[
         DataColumn(
           label: Text(
-            'Name',
+            S.of(context).columnName,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -82,7 +83,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Address',
+            S.of(context).columnAddress,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -94,7 +95,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Hub',
+            S.of(context).columnHub,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -106,7 +107,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Franchise',
+            S.of(context).columnFranchise,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -118,7 +119,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Created At',
+            S.of(context).columnCreatedAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -130,7 +131,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Updated At',
+            S.of(context).columnUpdatedAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -142,7 +143,7 @@ class BranchTableState extends State<BranchTable> {
         ),
         DataColumn(
           label: Text(
-            'Actions',
+            S.of(context).columnActions,
             style: TextStyles.tableHeadings,
           ),
         ),
@@ -164,8 +165,8 @@ class BranchTableState extends State<BranchTable> {
             '$formattedUpDate   $formattedUpTime';
 
         return DataRow(
-          color: WidgetStateProperty.resolveWith<Color>(
-            (Set<WidgetState> states) {
+          color: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
               return entry.key % 2 == 0
                   ? Colors.white
                   : const Color.fromRGBO(247, 250, 252, 1);
@@ -204,8 +205,7 @@ class BranchTableState extends State<BranchTable> {
                                   BranchCubit(getIt<BranchRepoImpl>()),
                               child: BlocBuilder<BranchCubit, BranchState>(
                                 builder: (context, state) => AlertDialog(
-                                  title: const Text(
-                                      "Are you sure you want to delete this Branch?"),
+                                  title: Text(S.of(context).confirmDelete),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
@@ -214,12 +214,12 @@ class BranchTableState extends State<BranchTable> {
                                           navigateAndFinish(
                                               context, const HomeScreen());
                                         },
-                                        child: const Text("Yes")),
+                                        child: Text(S.of(context).yes)),
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: const Text("No")),
+                                        child: Text(S.of(context).no)),
                                   ],
                                 ),
                               ),

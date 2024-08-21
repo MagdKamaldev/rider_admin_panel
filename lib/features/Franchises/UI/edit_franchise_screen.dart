@@ -6,6 +6,7 @@ import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Franchises/data/repos/franchise_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Franchises/logic/cubit/franchise_cubit.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class UpdateFranchiseScreen extends StatefulWidget {
   final int id;
@@ -47,7 +48,7 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
         }, builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text("Update Franchises",style: TextStyles.headings),
+              title: Text(S.of(context).updateFranchise, style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -62,7 +63,7 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
                         children: [
                           SizedBox(height: size.height * 0.2),
                           Text(
-                            "Update Franchise",
+                            S.of(context).updateFranchise,
                             style: TextStyles.normal,
                           ),
                           SizedBox(height: size.height * 0.1),
@@ -75,11 +76,11 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the Franchise's name!";
+                                  return S.of(context).pleaseEnterFranchiseName;
                                 }
                                 return null;
                               },
-                              label: "Franchise Name",
+                              label: S.of(context).franchiseName,
                               prefix: Icons.person,
                               context: context,
                             ),
@@ -100,7 +101,7 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
                                 }
                               },
                               context: context,
-                              text: "Update Franchise",
+                              text: S.of(context).updateFranchise,
                             ),
                           if (state is UpdateFranchiseLoading)
                             const Center(

@@ -8,6 +8,7 @@ import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/login/data/repos/login_repo_impl.dart';
 import 'package:tayar_admin_panel/features/login/logic/cubit/login_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           SizedBox(height: size.height * 0.2),
                           Text(
-                            "Tayaar App",
+                            S.of(context).appName,
                             style: TextStyles.normal,
                           ),
                           SizedBox(height: size.height * 0.1),
@@ -75,11 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter a value!";
+                                  return S.of(context).emptyValidation;
                                 }
                                 return null;
                               },
-                              label: "Name",
+                              label: S.of(context).name,
                               prefix: Icons.person,
                               context: context,
                             ),
@@ -94,11 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter a value!";
+                                  return S.of(context).emptyValidation;
                                 }
                                 return null;
                               },
-                              label: "Password",
+                              label: S.of(context).password,
                               prefix: Icons.lock,
                               isPassword: true,
                               context: context,
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                               context: context,
-                              text: "Login",
+                              text: S.of(context).login,
                             ),
                           if (state is LoginLoadingState)
                             const Center(

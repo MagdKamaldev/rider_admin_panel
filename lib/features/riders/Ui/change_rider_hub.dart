@@ -8,8 +8,8 @@ import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hu
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
-//make an add rider screen that takes a hub which is selected and name and national id and mobile number and make it like :
 class ChangeRiderHubScreen extends StatefulWidget {
   final int riderId;
   const ChangeRiderHubScreen({super.key, required this.riderId});
@@ -41,7 +41,7 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
           } else {
             return Scaffold(
               appBar: AppBar(
-                title: Text("Add Rider", style: TextStyles.headings),
+                title: Text(S.of(context).changeRiderHub, style: TextStyles.headings),
               ),
               body: SingleChildScrollView(
                 child: SafeArea(
@@ -61,7 +61,7 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
                                   : 700,
                               child: DropdownButtonFormField<Hub>(
                                 value: _selectedHub,
-                                hint: const Text("Select Rider Hub"),
+                                hint: Text(S.of(context).selectRiderHub),
                                 items:
                                     context.read<RiderCubit>().hubs.map((hub) {
                                   return DropdownMenuItem<Hub>(
@@ -76,13 +76,13 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
                                 },
                                 validator: (Hub? value) {
                                   if (value == null) {
-                                    return "Please select a Rider hub!";
+                                    return S.of(context).selectRiderHubValidation;
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  labelText: "Rider Hub",
-                                  prefixIcon: Icon(Icons.business),
+                                decoration: InputDecoration(
+                                  labelText: S.of(context).riderHub,
+                                  prefixIcon: const Icon(Icons.business),
                                 ),
                               ),
                             ),
@@ -94,12 +94,14 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
                                     : 700,
                                 function: () {
                                   if (_formKey.currentState!.validate()) {
-                                    context.read<RiderCubit>().changeRiderHub(widget.riderId, _selectedHub!.id!
-                                        );
+                                    context.read<RiderCubit>().changeRiderHub(
+                                      widget.riderId,
+                                      _selectedHub!.id!,
+                                    );
                                   }
                                 },
                                 context: context,
-                                text: "Add Rider",
+                                text: S.of(context).changeRiderHubButton,
                               ),
                             if (state is ChangeRiderHubLoading)
                               const Center(

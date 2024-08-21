@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Managers/UI/add_manager_screen.dart';
 import 'package:tayar_admin_panel/features/Managers/UI/manager_table.dart';
 import 'package:tayar_admin_panel/features/Managers/data/repos/managers_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Managers/logic/cubit/managers_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class ManagersScreen extends StatelessWidget {
   const ManagersScreen({super.key});
@@ -35,9 +36,8 @@ class ManagersScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   Text(
-                    "No Managers Yet !",
-                    style: TextStyles.headings
-                        .copyWith(color: AppColors.prussianBlue),
+                    S.of(context).noManagersYet,
+                    style: TextStyles.headings.copyWith(color: AppColors.prussianBlue),
                   ),
                   SizedBox(
                     height: size.height * 0.35,
@@ -45,12 +45,13 @@ class ManagersScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: defaultButton(
-                        function: () {
-                          navigateTo(context, const AddManagerScreen());
-                        },
-                        context: context,
-                        text: "Add Manager",
-                        width: size.width * 0.8 < 500 ? size.width * 0.8 : 500),
+                      function: () {
+                        navigateTo(context, const AddManagerScreen());
+                      },
+                      context: context,
+                      text: S.of(context).addManager,
+                      width: size.width * 0.8 < 500 ? size.width * 0.8 : 500,
+                    ),
                   ),
                 ],
               ),
@@ -64,12 +65,13 @@ class ManagersScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: defaultButton(
-                        function: () {
-                          navigateTo(context, const AddManagerScreen());
-                        },
-                        context: context,
-                        text: "Add Manager",
-                        width: size.width * 0.8 < 200 ? size.width * 0.8 : 200),
+                      function: () {
+                        navigateTo(context, const AddManagerScreen());
+                      },
+                      context: context,
+                      text: S.of(context).addManager,
+                      width: size.width * 0.8 < 200 ? size.width * 0.8 : 200,
+                    ),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -84,14 +86,13 @@ class ManagersScreen extends StatelessWidget {
                               constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width,
                               ),
-                              child:const  ManagersTable()
+                              child: const ManagersTable(),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  
                 ],
               ),
             );

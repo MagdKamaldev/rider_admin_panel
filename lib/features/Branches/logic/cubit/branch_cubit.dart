@@ -33,10 +33,10 @@ class BranchCubit extends Cubit<BranchState> {
   }
 
   void addBranch(BuildContext context, String name, String address, int hubId,
-      int franchiseId,double lat,double lng) async {
+      int franchiseId,double lat,double lng,String password) async {
     emit(AddBranchLoadingState());
     final response =
-        await repo.addShopBranch(name, address, hubId, franchiseId,lat,lng);
+        await repo.addShopBranch(name, address, hubId, franchiseId,lat,lng,password);
     response.fold(
       (l) {
         showErrorSnackbar(context, l.message);
@@ -80,9 +80,9 @@ class BranchCubit extends Cubit<BranchState> {
   }
 
   void updateBranch(BuildContext context, String name, String address, int hubId,
-      int franchiseId, int id,double lat,double lng) async {
+      int franchiseId, int id,double lat,double lng,String password) async {
     emit(UpdateBranchLoading());
-    final response = await repo.updateBranch(id, name,address, hubId, franchiseId,lat,lng);
+    final response = await repo.updateBranch(id, name,address, hubId, franchiseId,lat,lng,password);
     response.fold(
       (l) {
         showErrorSnackbar(context, l.message);

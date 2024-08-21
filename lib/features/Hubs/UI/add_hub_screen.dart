@@ -11,6 +11,7 @@ import 'package:tayar_admin_panel/features/Hubs/data/repos/hubs_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Hubs/logic/cubit/hub_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/manager_model.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class AddHubScreen extends StatefulWidget {
   const AddHubScreen({super.key});
@@ -64,6 +65,7 @@ class AddHubScreenState extends State<AddHubScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final S s = S.of(context);
 
     return BlocProvider(
       create: (context) =>
@@ -77,7 +79,7 @@ class AddHubScreenState extends State<AddHubScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Add Hubs", style: TextStyles.headings),
+              title: Text(s.addHub, style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -99,11 +101,11 @@ class AddHubScreenState extends State<AddHubScreen> {
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the Hub's name!";
+                                  return s.pleaseEnterHubName;
                                 }
                                 return null;
                               },
-                              label: "Hub Name",
+                              label: s.hubName,
                               prefix: Icons.person,
                               context: context,
                             ),
@@ -113,7 +115,7 @@ class AddHubScreenState extends State<AddHubScreen> {
                             width: size.width < 700 ? size.width * 0.9 : 700,
                             child: DropdownButtonFormField<ManagerModel>(
                               value: _selectedManager,
-                              hint: const Text("Select Hub Manager"),
+                              hint: Text(s.selectHubManager),
                               items: context
                                   .read<HubCubit>()
                                   .managers
@@ -130,13 +132,13 @@ class AddHubScreenState extends State<AddHubScreen> {
                               },
                               validator: (ManagerModel? value) {
                                 if (value == null) {
-                                  return "Please select a Hub Manager!";
+                                  return s.selectHubManagerValidation;
                                 }
                                 return null;
                               },
-                              decoration: const InputDecoration(
-                                labelText: "Branch Hub",
-                                prefixIcon: Icon(Icons.work),
+                              decoration: InputDecoration(
+                                labelText: s.hubManager,
+                                prefixIcon: const Icon(Icons.work),
                               ),
                             ),
                           ),
@@ -202,9 +204,9 @@ class AddHubScreenState extends State<AddHubScreen> {
                                     : size.width * 0.2,
                                 child: TextFormField(
                                   controller: _latController,
-                                  decoration: const InputDecoration(
-                                    labelText: "Latitude",
-                                    border: OutlineInputBorder(),
+                                  decoration: InputDecoration(
+                                    labelText: s.latitude,
+                                    border: const OutlineInputBorder(),
                                   ),
                                   keyboardType: TextInputType.number,
                                   onChanged: (value) =>
@@ -218,9 +220,9 @@ class AddHubScreenState extends State<AddHubScreen> {
                                     : size.width * 0.2,
                                 child: TextFormField(
                                   controller: _lngController,
-                                  decoration: const InputDecoration(
-                                    labelText: "Longitude",
-                                    border: OutlineInputBorder(),
+                                  decoration: InputDecoration(
+                                    labelText: s.longitude,
+                                    border: const OutlineInputBorder(),
                                   ),
                                   keyboardType: TextInputType.number,
                                   onChanged: (value) =>
@@ -232,7 +234,7 @@ class AddHubScreenState extends State<AddHubScreen> {
                           SizedBox(height: size.height * 0.02),
                           defaultButton(
                             function: _moveCameraToLocation,
-                            text: "Move Camera",
+                            text: s.moveCamera,
                             context: context,
                             width:
                                 size.width * 0.2 > 300 ? 300 : size.width * 0.2,
@@ -252,12 +254,13 @@ class AddHubScreenState extends State<AddHubScreen> {
                                         _selectedLocation!.latitude,
                                         _selectedLocation!.longitude,
                                       );
-                                }else if(_selectedLocation ==null){
-                                  showErrorSnackbar(context, "please select the hub Location");
+                                } else if (_selectedLocation == null) {
+                                  showErrorSnackbar(
+                                      context, s.selectHubLocation);
                                 }
                               },
                               context: context,
-                              text: "Add Hub",
+                              text: s.addHub,
                             ),
                           if (state is CreateHubLoading)
                             const Center(

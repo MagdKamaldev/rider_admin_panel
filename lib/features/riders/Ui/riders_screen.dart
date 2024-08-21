@@ -8,6 +8,7 @@ import 'package:tayar_admin_panel/features/riders/Ui/add_rider_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/riders_card.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart'; // Import the localization
 
 class RidersScreen extends StatelessWidget {
   const RidersScreen({super.key});
@@ -46,7 +47,7 @@ class RidersScreen extends StatelessWidget {
                           navigateTo(context, const AddRiderScreen());
                         },
                         context: context,
-                        text: "Add Rider",
+                        text: S.of(context).addRider, // Localized text
                         width: constraints.maxWidth * 0.8 < 200
                             ? constraints.maxWidth * 0.8
                             : 200,
@@ -62,7 +63,7 @@ class RidersScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "No Riders Yet!",
+                                    S.of(context).noRidersYet, // Localized text
                                     style: TextStyles.headings.copyWith(
                                       color: AppColors.prussianBlue,
                                     ),

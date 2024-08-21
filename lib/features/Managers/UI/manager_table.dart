@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/ma
 import 'package:tayar_admin_panel/features/Managers/data/repos/managers_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Managers/logic/cubit/managers_cubit.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class ManagersTable extends StatefulWidget {
   const ManagersTable({super.key});
@@ -63,7 +64,7 @@ class ManagersTableState extends State<ManagersTable> {
       columns: <DataColumn>[
         DataColumn(
           label: Text(
-            'Name',
+            S.of(context).name,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -75,7 +76,7 @@ class ManagersTableState extends State<ManagersTable> {
         ),
         DataColumn(
           label: Text(
-            'Hubs',
+            S.of(context).hubs,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -87,7 +88,7 @@ class ManagersTableState extends State<ManagersTable> {
         ),
         DataColumn(
           label: Text(
-            'Created At',
+            S.of(context).createdAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -99,7 +100,7 @@ class ManagersTableState extends State<ManagersTable> {
         ),
         DataColumn(
           label: Text(
-            'Updated At',
+            S.of(context).updatedAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -109,9 +110,9 @@ class ManagersTableState extends State<ManagersTable> {
             });
           },
         ),
-         DataColumn(
+        DataColumn(
           label: Text(
-            'Actions',
+            S.of(context).actions,
             style: TextStyles.tableHeadings,
           ),
         ),
@@ -152,29 +153,54 @@ class ManagersTableState extends State<ManagersTable> {
             ),
             DataCell(Text(formattedDateTime, style: TextStyles.tableRow)),
             DataCell(Text(formattedDateUpTime, style: TextStyles.tableRow)),
-            DataCell(Row(children: [IconButton(onPressed: (){
-              navigateTo(context, EditManagerScreen(managerId: manager.userId!,name: manager.name! ,));
-            }, icon: const Icon(Icons.edit_note,color: Colors.grey,),), const   SizedBox(width: 30,), IconButton(onPressed: (){
-              showDialog(context: context, builder: (context){
-                return BlocProvider(
-                  create: (context)=>ManagersCubit(getIt<ManagersRepoImpl>()),
-                  child: BlocBuilder<ManagersCubit,ManagersState>(
-                    builder:(context,state)=> AlertDialog(
-                      title: const Text("Are you sure you want to delete this manager ?"),
-                      actions: [
-                        TextButton(onPressed: (){
-                          ManagersCubit.get(context).deleteManager(context,manager.id!);
-                          navigateAndFinish(context, const HomeScreen());
-                        }, child: const Text("Yes")),
-                        TextButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, child: const Text("No")),
-                      ],
+            DataCell(Row(children: [
+              IconButton(
+                onPressed: () {
+                  navigateTo(
+                    context,
+                    EditManagerScreen(
+                      managerId: manager.userId!,
+                      name: manager.name!,
                     ),
-                  ),
-                );
-              });
-            }, icon: const Icon(Icons.delete,color: Colors.red,))],)),
+                  );
+                },
+                icon: const Icon(Icons.edit_note, color: Colors.grey),
+              ),
+              const SizedBox(width: 30),
+              IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return BlocProvider(
+                        create: (context) => ManagersCubit(getIt<ManagersRepoImpl>()),
+                        child: BlocBuilder<ManagersCubit, ManagersState>(
+                          builder: (context, state) => AlertDialog(
+                            title: Text(S.of(context).confirmDelete),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  ManagersCubit.get(context).deleteManager(context, manager.id!);
+                                  navigateAndFinish(context, const HomeScreen());
+                                },
+                                child: Text(S.of(context).yes),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(S.of(context).no),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(Icons.delete, color: Colors.red),
+              ),
+            ])),
           ],
         );
       }).toList(),

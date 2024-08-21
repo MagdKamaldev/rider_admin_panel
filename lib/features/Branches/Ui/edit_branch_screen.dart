@@ -12,14 +12,12 @@ import 'package:tayar_admin_panel/features/Branches/data/repos/branch_repo_impl.
 import 'package:tayar_admin_panel/features/Branches/logic/cubit/branch_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class UpdateBranchScreen extends StatefulWidget {
   final BranchModel branch;
 
-  const UpdateBranchScreen(
-      {super.key,
-      required this.branch,
-      });
+  const UpdateBranchScreen({super.key, required this.branch});
 
   @override
   UpdateBranchScreenState createState() => UpdateBranchScreenState();
@@ -31,10 +29,12 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
   FranchiseModel? _selectedFranchise;
   TextEditingController nameController = TextEditingController();
   TextEditingController adressController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   LatLng? _selectedLocation;
   final MapController _mapController = MapController();
   late final TextEditingController _latController;
   late final TextEditingController _lngController;
+
   void _updateLocationFromInput() {
     final double? lat = double.tryParse(_latController.text);
     final double? lng = double.tryParse(_lngController.text);
@@ -57,10 +57,14 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
     _latController = TextEditingController();
     _lngController = TextEditingController();
     _latController.text = widget.branch.lat.toString();
-  _lngController.text = widget.branch.lng.toString();
+    _lngController.text = widget.branch.lng.toString();
     nameController.text = widget.branch.name!;
     adressController.text = widget.branch.address!;
-    _selectedLocation = LatLng(double.parse(widget.branch.lat.toString()), double.parse(widget.branch.lng.toString()));
+    _selectedLocation = LatLng(
+      double.parse(widget.branch.lat.toString()),
+      double.parse(widget.branch.lng.toString()),
+    );
+    
     super.initState();
   }
 
@@ -87,19 +91,24 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
         builder: (context, state) {
           if (state is GetBranchDataLoading) {
             return const Scaffold(
-                body: Center(child: CircularProgressIndicator()));
+              body: Center(child: CircularProgressIndicator()),
+            );
           } else if (state is GetBranchDataSuccess) {
-              _selectedFranchise = context
-      .read<BranchCubit>()
-      .franchises
-      .firstWhere((manager) => manager.id == widget.branch.franchiseId);
-            
-            _selectedHub = context.read<BranchCubit>().hubs
+            _selectedFranchise = context
+                .read<BranchCubit>()
+                .franchises
+                .firstWhere(
+                    (manager) => manager.id == widget.branch.franchiseId);
+
+            _selectedHub = context
+                .read<BranchCubit>()
+                .hubs
                 .firstWhere((element) => element.id == widget.branch.hubId);
-            
+
             return Scaffold(
               appBar: AppBar(
-                title: Text("Edit Branch", style: TextStyles.headings),
+                title:
+                    Text(S.of(context).editBranch, style: TextStyles.headings),
               ),
               body: SingleChildScrollView(
                 child: SafeArea(
@@ -112,7 +121,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -123,16 +132,16 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                 onSubmit: () {},
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
-                                    return "Please enter the Branch name!";
+                                    return S.of(context).pleaseEnterBranchName;
                                   }
                                   return null;
                                 },
-                                label: "Branch Name",
+                                label: S.of(context).branchName,
                                 prefix: Icons.store,
                                 context: context,
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
@@ -143,23 +152,47 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                 onSubmit: () {},
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
-                                    return "Please enter the Branch address!";
+                                    return S
+                                        .of(context)
+                                        .pleaseEnterBranchAddress;
                                   }
                                   return null;
                                 },
-                                label: "Branch Address",
+                                label: S.of(context).branchAddress,
                                 prefix: Icons.location_on,
                                 context: context,
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultFormField(
+                                controller: passwordController,
+                                type: TextInputType.visiblePassword,
+                                onSubmit: () {},
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return S
+                                        .of(context)
+                                        .pleaseEnterBranchAddress;
+                                  }
+                                  return null;
+                                },
+                                label: S.of(context).password,
+                                prefix: Icons.location_on,
+                                context: context,
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
                                   ? size.width * 0.8
                                   : 700,
                               child: DropdownButtonFormField<Hub>(
                                 value: _selectedHub,
-                                hint: const Text("Select Branch Hub"),
+                                hint: Text(S.of(context).selectBranchHub),
                                 items:
                                     context.read<BranchCubit>().hubs.map((hub) {
                                   return DropdownMenuItem<Hub>(
@@ -174,51 +207,16 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                 },
                                 validator: (Hub? value) {
                                   if (value == null) {
-                                    return "Please select a branch hub!";
+                                    return S.of(context).pleaseSelectBranchHub;
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  labelText: "Branch Hub",
-                                  prefixIcon: Icon(Icons.business),
+                                decoration: InputDecoration(
+                                  labelText: S.of(context).branchHub,
+                                  prefixIcon: const Icon(Icons.business),
                                 ),
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
-                           
-                           
-                           
-                           
-                         
-                         
-                         
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                         
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                            
-                            SizedBox(height: size.height * 0.05),
                             SizedBox(height: size.height * 0.05),
                             SizedBox(
                               width: size.width * 0.8 < 700
@@ -226,7 +224,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                   : 700,
                               child: DropdownButtonFormField<FranchiseModel>(
                                 value: _selectedFranchise,
-                                hint: const Text("Select Branch Franchise"),
+                                hint: Text(S.of(context).selectBranchFranchise),
                                 items: context
                                     .read<BranchCubit>()
                                     .franchises
@@ -243,17 +241,19 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                 },
                                 validator: (FranchiseModel? value) {
                                   if (value == null) {
-                                    return "Please select a branch franchise!";
+                                    return S
+                                        .of(context)
+                                        .pleaseSelectBranchFranchise;
                                   }
                                   return null;
                                 },
-                                decoration: const InputDecoration(
-                                  labelText: "Branch Franchise",
-                                  prefixIcon: Icon(Icons.store),
+                                decoration: InputDecoration(
+                                  labelText: S.of(context).branchFranchise,
+                                  prefixIcon: const Icon(Icons.store),
                                 ),
                               ),
                             ),
-                            SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.05),
                             Container(
                               decoration: BoxDecoration(
                                   border: Border.all(
@@ -276,8 +276,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                             "${point.longitude}";
                                       });
                                     },
-                                    initialCenter: const LatLng(
-                                        30.059770120241655, 31.246124613945796),
+                                    initialCenter: LatLng(double.parse(widget.branch.lat.toString()), double.parse(widget.branch.lng.toString())),
                                     initialZoom: 14,
                                     maxZoom: 19,
                                   ),
@@ -317,9 +316,9 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                       : size.width * 0.2,
                                   child: TextFormField(
                                     controller: _latController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Latitude",
-                                      border: OutlineInputBorder(),
+                                    decoration: InputDecoration(
+                                      labelText: S.of(context).latitude,
+                                      border: const OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) =>
@@ -333,9 +332,9 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                       : size.width * 0.2,
                                   child: TextFormField(
                                     controller: _lngController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Longitude",
-                                      border: OutlineInputBorder(),
+                                    decoration: InputDecoration(
+                                      labelText: S.of(context).longitude,
+                                      border: const OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) =>
@@ -347,7 +346,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                             SizedBox(height: size.height * 0.02),
                             defaultButton(
                               function: _moveCameraToLocation,
-                              text: "Move Camera",
+                              text: S.of(context).moveCamera,
                               context: context,
                               width: size.width * 0.2 > 300
                                   ? 300
@@ -370,11 +369,12 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                           widget.branch.id!,
                                           _selectedLocation!.latitude,
                                           _selectedLocation!.longitude,
+                                          passwordController.text,
                                         );
                                   }
                                 },
                                 context: context,
-                                text: "Edit Branch",
+                                text: S.of(context).editBranch,
                               ),
                             if (state is UpdateBranchLoading)
                               const Center(

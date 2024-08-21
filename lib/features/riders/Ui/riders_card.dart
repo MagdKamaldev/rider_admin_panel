@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/riders/Ui/change_rider_hub.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/change_rider_shift_time.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart'; // Import the localization
 
 class RiderCard extends StatelessWidget {
   final RiderModel rider;
@@ -41,7 +42,6 @@ class RiderCard extends StatelessWidget {
                         showDeleteRider(context);
                         break;
                       case 1:
-
                         // Handle edit rider action
                         break;
                       case 2:
@@ -62,32 +62,32 @@ class RiderCard extends StatelessWidget {
                     }
                   },
                   itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-                    const PopupMenuItem<int>(
+                    PopupMenuItem<int>(
                       value: 0,
                       child: ListTile(
-                        leading: Icon(Icons.delete, color: Colors.red),
-                        title: Text('Delete Rider'),
+                        leading: const Icon(Icons.delete, color: Colors.red),
+                        title: Text(S.of(context).deleteRider), // Localized text
                       ),
                     ),
-                    const PopupMenuItem<int>(
+                   PopupMenuItem<int>(
                       value: 1,
                       child: ListTile(
-                        leading: Icon(Icons.edit, color: Colors.blue),
-                        title: Text('Edit Rider'),
+                        leading: const Icon(Icons.edit, color: Colors.blue),
+                        title: Text(S.of(context).editRider), // Localized text
                       ),
                     ),
-                    const PopupMenuItem<int>(
+                    PopupMenuItem<int>(
                       value: 2,
                       child: ListTile(
-                        leading: Icon(Icons.swap_horiz, color: Colors.orange),
-                        title: Text('Change Hub'),
+                        leading: const Icon(Icons.swap_horiz, color: Colors.orange),
+                        title: Text(S.of(context).changeRiderHub),
                       ),
                     ),
-                    const PopupMenuItem<int>(
+                     PopupMenuItem<int>(
                       value: 3,
                       child: ListTile(
-                        leading: Icon(Icons.watch_later, color: Colors.green),
-                        title: Text('Change Shift Times'),
+                        leading: const Icon(Icons.watch_later, color: Colors.green),
+                        title: Text(S.of(context).changeShiftTimes),
                       ),
                     ),
                   ],
@@ -123,11 +123,11 @@ class RiderCard extends StatelessWidget {
                   color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
             ),
             const SizedBox(height: 8.0),
-            Text('User ID: ${rider.userId ?? 'N/A'}'),
-            Text('National ID: ${rider.nationalId ?? 'N/A'}'),
-            Text('Phone: ${rider.mobileNumber ?? 'N/A'}'),
-            Text('Queue No: ${rider.queueNo ?? 'N/A'}'),
-            Text('Current Order ID: ${rider.currentOrderId ?? 'N/A'}'),
+            Text('${S.of(context).userId} ${rider.userId ?? 'N/A'}'), // Localized text
+            Text('${S.of(context).nationalId} ${rider.nationalId ?? 'N/A'}'), // Localized text
+            Text('${S.of(context).phone} ${rider.mobileNumber ?? 'N/A'}'), // Localized text
+            Text('${S.of(context).queueNo} ${rider.queueNo ?? 'N/A'}'), // Localized text
+            Text('${S.of(context).currentOrderId} ${rider.currentOrderId ?? 'N/A'}'), // Localized text
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,19 +151,19 @@ class RiderCard extends StatelessWidget {
           create: (context) => RiderCubit(getIt<RiderRepoImpl>()),
           child: BlocBuilder<RiderCubit, RiderState>(
             builder: (context, state) => AlertDialog(
-              title: const Text("Are you sure you want to delete this Rider?"),
+              title: Text(S.of(context).deleteRiderConfirmation), // Localized text
               actions: [
                 TextButton(
                     onPressed: () {
                       RiderCubit.get(context).deleteRider(context, rider.id!);
                       navigateAndFinish(context, const HomeScreen());
                     },
-                    child: const Text("Yes")),
+                    child: Text(S.of(context).yes)), // Localized text
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("No")),
+                    child: Text(S.of(context).no)), // Localized text
               ],
             ),
           ),

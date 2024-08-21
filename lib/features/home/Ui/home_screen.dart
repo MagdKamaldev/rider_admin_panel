@@ -12,7 +12,8 @@ import 'package:tayar_admin_panel/features/Managers/UI/managers_screen.dart';
 import 'package:tayar_admin_panel/features/home/logic/cubit/home_cubit.dart';
 import 'package:tayar_admin_panel/features/login/Ui/login_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/riders_screen.dart';
-import 'package:tayar_admin_panel/main.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
+import 'package:tayar_admin_panel/main.dart'; // Import your localization file
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +29,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> titles = [
+  S.of(context).dashboard,
+  S.of(context).branches,
+  S.of(context).hubs,
+  S.of(context).managers,
+  S.of(context).franchises,
+  S.of(context).riders
+];
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
@@ -68,8 +77,8 @@ class HomeScreenState extends State<HomeScreen> {
                   ],
                   backgroundColor: AppColors.prussianBlue,
                   title: Text(
-                    HomeCubit.get(context)
-                        .titles[HomeCubit.get(context).selectedIndex],
+                    titles[HomeCubit.get(context)
+                        .selectedIndex], // Use localization
                     style: TextStyles.headings,
                   ),
                 ),
@@ -80,24 +89,25 @@ class HomeScreenState extends State<HomeScreen> {
                         child: ListView(
                           padding: EdgeInsets.zero,
                           children: <Widget>[
-                            const DrawerHeader(
-                              decoration: BoxDecoration(
+                            DrawerHeader(
+                              decoration:const  BoxDecoration(
                                 color: AppColors.prussianBlue,
                               ),
                               child: Text(
-                                'Navigation',
-                                style: TextStyle(
+                                S.of(context).navigation, // Use localization
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 24,
                                 ),
                               ),
                             ),
                             for (int i = 0;
-                                i < HomeCubit.get(context).titles.length;
+                                i < titles.length;
                                 i++)
                               ListTile(
                                 leading: HomeCubit.get(context).screenIcons[i],
-                                title: Text(HomeCubit.get(context).titles[i]),
+                                title: Text(
+                                    titles[i]), // Use localization
                                 selected:
                                     i == HomeCubit.get(context).selectedIndex,
                                 onTap: () {
@@ -140,13 +150,12 @@ class HomeScreenState extends State<HomeScreen> {
                                     ? NavigationRailLabelType.all
                                     : NavigationRailLabelType.none,
                                 destinations: List.generate(
-                                  HomeCubit.get(context).titles.length,
+                                  titles.length,
                                   (index) => NavigationRailDestination(
                                     icon: HomeCubit.get(context)
                                         .screenIcons[index],
                                     label: railWidth > 72.0
-                                        ? Text(HomeCubit.get(context)
-                                            .titles[index])
+                                        ? Text(titles[index]) // Use localization
                                         : const Text(""),
                                   ),
                                 ),

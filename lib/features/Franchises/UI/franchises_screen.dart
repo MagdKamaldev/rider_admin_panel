@@ -10,6 +10,7 @@ import 'package:tayar_admin_panel/features/Franchises/UI/add_franchise_screen.da
 import 'package:tayar_admin_panel/features/Franchises/UI/franchise_table.dart';
 import 'package:tayar_admin_panel/features/Franchises/data/repos/franchise_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Franchises/logic/cubit/franchise_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart'; // Import your localization file
 
 class FranchiseScreen extends StatelessWidget {
   const FranchiseScreen({super.key});
@@ -35,7 +36,7 @@ class FranchiseScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   Text(
-                    "No Franchises Yet !",
+                    S.of(context).noBranchesYet, // Use localization
                     style: TextStyles.headings
                         .copyWith(color: AppColors.prussianBlue),
                   ),
@@ -49,7 +50,7 @@ class FranchiseScreen extends StatelessWidget {
                           navigateTo(context, const AddFranchiseScreen());
                         },
                         context: context,
-                        text: "Add Franchise",
+                        text: S.of(context).addFranchise, // Use localization
                         width: size.width * 0.8 < 500 ? size.width * 0.8 : 500),
                   ),
                 ],
@@ -61,14 +62,14 @@ class FranchiseScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                    Padding(
+                  Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: defaultButton(
                         function: () {
                           navigateTo(context, const AddFranchiseScreen());
                         },
                         context: context,
-                        text: "Add Franchise",
+                        text: S.of(context).addFranchise, // Use localization
                         width: size.width * 0.8 < 200 ? size.width * 0.8 : 200),
                   ),
                   Expanded(
@@ -91,7 +92,6 @@ class FranchiseScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                
                 ],
               ),
             );

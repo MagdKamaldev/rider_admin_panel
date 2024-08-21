@@ -6,6 +6,7 @@ import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class ChangeShiftTimes extends StatefulWidget {
   final int riderId;
@@ -51,7 +52,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
     } else {
       // Handle invalid input, e.g., show an error message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter valid hours and minutes.')),
+        SnackBar(content: Text(S.of(context).invalidTimeInput)),
       );
     }
   }
@@ -77,7 +78,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'Change Shift Times',
+                S.of(context).changeShiftTimes,
                 style: TextStyles.headings,
               ),
             ),
@@ -108,15 +109,15 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                             padding: const EdgeInsets.all(30.0),
                             child: Text(
                               _startTime != null
-                                  ? 'Start Time: ${_startTime!.format(context)}'
-                                  : 'Select Start Time',
+                                  ? '${S.of(context).startTime}: ${_startTime!.format(context)}'
+                                  : S.of(context).selectStartTime,
                               style: TextStyles.headings,
                             ),
                           ),
                         ),
                         SizedBox(height: size.height * 0.1),
                         Text(
-                          'Shift Duration:',
+                          S.of(context).shiftDuration,
                           style: TextStyles.headings
                               .copyWith(color: AppColors.prussianBlue),
                         ),
@@ -130,11 +131,11 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                 child: TextField(
                                   controller: _hoursController,
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Hours',
-                                    border: OutlineInputBorder(),
+                                  decoration: InputDecoration(
+                                    labelText: S.of(context).hours,
+                                    border: const OutlineInputBorder(),
                                     contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 12),
+                                        const EdgeInsets.symmetric(horizontal: 12),
                                   ),
                                   onChanged: (_) => _updateDuration(),
                                 ),
@@ -144,11 +145,11 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                 child: TextField(
                                   controller: _minutesController,
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Minutes',
-                                    border: OutlineInputBorder(),
+                                  decoration: InputDecoration(
+                                    labelText: S.of(context).minutes,
+                                    border: const OutlineInputBorder(),
                                     contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 12),
+                                        const EdgeInsets.symmetric(horizontal: 12),
                                   ),
                                   onChanged: (_) => _updateDuration(),
                                 ),
@@ -159,7 +160,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                         SizedBox(height: size.height * 0.1),
                         if (endTime != null)
                           Text(
-                            'End Time: ${endTime.format(context)}',
+                            '${S.of(context).endTime}: ${endTime.format(context)}',
                             style: TextStyles.headings
                                 .copyWith(color: AppColors.prussianBlue),
                           ),
@@ -176,9 +177,9 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                     if (_startTime == null || endTime == null) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           content: Text(
-                                              'Please select a start time.'),
+                                              S.of(context).selectStartTime),
                                         ),
                                       );
                                       return;
@@ -198,7 +199,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                     }
                                   },
                                   context: context,
-                                  text: "Confirm")),
+                                  text: S.of(context).confirm)),
                         SizedBox(height: size.height * 0.06),
                       ],
                     ),

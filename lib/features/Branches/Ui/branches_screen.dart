@@ -8,6 +8,7 @@ import 'package:tayar_admin_panel/features/Branches/Ui/add_branch_screen.dart';
 import 'package:tayar_admin_panel/features/Branches/Ui/branch_table.dart';
 import 'package:tayar_admin_panel/features/Branches/data/repos/branch_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Branches/logic/cubit/branch_cubit.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class BranchesScreen extends StatelessWidget {
   const BranchesScreen({super.key});
@@ -33,7 +34,7 @@ class BranchesScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   Text(
-                    "No Branches Yet !",
+                    S.of(context).noBranchesYet, // Use your localization key here
                     style: TextStyles.headings
                         .copyWith(color: AppColors.prussianBlue),
                   ),
@@ -47,7 +48,7 @@ class BranchesScreen extends StatelessWidget {
                           navigateTo(context, const AddBranchScreen());
                         },
                         context: context,
-                        text: "Add Branch",
+                        text: S.of(context).addBranch, // Use your localization key here
                         width: size.width * 0.8 < 500 ? size.width * 0.8 : 500),
                   ),
                 ],
@@ -58,21 +59,23 @@ class BranchesScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
                 children: [
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [ 
+                    children: [
                       Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: defaultButton(
-                          function: () {
-                            navigateTo(context, const AddBranchScreen());
-                          },
-                          context: context,
-                          text: "Add Branch",
-                          width: size.width * 0.8 < 200 ? size.width * 0.8 : 200),
-                                       ),
-                     ],
-                   ),
+                        padding: const EdgeInsets.all(20.0),
+                        child: defaultButton(
+                            function: () {
+                              navigateTo(context, const AddBranchScreen());
+                            },
+                            context: context,
+                            text: S.of(context).addBranch, // Use your localization key here
+                            width: size.width * 0.8 < 200
+                                ? size.width * 0.8
+                                : 200),
+                      ),
+                    ],
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -86,7 +89,7 @@ class BranchesScreen extends StatelessWidget {
                               constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width,
                               ),
-                              child: const BranchTable()
+                              child: const BranchTable(),
                             ),
                           ),
                         ),

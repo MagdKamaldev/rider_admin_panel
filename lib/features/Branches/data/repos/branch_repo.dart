@@ -7,10 +7,10 @@ import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hu
 abstract class BranchRepo {
   Future<Either<Failure, BranchResponse>> getBranchData();
   Future<Either<Failure, void>> addShopBranch(
-      String name, String address, int hubId, int franchiseId,double lat,double lng);
+      String name, String address, int hubId, int franchiseId,double lat,double lng,String password);
   Future<Either<Failure, List<BranchModel>>> getBranches();
   Future<Either<Failure, void>> updateBranch(
-      int id, String name, String address, int hubId, int franchiseId,double lat,double lng);
+      int id, String name, String address, int hubId, int franchiseId,double lat,double lng,String password);
   Future<Either<Failure, void>> deleteBranch(int id);
 }
 

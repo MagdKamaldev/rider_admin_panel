@@ -6,6 +6,7 @@ import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/Managers/data/repos/managers_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Managers/logic/cubit/managers_cubit.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class AddManagerScreen extends StatefulWidget {
   const AddManagerScreen({super.key});
@@ -29,6 +30,7 @@ class AddManagerScreenState extends State<AddManagerScreen> {
   @override
   void dispose() {
     _nameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -37,16 +39,17 @@ class AddManagerScreenState extends State<AddManagerScreen> {
     Size size = MediaQuery.of(context).size;
 
     return BlocProvider(
-        create: (context) => ManagersCubit(getIt<ManagersRepoImpl>()),
-        child: BlocConsumer<ManagersCubit, ManagersState>(
-            listener: (context, state) {
+      create: (context) => ManagersCubit(getIt<ManagersRepoImpl>()),
+      child: BlocConsumer<ManagersCubit, ManagersState>(
+        listener: (context, state) {
           if (state is AddManagerSuccessState) {
             navigateAndFinish(context, const HomeScreen());
           }
-        }, builder: (context, state) {
+        },
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text("Add Managers", style: TextStyles.headings),
+              title: Text(S.of(context).addManager, style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -61,43 +64,41 @@ class AddManagerScreenState extends State<AddManagerScreen> {
                         children: [
                           SizedBox(height: size.height * 0.2),
                           Text(
-                            "Add Manager",
+                            S.of(context).addManager,
                             style: TextStyles.normal,
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width:
-                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _nameController,
                               type: TextInputType.name,
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the manager's name!";
+                                  return S.of(context).pleaseEnterManagerName;
                                 }
                                 return null;
                               },
-                              label: "Manager Name",
+                              label: S.of(context).managerName,
                               prefix: Icons.person,
                               context: context,
                             ),
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width:
-                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _passwordController,
-                              type: TextInputType.name,
+                              type: TextInputType.visiblePassword,
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter the manager's paasword!";
+                                  return S.of(context).pleaseEnterManagerPassword;
                                 }
                                 return null;
                               },
-                              label: "Manager Password",
+                              label: S.of(context).managerPassword,
                               prefix: Icons.lock,
                               context: context,
                             ),
@@ -118,7 +119,7 @@ class AddManagerScreenState extends State<AddManagerScreen> {
                                 }
                               },
                               context: context,
-                              text: "Add Manager",
+                              text: S.of(context).addManager,
                             ),
                           if (state is AddManagerLoadinState)
                             const Center(
@@ -132,6 +133,8 @@ class AddManagerScreenState extends State<AddManagerScreen> {
               ),
             ),
           );
-        }));
+        },
+      ),
+    );
   }
 }

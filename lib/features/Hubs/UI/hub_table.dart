@@ -11,6 +11,7 @@ import 'package:tayar_admin_panel/features/Hubs/data/repos/hubs_repo_impl.dart';
 import 'package:tayar_admin_panel/features/Hubs/logic/cubit/hub_cubit.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class HubTable extends StatefulWidget {
   const HubTable({super.key});
@@ -64,7 +65,7 @@ class HubTableState extends State<HubTable> {
       columns: <DataColumn>[
         DataColumn(
           label: Text(
-            'Name',
+            S.of(context).name,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -76,7 +77,7 @@ class HubTableState extends State<HubTable> {
         ),
         DataColumn(
           label: Text(
-            'Manager Name',
+            S.of(context).managerName,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -88,7 +89,7 @@ class HubTableState extends State<HubTable> {
         ),
         DataColumn(
           label: Text(
-            'Created At',
+            S.of(context).createdAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -100,7 +101,7 @@ class HubTableState extends State<HubTable> {
         ),
         DataColumn(
           label: Text(
-            'Updated At',
+            S.of(context).updatedAt,
             style: TextStyles.tableHeadings,
           ),
           onSort: (int columnIndex, bool ascending) {
@@ -112,7 +113,7 @@ class HubTableState extends State<HubTable> {
         ),
         DataColumn(
           label: Text(
-            'Actions',
+            S.of(context).actions,
             style: TextStyles.tableHeadings,
           ),
         ),
@@ -120,21 +121,15 @@ class HubTableState extends State<HubTable> {
       rows: hubs.asMap().entries.map((entry) {
         Hub hub = entry.value;
         final DateTime createdAt = hub.createdAt!;
-        final String formattedDate =
-            '${createdAt.year}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}';
-        final String formattedTime =
-            '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
-        final String formattedDateTime = '$formattedDate   $formattedTime';
+        final String formattedDateTime =
+            '${createdAt.toLocal().toIso8601String().split('T').first} ${createdAt.toLocal().toIso8601String().split('T').last.split('.')[0]}';
         final DateTime updatedAt = hub.updatedAt!;
-        final String formattedUpDate =
-            '${updatedAt.year}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}';
-        final String formattedUpTime =
-            '${updatedAt.hour.toString().padLeft(2, '0')}:${updatedAt.minute.toString().padLeft(2, '0')}';
-        final String formattedDateUpTime = '$formattedUpDate   $formattedUpTime';
+        final String formattedUpdateTime =
+            '${updatedAt.toLocal().toIso8601String().split('T').first} ${updatedAt.toLocal().toIso8601String().split('T').last.split('.')[0]}';
 
         return DataRow(
-          color: WidgetStateProperty.resolveWith<Color>(
-            (Set<WidgetState> states) {
+          color: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
               return entry.key % 2 == 0
                   ? Colors.white
                   : const Color.fromRGBO(247, 250, 252, 1);
@@ -147,30 +142,51 @@ class HubTableState extends State<HubTable> {
             DataCell(Text(hub.name!, style: TextStyles.tableRow)),
             DataCell(Text(hub.managerName!, style: TextStyles.tableRow)),
             DataCell(Text(formattedDateTime, style: TextStyles.tableRow)),
-            DataCell(Text(formattedDateUpTime, style: TextStyles.tableRow)),
-             DataCell(Row(children: [IconButton(onPressed: (){
-              navigateTo(context,  EditHubScreen(hub: hub,));
-            }, icon: const Icon(Icons.edit_note,color: Colors.grey,),), const   SizedBox(width: 30,), IconButton(onPressed: (){
-              showDialog(context: context, builder: (context){
-                return BlocProvider(
-                  create: (context)=>HubCubit(getIt<HubsRepoImpl>()),
-                  child: BlocBuilder<HubCubit,HubState>(
-                    builder:(context,state)=> AlertDialog(
-                      title: const Text("Are you sure you want to delete this Hub ?"),
-                      actions: [
-                        TextButton(onPressed: (){
-                          HubCubit.get(context).deleteHub(context,hub.id!);
-                          navigateAndFinish(context, const HomeScreen());
-                        }, child: const Text("Yes")),
-                        TextButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, child: const Text("No")),
-                      ],
-                    ),
-                  ),
-                );
-              });
-            }, icon: const Icon(Icons.delete,color: Colors.red,))],)),
+            DataCell(Text(formattedUpdateTime, style: TextStyles.tableRow)),
+            DataCell(Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    navigateTo(context, EditHubScreen(hub: hub));
+                  },
+                  icon: const Icon(Icons.edit_note, color: Colors.grey),
+                ),
+                const SizedBox(width: 30),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return BlocProvider(
+                          create: (context) => HubCubit(getIt<HubsRepoImpl>()),
+                          child: BlocBuilder<HubCubit, HubState>(
+                            builder: (context, state) => AlertDialog(
+                              title: Text(S.of(context).hubDeleteConfirmation),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    HubCubit.get(context).deleteHub(context, hub.id!);
+                                    navigateAndFinish(context, const HomeScreen());
+                                  },
+                                  child: Text(S.of(context).yes),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(S.of(context).no),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                ),
+              ],
+            )),
           ],
         );
       }).toList(),
