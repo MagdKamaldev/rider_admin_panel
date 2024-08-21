@@ -102,5 +102,10 @@
     "nationalId": "الرقم القومي:",
     "phone": "الهاتف:",
     "queueNo": "رقم الانتظار:",
-    "currentOrderId": "معرف الطلب الحالي:"
+    "currentOrderId": "معرف الطلب الحالي:",
+    "changeLanguage": "تغيير اللغة",
+    "selectLanguage": "اختر اللغة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "settings":"الإعدادات"
 }

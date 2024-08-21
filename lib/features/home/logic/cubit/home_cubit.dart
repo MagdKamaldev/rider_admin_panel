@@ -17,5 +17,6 @@ class HomeCubit extends Cubit<HomeState> {
     Icon(Icons.person),
     Icon(Icons.business),
     Icon(Icons.directions_bike),
+    Icon(Icons.settings),
   ];
 }

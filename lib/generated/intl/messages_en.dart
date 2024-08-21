@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addManager": MessageLookupByLibrary.simpleMessage("Add Manager"),
         "addRider": MessageLookupByLibrary.simpleMessage("Add Rider"),
         "appName": MessageLookupByLibrary.simpleMessage("Tayaar App"),
+        "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch Address"),
         "branchFranchise":
             MessageLookupByLibrary.simpleMessage("Branch Franchise"),
@@ -36,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "branchName": MessageLookupByLibrary.simpleMessage("Branch Name"),
         "branches": MessageLookupByLibrary.simpleMessage("Branches"),
         "changeHub": MessageLookupByLibrary.simpleMessage("Change Hub"),
+        "changeLanguage":
+            MessageLookupByLibrary.simpleMessage("Change Language"),
         "changeRiderHub":
             MessageLookupByLibrary.simpleMessage("Change Rider Hub"),
         "changeRiderHubButton":
@@ -67,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyValidation":
             MessageLookupByLibrary.simpleMessage("Field cannot be empty"),
         "endTime": MessageLookupByLibrary.simpleMessage("End Time"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "franchiseName": MessageLookupByLibrary.simpleMessage("Franchise Name"),
         "franchises": MessageLookupByLibrary.simpleMessage("Franchises"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
@@ -150,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select Hub Manager"),
         "selectHubManagerValidation": MessageLookupByLibrary.simpleMessage(
             "Please select a Hub Manager!"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Select Language"),
         "selectRiderHub":
             MessageLookupByLibrary.simpleMessage("Select Rider Hub"),
         "selectRiderHubValidation":
@@ -158,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select Start Time"),
         "selectStartTimeError":
             MessageLookupByLibrary.simpleMessage("Please select a start time."),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shiftDuration":
             MessageLookupByLibrary.simpleMessage("Shift Duration:"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start Time"),

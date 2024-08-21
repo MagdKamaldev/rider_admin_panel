@@ -12,6 +12,7 @@ import 'package:tayar_admin_panel/features/Managers/UI/managers_screen.dart';
 import 'package:tayar_admin_panel/features/home/logic/cubit/home_cubit.dart';
 import 'package:tayar_admin_panel/features/login/Ui/login_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/riders_screen.dart';
+import 'package:tayar_admin_panel/features/settings/Ui/settings_screen.dart';
 import 'package:tayar_admin_panel/generated/l10n.dart';
 import 'package:tayar_admin_panel/main.dart'; // Import your localization file
 
@@ -35,7 +36,8 @@ class HomeScreenState extends State<HomeScreen> {
   S.of(context).hubs,
   S.of(context).managers,
   S.of(context).franchises,
-  S.of(context).riders
+  S.of(context).riders,
+  S.of(context).settings,
 ];
     return BlocProvider(
       create: (context) => HomeCubit(),
@@ -55,6 +57,8 @@ class HomeScreenState extends State<HomeScreen> {
                 return const FranchiseScreen();
               case 5:
                 return const RidersScreen();
+                case 6:
+                return const SettingsScreen();
               default:
                 return const DashboardScreen();
             }

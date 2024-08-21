@@ -29,12 +29,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "addManager": MessageLookupByLibrary.simpleMessage("إضافة مدير"),
         "addRider": MessageLookupByLibrary.simpleMessage("إضافة راكب"),
         "appName": MessageLookupByLibrary.simpleMessage("تطبيق الإدارة"),
+        "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("عنوان الفرع"),
         "branchFranchise": MessageLookupByLibrary.simpleMessage("امتياز الفرع"),
         "branchHub": MessageLookupByLibrary.simpleMessage("مركز الفرع"),
         "branchName": MessageLookupByLibrary.simpleMessage("اسم الفرع"),
         "branches": MessageLookupByLibrary.simpleMessage("الفروع"),
         "changeHub": MessageLookupByLibrary.simpleMessage("تغيير المركز"),
+        "changeLanguage": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "changeRiderHub":
             MessageLookupByLibrary.simpleMessage("تغيير مركز السائق"),
         "changeRiderHubButton":
@@ -68,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyValidation": MessageLookupByLibrary.simpleMessage(
             "لا يمكن أن يكون الحقل فارغًا"),
         "endTime": MessageLookupByLibrary.simpleMessage("وقت الانتهاء"),
+        "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
         "franchiseName": MessageLookupByLibrary.simpleMessage("اسم الامتياز"),
         "franchises": MessageLookupByLibrary.simpleMessage("الامتيازات"),
         "hours": MessageLookupByLibrary.simpleMessage("ساعات"),
@@ -154,6 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اختر مدير المركز"),
         "selectHubManagerValidation":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار مدير المركز!"),
+        "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
         "selectRiderHub":
             MessageLookupByLibrary.simpleMessage("اختر مركز السائق"),
         "selectRiderHubValidation":
@@ -162,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اختر وقت البدء"),
         "selectStartTimeError":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار وقت البدء."),
+        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "shiftDuration": MessageLookupByLibrary.simpleMessage("مدة الوردة:"),
         "startTime": MessageLookupByLibrary.simpleMessage("وقت البدء"),
         "updateFranchise":
