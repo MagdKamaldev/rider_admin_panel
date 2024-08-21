@@ -12,7 +12,8 @@ class EditManagerScreen extends StatefulWidget {
   final int managerId;
   final String name;
 
-  const EditManagerScreen({super.key, required this.managerId, required this.name});
+  const EditManagerScreen(
+      {super.key, required this.managerId, required this.name});
 
   @override
   EditManagerScreenState createState() => EditManagerScreenState();
@@ -53,7 +54,8 @@ class EditManagerScreenState extends State<EditManagerScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(S.of(context).editManager, style: TextStyles.headings),
+              title:
+                  Text(S.of(context).editManager, style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -73,7 +75,8 @@ class EditManagerScreenState extends State<EditManagerScreen> {
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width:
+                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _nameController,
                               type: TextInputType.name,
@@ -91,14 +94,17 @@ class EditManagerScreenState extends State<EditManagerScreen> {
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width:
+                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _passwordController,
                               type: TextInputType.visiblePassword,
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterManagerPassword;
+                                  return S
+                                      .of(context)
+                                      .pleaseEnterManagerPassword;
                                 }
                                 return null;
                               },

@@ -56,7 +56,8 @@ class HubTableState extends State<HubTable> {
       dividerThickness: 0.0,
       headingRowColor: MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
-          return const Color.fromRGBO(241, 243, 249, 1); // Header background color
+          return const Color.fromRGBO(
+              241, 243, 249, 1); // Header background color
         },
       ),
       headingRowHeight: 45,
@@ -165,8 +166,10 @@ class HubTableState extends State<HubTable> {
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    HubCubit.get(context).deleteHub(context, hub.id!);
-                                    navigateAndFinish(context, const HomeScreen());
+                                    HubCubit.get(context)
+                                        .deleteHub(context, hub.id!);
+                                    navigateAndFinish(
+                                        context, const HomeScreen());
                                   },
                                   child: Text(S.of(context).yes),
                                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
@@ -27,72 +28,69 @@ class RidersScreen extends StatelessWidget {
                     : 1;
 
         // Calculate child aspect ratio based on screen width
-        double aspectRatio = 0.6 * constraints.maxWidth / (columns * 250);
+        double aspectRatio = 0.6 * constraints.maxWidth / (columns * 270);
 
         return BlocProvider(
           create: (context) =>
               RiderCubit(getIt<RiderRepoImpl>())..fetchRiders(),
-          child: BlocBuilder<RiderCubit, RiderState>(
-            builder: (context, state) {
-              if (state is FetchRidersLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: defaultButton(
-                        function: () {
-                          navigateTo(context, const AddRiderScreen());
-                        },
-                        context: context,
-                        text: S.of(context).addRider, // Localized text
-                        width: constraints.maxWidth * 0.8 < 200
-                            ? constraints.maxWidth * 0.8
-                            : 200,
-                      ),
+          child: BlocBuilder<RiderCubit, RiderState>(builder: (context, state) {
+            return Skeletonizer(
+              enabled: state is FetchRidersLoading,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: defaultButton(
+                      function: () {
+                        navigateTo(context, const AddRiderScreen());
+                      },
+                      context: context,
+                      text: S.of(context).addRider, // Localized text
+                      width: constraints.maxWidth * 0.8 < 200
+                          ? constraints.maxWidth * 0.8
+                          : 200,
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Expanded(
-                      child: RiderCubit.get(context).riders.isEmpty
-                          ? Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    S.of(context).noRidersYet, // Localized text
-                                    style: TextStyles.headings.copyWith(
-                                      color: AppColors.prussianBlue,
-                                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Expanded(
+                    child: RiderCubit.get(context).riders.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  S.of(context).noRidersYet, // Localized text
+                                  style: TextStyles.headings.copyWith(
+                                    color: AppColors.prussianBlue,
                                   ),
-                                ],
-                              ),
-                            )
-                          : GridView.builder(
-                              padding: const EdgeInsets.all(8.0),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: columns,
-                                crossAxisSpacing: 8.0,
-                                mainAxisSpacing: 8.0,
-                                childAspectRatio: aspectRatio,
-                              ),
-                              itemCount: RiderCubit.get(context).riders.length,
-                              itemBuilder: (context, index) {
-                                final rider =
-                                    RiderCubit.get(context).riders[index];
-                                return RiderCard(rider: rider);
-                              },
+                                ),
+                              ],
                             ),
-                    ),
-                  ],
-                );
-              }
-            },
-          ),
+                          )
+                        : GridView.builder(
+                            padding: const EdgeInsets.all(8.0),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: columns,
+                              crossAxisSpacing: 8.0,
+                              mainAxisSpacing: 8.0,
+                              childAspectRatio: aspectRatio,
+                            ),
+                            itemCount: RiderCubit.get(context).riders.length,
+                            itemBuilder: (context, index) {
+                              final rider =
+                                  RiderCubit.get(context).riders[index];
+                              return RiderCard(rider: rider);
+                            },
+                          ),
+                  ),
+                ],
+              ),
+            );
+          }),
         );
       },
     );

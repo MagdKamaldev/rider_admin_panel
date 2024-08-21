@@ -42,9 +42,10 @@ class ManagersCubit extends Cubit<ManagersState> {
     );
   }
 
-  void updateManager(BuildContext context,String name,String password,int id) async {
+  void updateManager(
+      BuildContext context, String name, String password, int id) async {
     emit(UpdateManagerLoading());
-    final response = await repoImpl.updateManager(name,password,id);
+    final response = await repoImpl.updateManager(name, password, id);
     response.fold(
       (l) {
         showErrorSnackbar(context, l.message);

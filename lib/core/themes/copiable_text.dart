@@ -30,7 +30,6 @@ class CopyableText extends StatelessWidget {
           Expanded(
             child: TextField(
               selectionControls: MaterialTextSelectionControls(),
-              
               controller: controller,
               style: TextStyles.normal,
               decoration: InputDecoration(

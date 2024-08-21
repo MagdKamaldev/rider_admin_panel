@@ -64,7 +64,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
       double.parse(widget.branch.lat.toString()),
       double.parse(widget.branch.lng.toString()),
     );
-    
+
     super.initState();
   }
 
@@ -276,7 +276,11 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
                                             "${point.longitude}";
                                       });
                                     },
-                                    initialCenter: LatLng(double.parse(widget.branch.lat.toString()), double.parse(widget.branch.lng.toString())),
+                                    initialCenter: LatLng(
+                                        double.parse(
+                                            widget.branch.lat.toString()),
+                                        double.parse(
+                                            widget.branch.lng.toString())),
                                     initialZoom: 14,
                                     maxZoom: 19,
                                   ),

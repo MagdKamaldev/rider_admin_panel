@@ -26,12 +26,10 @@ class ApiConstants {
   static const String editHub = "admin/EditHub";
   static const String deleteHub = "admin/DeleteHub";
 //Rider
-static const String fetchRiders = "admin/FetchRiders";
-static const String deleteRider = "admin/DeleteRider";
-static const String editRiderHub = "admin/EditRiderHub";
-static const String editRiderShiftTime = "admin/SetRiderShift" ;
-//locations api 
+  static const String fetchRiders = "admin/FetchRiders";
+  static const String deleteRider = "admin/DeleteRider";
+  static const String editRiderHub = "admin/EditRiderHub";
+  static const String editRiderShiftTime = "admin/SetRiderShift";
+//locations api
 // static const String searchPlace = "https://nominatim.openstreetmap.org/search?addressdetails=1&q=Gas%20near%20[30.0710632672488,%2031.348593242563744]&format=jsonv2&limit=5";
 }
-  
-

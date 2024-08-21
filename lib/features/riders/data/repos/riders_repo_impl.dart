@@ -4,7 +4,7 @@ import 'package:tayar_admin_panel/core/constants.dart';
 import 'package:tayar_admin_panel/core/networks/api_constants.dart';
 import 'package:tayar_admin_panel/core/networks/api_services.dart';
 import 'package:tayar_admin_panel/core/networks/errors.dart';
-import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
+import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model/rider_model.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo.dart';
 

@@ -34,7 +34,9 @@ class BranchesScreen extends StatelessWidget {
                     height: size.height * 0.4,
                   ),
                   Text(
-                    S.of(context).noBranchesYet, // Use your localization key here
+                    S
+                        .of(context)
+                        .noBranchesYet, // Use your localization key here
                     style: TextStyles.headings
                         .copyWith(color: AppColors.prussianBlue),
                   ),
@@ -48,7 +50,9 @@ class BranchesScreen extends StatelessWidget {
                           navigateTo(context, const AddBranchScreen());
                         },
                         context: context,
-                        text: S.of(context).addBranch, // Use your localization key here
+                        text: S
+                            .of(context)
+                            .addBranch, // Use your localization key here
                         width: size.width * 0.8 < 500 ? size.width * 0.8 : 500),
                   ),
                 ],
@@ -69,7 +73,9 @@ class BranchesScreen extends StatelessWidget {
                               navigateTo(context, const AddBranchScreen());
                             },
                             context: context,
-                            text: S.of(context).addBranch, // Use your localization key here
+                            text: S
+                                .of(context)
+                                .addBranch, // Use your localization key here
                             width: size.width * 0.8 < 200
                                 ? size.width * 0.8
                                 : 200),

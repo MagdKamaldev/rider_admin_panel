@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart'; // Import the intl package
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
-import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
+import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model/rider_model.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/change_rider_hub.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/change_rider_shift_time.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';
 import 'package:tayar_admin_panel/features/riders/logic/cubit/rider_cubit.dart';
-import 'package:tayar_admin_panel/generated/l10n.dart'; // Import the localization
+import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class RiderCard extends StatelessWidget {
   final RiderModel rider;
@@ -19,6 +20,31 @@ class RiderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Define DateFormat for time formatting
+    final DateFormat timeFormat = DateFormat('h:mm a');
+
+    // Helper method to format time or return "N/A"
+    String formatShiftTime(String? time) {
+      if (time == null || time == "0001-01-01T00:00:00Z") {
+        return 'N/A';
+      }
+      try {
+        final DateTime dateTime = DateTime.parse(time);
+        return timeFormat.format(dateTime);
+      } catch (e) {
+        print('Error parsing time: $time'); // Debug print
+        return 'N/A';
+      }
+    }
+
+    final String shiftStartTime = rider.presetShift?.openAt != null
+        ? formatShiftTime(rider.presetShift!.openAt)
+        : 'N/A';
+
+    final String shiftEndTime = rider.presetShift?.closeAt != null
+        ? formatShiftTime(rider.presetShift!.closeAt)
+        : 'N/A';
+
     return Card(
       color: const Color.fromRGBO(247, 250, 252, 1),
       elevation: 3,
@@ -38,7 +64,6 @@ class RiderCard extends StatelessWidget {
                   onSelected: (int result) {
                     switch (result) {
                       case 0:
-                        // Handle delete rider action
                         showDeleteRider(context);
                         break;
                       case 1:
@@ -50,7 +75,6 @@ class RiderCard extends StatelessWidget {
                             ChangeRiderHubScreen(
                               riderId: rider.id!,
                             ));
-                        // Handle change hub action
                         break;
                       case 3:
                         navigateTo(
@@ -66,27 +90,29 @@ class RiderCard extends StatelessWidget {
                       value: 0,
                       child: ListTile(
                         leading: const Icon(Icons.delete, color: Colors.red),
-                        title: Text(S.of(context).deleteRider), // Localized text
+                        title: Text(S.of(context).deleteRider),
                       ),
                     ),
-                   PopupMenuItem<int>(
+                    PopupMenuItem<int>(
                       value: 1,
                       child: ListTile(
                         leading: const Icon(Icons.edit, color: Colors.blue),
-                        title: Text(S.of(context).editRider), // Localized text
+                        title: Text(S.of(context).editRider),
                       ),
                     ),
                     PopupMenuItem<int>(
                       value: 2,
                       child: ListTile(
-                        leading: const Icon(Icons.swap_horiz, color: Colors.orange),
+                        leading:
+                            const Icon(Icons.swap_horiz, color: Colors.orange),
                         title: Text(S.of(context).changeRiderHub),
                       ),
                     ),
-                     PopupMenuItem<int>(
+                    PopupMenuItem<int>(
                       value: 3,
                       child: ListTile(
-                        leading: const Icon(Icons.watch_later, color: Colors.green),
+                        leading:
+                            const Icon(Icons.watch_later, color: Colors.green),
                         title: Text(S.of(context).changeShiftTimes),
                       ),
                     ),
@@ -122,12 +148,19 @@ class RiderCard extends StatelessWidget {
               style: TextStyles.headings.copyWith(
                   color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
             ),
+            const SizedBox(height: 5.0),
+            Text(
+              "${shiftStartTime} - ${shiftEndTime}",
+              style: TextStyles.headings.copyWith(
+                  color: AppColors.prussianBlue.withOpacity(0.6), fontSize: 16),
+            ),
             const SizedBox(height: 8.0),
-            Text('${S.of(context).userId} ${rider.userId ?? 'N/A'}'), // Localized text
-            Text('${S.of(context).nationalId} ${rider.nationalId ?? 'N/A'}'), // Localized text
-            Text('${S.of(context).phone} ${rider.mobileNumber ?? 'N/A'}'), // Localized text
-            Text('${S.of(context).queueNo} ${rider.queueNo ?? 'N/A'}'), // Localized text
-            Text('${S.of(context).currentOrderId} ${rider.currentOrderId ?? 'N/A'}'), // Localized text
+            Text('${S.of(context).userId} ${rider.userId ?? 'N/A'}'),
+            Text('${S.of(context).nationalId} ${rider.nationalId ?? 'N/A'}'),
+            Text('${S.of(context).phone} ${rider.mobileNumber ?? 'N/A'}'),
+            Text('${S.of(context).queueNo} ${rider.queueNo ?? 'N/A'}'),
+            Text(
+                '${S.of(context).currentOrderId} ${rider.currentOrderId ?? 'N/A'}'),
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,19 +184,19 @@ class RiderCard extends StatelessWidget {
           create: (context) => RiderCubit(getIt<RiderRepoImpl>()),
           child: BlocBuilder<RiderCubit, RiderState>(
             builder: (context, state) => AlertDialog(
-              title: Text(S.of(context).deleteRiderConfirmation), // Localized text
+              title: Text(S.of(context).deleteRiderConfirmation),
               actions: [
                 TextButton(
                     onPressed: () {
                       RiderCubit.get(context).deleteRider(context, rider.id!);
                       navigateAndFinish(context, const HomeScreen());
                     },
-                    child: Text(S.of(context).yes)), // Localized text
+                    child: Text(S.of(context).yes)),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text(S.of(context).no)), // Localized text
+                    child: Text(S.of(context).no)),
               ],
             ),
           ),

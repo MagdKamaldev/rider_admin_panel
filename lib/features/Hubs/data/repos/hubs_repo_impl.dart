@@ -13,22 +13,21 @@ class HubsRepoImpl implements HubsRepo {
   HubsRepoImpl({required this.apiServices});
 
   @override
-  Future<Either<Failure, dynamic>> deleteHub(int id) async{
-    try{
-       final response = await apiServices.post(
-         data: {"id": id},
-         jwt: kTokenBox.get(kTokenBoxString),
-         endPoint: ApiConstants.deleteHub,
-       );
-       return Right(Hub.fromJson(response));
-    }catch (e) {
-       if (e is DioException) {
-         return Left(ServerFailure.fromDioError(e));
-       } else {
-         return Left(ServerFailure(e.toString()));
-       }
-     }
-    
+  Future<Either<Failure, dynamic>> deleteHub(int id) async {
+    try {
+      final response = await apiServices.post(
+        data: {"id": id},
+        jwt: kTokenBox.get(kTokenBoxString),
+        endPoint: ApiConstants.deleteHub,
+      );
+      return Right(Hub.fromJson(response));
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
   }
 
   @override
@@ -66,13 +65,12 @@ class HubsRepoImpl implements HubsRepo {
     }
   }
 
-  
-  
   @override
-  Future<Either<Failure, dynamic>> createHub(String name, int managerId,double lat,double lng) async {
+  Future<Either<Failure, dynamic>> createHub(
+      String name, int managerId, double lat, double lng) async {
     try {
       final response = await apiServices.post(
-        data: {"name": name, "manager_id": managerId,"lat":lat,"lng":lng},
+        data: {"name": name, "manager_id": managerId, "lat": lat, "lng": lng},
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.addHub,
       );
@@ -90,8 +88,9 @@ class HubsRepoImpl implements HubsRepo {
   Future<Either<Failure, Hub>> getHub(int id) async {
     try {
       final response = await apiServices.post(
-        data: {"id": id},
-          endPoint: ApiConstants.fetchHub, jwt: kTokenBox.get(kTokenBoxString));
+          data: {"id": id},
+          endPoint: ApiConstants.fetchHub,
+          jwt: kTokenBox.get(kTokenBoxString));
       Hub hub = Hub.fromJson(response["data"]);
       return Right(hub);
     } catch (e) {
@@ -102,12 +101,19 @@ class HubsRepoImpl implements HubsRepo {
       }
     }
   }
-  
+
   @override
-  Future<Either<Failure, dynamic>> updateHub(String name, int managerId, int id,double lat , double lng) async{
+  Future<Either<Failure, dynamic>> updateHub(
+      String name, int managerId, int id, double lat, double lng) async {
     try {
       final response = await apiServices.post(
-        data: {"name": name, "manager_id": managerId, "id": id, "lat": lat, "lng": lng},
+        data: {
+          "name": name,
+          "manager_id": managerId,
+          "id": id,
+          "lat": lat,
+          "lng": lng
+        },
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editHub,
       );

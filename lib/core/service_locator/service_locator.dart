@@ -43,9 +43,9 @@ void setupLocator() {
       apiServices: getIt<ApiServices>(),
     ),
   );
-getIt.registerLazySingleton<RiderRepoImpl>(
-  () => RiderRepoImpl(
-    apiServices: getIt<ApiServices>(),
-  ),
-);
+  getIt.registerLazySingleton<RiderRepoImpl>(
+    () => RiderRepoImpl(
+      apiServices: getIt<ApiServices>(),
+    ),
+  );
 }

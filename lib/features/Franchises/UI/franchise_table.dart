@@ -198,9 +198,8 @@ class FranchiseTableState extends State<FranchiseTable> {
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    FranchiseCubit.get(context)
-                                        .deleteFranchise(
-                                            context, franchise.id!);
+                                    FranchiseCubit.get(context).deleteFranchise(
+                                        context, franchise.id!);
                                     navigateAndFinish(
                                         context, const HomeScreen());
                                   },

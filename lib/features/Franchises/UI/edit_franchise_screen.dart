@@ -11,7 +11,8 @@ import 'package:tayar_admin_panel/generated/l10n.dart';
 class UpdateFranchiseScreen extends StatefulWidget {
   final int id;
   final String name;
-  const UpdateFranchiseScreen({super.key, required this.id, required this.name});
+  const UpdateFranchiseScreen(
+      {super.key, required this.id, required this.name});
 
   @override
   UpdateFranchiseScreenState createState() => UpdateFranchiseScreenState();
@@ -48,7 +49,8 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
         }, builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(S.of(context).updateFranchise, style: TextStyles.headings),
+              title: Text(S.of(context).updateFranchise,
+                  style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -93,7 +95,9 @@ class UpdateFranchiseScreenState extends State<UpdateFranchiseScreen> {
                                   : 700,
                               function: () {
                                 if (_formKey.currentState!.validate()) {
-                                  context.read<FranchiseCubit>().updateFranchise(
+                                  context
+                                      .read<FranchiseCubit>()
+                                      .updateFranchise(
                                         context,
                                         _nameController.text,
                                         widget.id,

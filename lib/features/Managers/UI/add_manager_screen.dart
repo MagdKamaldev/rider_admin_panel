@@ -69,7 +69,8 @@ class AddManagerScreenState extends State<AddManagerScreen> {
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width:
+                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _nameController,
                               type: TextInputType.name,
@@ -87,14 +88,17 @@ class AddManagerScreenState extends State<AddManagerScreen> {
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width:
+                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _passwordController,
                               type: TextInputType.visiblePassword,
                               onSubmit: () {},
                               validate: (String? value) {
                                 if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterManagerPassword;
+                                  return S
+                                      .of(context)
+                                      .pleaseEnterManagerPassword;
                                 }
                                 return null;
                               },

@@ -82,11 +82,10 @@ class FranchiseScreen extends StatelessWidget {
                             controller: scrollController,
                             scrollDirection: Axis.horizontal,
                             child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minWidth: MediaQuery.of(context).size.width,
-                              ),
-                              child: const FranchiseTable()
-                            ),
+                                constraints: BoxConstraints(
+                                  minWidth: MediaQuery.of(context).size.width,
+                                ),
+                                child: const FranchiseTable()),
                           ),
                         ),
                       ),

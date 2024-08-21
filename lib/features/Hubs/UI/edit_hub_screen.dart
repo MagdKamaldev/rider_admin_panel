@@ -39,7 +39,8 @@ class EditHubScreenState extends State<EditHubScreen> {
     _nameController.text = widget.hub.name!;
     _latController.text = widget.hub.lat.toString();
     _lngController.text = widget.hub.lng.toString();
-    _selectedLocation = LatLng(double.parse(widget.hub.lat.toString()), double.parse(widget.hub.lng.toString()));
+    _selectedLocation = LatLng(double.parse(widget.hub.lat.toString()),
+        double.parse(widget.hub.lng.toString()));
   }
 
   @override
@@ -183,8 +184,10 @@ class EditHubScreenState extends State<EditHubScreen> {
                                             "${point.longitude}";
                                       });
                                     },
-                                    initialCenter:
-                                        LatLng(double.parse(widget.hub.lat.toString()), double.parse(widget.hub.lng.toString())),
+                                    initialCenter: LatLng(
+                                        double.parse(widget.hub.lat.toString()),
+                                        double.parse(
+                                            widget.hub.lng.toString())),
                                     initialZoom: 14,
                                     maxZoom: 19,
                                   ),

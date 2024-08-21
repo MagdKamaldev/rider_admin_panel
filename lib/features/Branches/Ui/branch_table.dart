@@ -183,9 +183,11 @@ class BranchTableState extends State<BranchTable> {
               children: [
                 IconButton(
                   onPressed: () {
-                    navigateTo(context, UpdateBranchScreen(
-                      branch: branch,
-                      ));
+                    navigateTo(
+                        context,
+                        UpdateBranchScreen(
+                          branch: branch,
+                        ));
                   },
                   icon: const Icon(
                     Icons.edit_note,

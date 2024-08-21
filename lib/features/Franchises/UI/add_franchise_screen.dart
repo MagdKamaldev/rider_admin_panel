@@ -46,7 +46,8 @@ class AddFranchiseScreenState extends State<AddFranchiseScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(S.of(context).addFranchise, style: TextStyles.headings),
+              title:
+                  Text(S.of(context).addFranchise, style: TextStyles.headings),
             ),
             body: SingleChildScrollView(
               child: SafeArea(
@@ -66,7 +67,8 @@ class AddFranchiseScreenState extends State<AddFranchiseScreen> {
                           ),
                           SizedBox(height: size.height * 0.1),
                           SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                            width:
+                                size.width * 0.8 < 700 ? size.width * 0.8 : 700,
                             child: defaultFormField(
                               controller: _nameController,
                               type: TextInputType.name,
@@ -85,7 +87,9 @@ class AddFranchiseScreenState extends State<AddFranchiseScreen> {
                           SizedBox(height: size.height * 0.1),
                           if (state is! AddFranchiseLoadingState)
                             defaultButton(
-                              width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
                               function: () {
                                 if (_formKey.currentState!.validate()) {
                                   context.read<FranchiseCubit>().addFranchise(

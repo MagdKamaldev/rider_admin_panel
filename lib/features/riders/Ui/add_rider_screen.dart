@@ -30,156 +30,186 @@ class AddRiderScreenState extends State<AddRiderScreen> {
     Size size = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => RiderCubit(getIt<RiderRepoImpl>()),
-      child: BlocConsumer<RiderCubit, RiderState>(
-        listener: (context, state) {
+        create: (context) => RiderCubit(getIt<RiderRepoImpl>())..fetchHubs(),
+        child: BlocConsumer<RiderCubit, RiderState>(listener: (context, state) {
           if (state is AddRiderSuccess) {
             navigateAndFinish(context, const HomeScreen());
           }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(S.of(context).addRider, style: TextStyles.headings),
-            ),
-            body: SingleChildScrollView(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(50.0),
-                  child: Form(
-                    key: _formKey,
-                    child: SizedBox(
-                      width: size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: size.height * 0.1),
-                          SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                            child: defaultFormField(
-                              controller: nameController,
-                              type: TextInputType.name,
-                              validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterRiderName;
-                                }
-                                return null;
-                              },
-                              label: S.of(context).riderName,
-                              prefix: Icons.person,
-                              context: context, onSubmit: (){},
-                            ),
-                          ),
-                          SizedBox(height: size.height * 0.1),
-                          SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                            child: defaultFormField(
-                              controller: nationalIdController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterRiderNationalId;
-                                }
-                                return null;
-                              },
-                              label: S.of(context).riderNationalId,
-                              prefix: Icons.credit_card,
-                              context: context, onSubmit: (){},
-                            ),
-                          ),
-                          SizedBox(height: size.height * 0.1),
-                          SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                            child: defaultFormField(
-                              controller: mobileNumberController,
-                              type: TextInputType.phone,
-                              validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterRiderPhoneNumber;
-                                }
-                                return null;
-                              },
-                              label: S.of(context).riderPhoneNumber,
-                              prefix: Icons.phone,
-                              context: context, onSubmit: (){},
-                            ),
-                          ),
-                          SizedBox(height: size.height * 0.1),
-                          SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                            child: defaultFormField(
-                              controller: passwordController,
-                              type: TextInputType.visiblePassword,
-                              validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return S.of(context).pleaseEnterRiderPassword;
-                                }
-                                return null;
-                              },
-                              label: S.of(context).riderPassword,
-                              prefix: Icons.lock,
-                              context: context, onSubmit: (){},
-                            ),
-                          ),
-                          SizedBox(height: size.height * 0.1),
-                          SizedBox(
-                            width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                            child: DropdownButtonFormField<String>(
-                              value: selectedHub,
-                              decoration: InputDecoration(
-                                labelText: S.of(context).selectHub,
-                                border: const OutlineInputBorder(),
+        }, builder: (context, state) {
+          if (state is FetchHubsLoading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else {
+            hubs = context
+                .read<RiderCubit>()
+                .hubs
+                .map((hub) => hub.name!)
+                .toList();
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(S.of(context).addRider, style: TextStyles.headings),
+              ),
+              body: SingleChildScrollView(
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Form(
+                      key: _formKey,
+                      child: SizedBox(
+                        width: size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: size.height * 0.1),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultFormField(
+                                controller: nameController,
+                                type: TextInputType.name,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return S.of(context).pleaseEnterRiderName;
+                                  }
+                                  return null;
+                                },
+                                label: S.of(context).riderName,
+                                prefix: Icons.person,
+                                context: context,
+                                onSubmit: () {},
                               ),
-                              items: hubs.map((hub) {
-                                return DropdownMenuItem<String>(
-                                  value: hub,
-                                  child: Text(hub),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedHub = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return S.of(context).pleaseSelectHub;
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          SizedBox(height: size.height * 0.1),
-                          if (state is! AddRiderLoading)
-                            defaultButton(
-                              width: size.width * 0.8 < 700 ? size.width * 0.8 : 700,
-                              function: () {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<RiderCubit>().addRider(
-                                        nameController.text,
-                                        nationalIdController.text,
-                                        mobileNumberController.text,
-                                        passwordController.text,
-                                      );
-                                }
-                              },
-                              context: context,
-                              text: S.of(context).addRider,
+                            SizedBox(height: size.height * 0.05),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultFormField(
+                                controller: nationalIdController,
+                                type: TextInputType.number,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return S
+                                        .of(context)
+                                        .pleaseEnterRiderNationalId;
+                                  }
+                                  return null;
+                                },
+                                label: S.of(context).riderNationalId,
+                                prefix: Icons.credit_card,
+                                context: context,
+                                onSubmit: () {},
+                              ),
                             ),
-                          if (state is AddRiderLoading)
-                            const Center(
-                              child: CircularProgressIndicator(),
+                            SizedBox(height: size.height * 0.05),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultFormField(
+                                controller: mobileNumberController,
+                                type: TextInputType.phone,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return S
+                                        .of(context)
+                                        .pleaseEnterRiderPhoneNumber;
+                                  }
+                                  return null;
+                                },
+                                label: S.of(context).riderPhoneNumber,
+                                prefix: Icons.phone,
+                                context: context,
+                                onSubmit: () {},
+                              ),
                             ),
-                        ],
+                            SizedBox(height: size.height * 0.05),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: defaultFormField(
+                                controller: passwordController,
+                                type: TextInputType.visiblePassword,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return S
+                                        .of(context)
+                                        .pleaseEnterRiderPassword;
+                                  }
+                                  return null;
+                                },
+                                label: S.of(context).riderPassword,
+                                prefix: Icons.lock,
+                                context: context,
+                                onSubmit: () {},
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.05),
+                            SizedBox(
+                              width: size.width * 0.8 < 700
+                                  ? size.width * 0.8
+                                  : 700,
+                              child: DropdownButtonFormField<String>(
+                                value: selectedHub,
+                                decoration: InputDecoration(
+                                  labelText: S.of(context).selectHub,
+                                  border: const OutlineInputBorder(),
+                                ),
+                                items: hubs.map((hub) {
+                                  return DropdownMenuItem<String>(
+                                    value: hub,
+                                    child: Text(hub),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedHub = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null) {
+                                    return S.of(context).pleaseSelectHub;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.1),
+                            if (state is! AddRiderLoading)
+                              defaultButton(
+                                width: size.width * 0.8 < 700
+                                    ? size.width * 0.8
+                                    : 700,
+                                function: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    context.read<RiderCubit>().addRider(
+                                          nameController.text,
+                                          nationalIdController.text,
+                                          mobileNumberController.text,
+                                          passwordController.text,
+                                        );
+                                  }
+                                },
+                                context: context,
+                                text: S.of(context).addRider,
+                              ),
+                            if (state is AddRiderLoading)
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                               SizedBox(height: size.height * 0.1),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          }
+        }));
   }
 }

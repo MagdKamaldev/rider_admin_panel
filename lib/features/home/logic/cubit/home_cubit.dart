@@ -9,7 +9,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   int selectedIndex = 0;
 
-
   List<Widget> screenIcons = const [
     Icon(Icons.dashboard),
     Icon(Icons.location_city),

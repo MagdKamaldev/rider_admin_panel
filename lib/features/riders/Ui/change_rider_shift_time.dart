@@ -134,8 +134,8 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                   decoration: InputDecoration(
                                     labelText: S.of(context).hours,
                                     border: const OutlineInputBorder(),
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(horizontal: 12),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
                                   ),
                                   onChanged: (_) => _updateDuration(),
                                 ),
@@ -148,8 +148,8 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                   decoration: InputDecoration(
                                     labelText: S.of(context).minutes,
                                     border: const OutlineInputBorder(),
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(horizontal: 12),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
                                   ),
                                   onChanged: (_) => _updateDuration(),
                                 ),
@@ -185,16 +185,19 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                       return;
                                     } else {
                                       if (_formKey.currentState!.validate()) {
-                                        final startDateTime = _timeOfDayToDateTime(
-                                            _startTime!);
+                                        final startDateTime =
+                                            _timeOfDayToDateTime(_startTime!);
                                         final endDateTime =
                                             _timeOfDayToDateTime(endTime);
 
-                                        context.read<RiderCubit>().changeRiderShiftTime(
-                                            widget.riderId,
-                                            startDateTime,
-                                            endDateTime,
-                                            _shiftDuration,context);
+                                        context
+                                            .read<RiderCubit>()
+                                            .changeRiderShiftTime(
+                                                widget.riderId,
+                                                startDateTime,
+                                                endDateTime,
+                                                _shiftDuration,
+                                                context);
                                       }
                                     }
                                   },

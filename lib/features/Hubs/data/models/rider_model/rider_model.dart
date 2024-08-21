@@ -1,3 +1,6 @@
+import 'latest_shift.dart';
+import 'preset_shift.dart';
+
 class RiderModel {
   int? id;
   DateTime? createdAt;
@@ -8,7 +11,7 @@ class RiderModel {
   String? nationalId;
   String? mobileNumber;
   int? hubId;
-  String ? hubName;
+  String? hubName;
   int? lat;
   int? lng;
   String? locationUpdatedAt;
@@ -16,8 +19,10 @@ class RiderModel {
   bool? isInShift;
   bool? isListening;
   int? latestShiftId;
+  LatestShift? latestShift;
   int? queueNo;
   int? currentOrderId;
+  PresetShift? presetShift;
 
   RiderModel({
     this.id,
@@ -37,8 +42,10 @@ class RiderModel {
     this.isInShift,
     this.isListening,
     this.latestShiftId,
+    this.latestShift,
     this.queueNo,
     this.currentOrderId,
+    this.presetShift,
   });
 
   factory RiderModel.fromJson(Map<String, dynamic> json) => RiderModel(
@@ -63,8 +70,16 @@ class RiderModel {
         isInShift: json['is_in_shift'] as bool?,
         isListening: json['is_listening'] as bool?,
         latestShiftId: json['latest_shift_id'] as int?,
+        latestShift: json['latest_shift'] == null
+            ? null
+            : LatestShift.fromJson(
+                json['latest_shift'] as Map<String, dynamic>),
         queueNo: json['queue_no'] as int?,
         currentOrderId: json['current_order_id'] as int?,
+        presetShift: json['preset_shift'] == null
+            ? null
+            : PresetShift.fromJson(
+                json['preset_shift'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
@@ -85,7 +100,9 @@ class RiderModel {
         'is_in_shift': isInShift,
         'is_listening': isListening,
         'latest_shift_id': latestShiftId,
+        'latest_shift': latestShift?.toJson(),
         'queue_no': queueNo,
         'current_order_id': currentOrderId,
+        'preset_shift': presetShift?.toJson(),
       };
 }

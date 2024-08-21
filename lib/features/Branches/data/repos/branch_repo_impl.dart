@@ -41,7 +41,13 @@ class BranchRepoImpl implements BranchRepo {
 
   @override
   Future<Either<Failure, void>> addShopBranch(
-      String name, String address, int hubId, int franchiseId,double lat,double lng,String password) async {
+      String name,
+      String address,
+      int hubId,
+      int franchiseId,
+      double lat,
+      double lng,
+      String password) async {
     try {
       final response = await apiServices.post(
           endPoint: ApiConstants.addBranch,
@@ -50,9 +56,9 @@ class BranchRepoImpl implements BranchRepo {
             "address": address,
             "hub_id": hubId,
             "franchise_id": franchiseId,
-            "lat":lat,
-            "lng":lng,
-            "password":password
+            "lat": lat,
+            "lng": lng,
+            "password": password
           },
           jwt: kTokenBox.get(kTokenBoxString).toString());
       return Right(response);
@@ -82,17 +88,17 @@ class BranchRepoImpl implements BranchRepo {
       }
     }
   }
-  
+
   @override
-  Future<Either<Failure, void>> deleteBranch(int id) async{
-    try{
+  Future<Either<Failure, void>> deleteBranch(int id) async {
+    try {
       final response = await apiServices.post(
         data: {"id": id},
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.deleteBranch,
       );
       return Right(response);
-    }catch (e) {
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       } else {
@@ -100,10 +106,18 @@ class BranchRepoImpl implements BranchRepo {
       }
     }
   }
-  
+
   @override
-  Future<Either<Failure, void>> updateBranch(int id, String name, String address, int hubId, int franchiseId,double lat,double lng,String password) async{
-    try{
+  Future<Either<Failure, void>> updateBranch(
+      int id,
+      String name,
+      String address,
+      int hubId,
+      int franchiseId,
+      double lat,
+      double lng,
+      String password) async {
+    try {
       final response = await apiServices.post(
         data: {
           "id": id,
@@ -111,15 +125,15 @@ class BranchRepoImpl implements BranchRepo {
           "address": address,
           "hub_id": hubId,
           "franchise_id": franchiseId,
-          "lat":lat,
-          "lng":lng,
-          "password":password
+          "lat": lat,
+          "lng": lng,
+          "password": password
         },
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editBranch,
       );
       return Right(response);
-    }catch (e) {
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       } else {

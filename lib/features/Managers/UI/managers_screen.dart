@@ -37,7 +37,8 @@ class ManagersScreen extends StatelessWidget {
                   ),
                   Text(
                     S.of(context).noManagersYet,
-                    style: TextStyles.headings.copyWith(color: AppColors.prussianBlue),
+                    style: TextStyles.headings
+                        .copyWith(color: AppColors.prussianBlue),
                   ),
                   SizedBox(
                     height: size.height * 0.35,

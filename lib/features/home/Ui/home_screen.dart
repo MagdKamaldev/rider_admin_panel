@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tayar_admin_panel/core/constants.dart';
@@ -31,14 +32,14 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> titles = [
-  S.of(context).dashboard,
-  S.of(context).branches,
-  S.of(context).hubs,
-  S.of(context).managers,
-  S.of(context).franchises,
-  S.of(context).riders,
-  S.of(context).settings,
-];
+      S.of(context).dashboard,
+      S.of(context).branches,
+      S.of(context).hubs,
+      S.of(context).managers,
+      S.of(context).franchises,
+      S.of(context).riders,
+      S.of(context).settings,
+    ];
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
@@ -57,12 +58,14 @@ class HomeScreenState extends State<HomeScreen> {
                 return const FranchiseScreen();
               case 5:
                 return const RidersScreen();
-                case 6:
+              case 6:
                 return const SettingsScreen();
               default:
                 return const DashboardScreen();
             }
           }
+
+          Size size = MediaQuery.of(context).size;
 
           return LayoutBuilder(
             builder: (context, constraints) {
@@ -79,6 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.logout),
                     )
                   ],
+                  toolbarHeight: size.height* 0.2 > 120?120: size.height*0.2,
                   backgroundColor: AppColors.prussianBlue,
                   title: Text(
                     titles[HomeCubit.get(context)
@@ -94,7 +98,7 @@ class HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.zero,
                           children: <Widget>[
                             DrawerHeader(
-                              decoration:const  BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: AppColors.prussianBlue,
                               ),
                               child: Text(
@@ -105,13 +109,10 @@ class HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            for (int i = 0;
-                                i < titles.length;
-                                i++)
+                            for (int i = 0; i < titles.length; i++)
                               ListTile(
                                 leading: HomeCubit.get(context).screenIcons[i],
-                                title: Text(
-                                    titles[i]), // Use localization
+                                title: Text(titles[i]), // Use localization
                                 selected:
                                     i == HomeCubit.get(context).selectedIndex,
                                 onTap: () {
@@ -159,7 +160,8 @@ class HomeScreenState extends State<HomeScreen> {
                                     icon: HomeCubit.get(context)
                                         .screenIcons[index],
                                     label: railWidth > 72.0
-                                        ? Text(titles[index]) // Use localization
+                                        ? Text(
+                                            titles[index]) // Use localization
                                         : const Text(""),
                                   ),
                                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
-import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model.dart';
+import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model/rider_model.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
 import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/riders/data/repos/riders_repo_impl.dart';

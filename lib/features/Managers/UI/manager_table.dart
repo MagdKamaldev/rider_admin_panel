@@ -55,7 +55,8 @@ class ManagersTableState extends State<ManagersTable> {
       dividerThickness: 0.0,
       headingRowColor: WidgetStateProperty.resolveWith<Color>(
         (Set<WidgetState> states) {
-          return const Color.fromRGBO(241, 243, 249, 1); // Header background color
+          return const Color.fromRGBO(
+              241, 243, 249, 1); // Header background color
         },
       ),
       headingRowHeight: 45,
@@ -131,7 +132,8 @@ class ManagersTableState extends State<ManagersTable> {
             '${updatedAt.year}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}';
         final String formattedUpTime =
             '${updatedAt.hour.toString().padLeft(2, '0')}:${updatedAt.minute.toString().padLeft(2, '0')}';
-        final String formattedDateUpTime = '$formattedUpDate   $formattedUpTime';
+        final String formattedDateUpTime =
+            '$formattedUpDate   $formattedUpTime';
 
         return DataRow(
           color: WidgetStateProperty.resolveWith<Color>(
@@ -173,15 +175,18 @@ class ManagersTableState extends State<ManagersTable> {
                     context: context,
                     builder: (context) {
                       return BlocProvider(
-                        create: (context) => ManagersCubit(getIt<ManagersRepoImpl>()),
+                        create: (context) =>
+                            ManagersCubit(getIt<ManagersRepoImpl>()),
                         child: BlocBuilder<ManagersCubit, ManagersState>(
                           builder: (context, state) => AlertDialog(
                             title: Text(S.of(context).confirmDelete),
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  ManagersCubit.get(context).deleteManager(context, manager.id!);
-                                  navigateAndFinish(context, const HomeScreen());
+                                  ManagersCubit.get(context)
+                                      .deleteManager(context, manager.id!);
+                                  navigateAndFinish(
+                                      context, const HomeScreen());
                                 },
                                 child: Text(S.of(context).yes),
                               ),

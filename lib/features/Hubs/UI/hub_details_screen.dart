@@ -64,12 +64,11 @@ class HubDetails extends StatelessWidget {
                           controller: riderScrollBarController,
                           child: _buildScrollableList(
                             size: size,
-                            itemCount: hub.riders == null ? 0 : hub.riders!.length,
+                            itemCount:
+                                hub.riders == null ? 0 : hub.riders!.length,
                             itemBuilder: (context, index) {
-                              return _buildListItem(
-                                  hub.riders![index].name!,
-                                  Icons.directions_bike,
-                                  size);
+                              return _buildListItem(hub.riders![index].name!,
+                                  Icons.directions_bike, size);
                             },
                             heightFactor: 0.28,
                             scrollController: riderScrollBarController,
@@ -84,16 +83,18 @@ class HubDetails extends StatelessWidget {
                         Scrollbar(
                           controller: branchScrollBarController,
                           child: _buildScrollableList(
-                            size: size,
-                            itemCount: hub.branches == null ? 0 : hub.branches!.length,
-                            itemBuilder: (context, index) {
-                              return _buildListItem(
-                                  hub.branches![index].name!,
-                                  Icons.store,
-                                  size);
-                            },
-                            heightFactor: 0.28,
-                            scrollController: branchScrollBarController),
+                              size: size,
+                              itemCount: hub.branches == null
+                                  ? 0
+                                  : hub.branches!.length,
+                              itemBuilder: (context, index) {
+                                return _buildListItem(
+                                    hub.branches![index].name!,
+                                    Icons.store,
+                                    size);
+                              },
+                              heightFactor: 0.28,
+                              scrollController: branchScrollBarController),
                         ),
                         SizedBox(height: size.height * 0.01),
                         Align(

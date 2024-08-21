@@ -41,7 +41,8 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
           } else {
             return Scaffold(
               appBar: AppBar(
-                title: Text(S.of(context).changeRiderHub, style: TextStyles.headings),
+                title: Text(S.of(context).changeRiderHub,
+                    style: TextStyles.headings),
               ),
               body: SingleChildScrollView(
                 child: SafeArea(
@@ -76,7 +77,9 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
                                 },
                                 validator: (Hub? value) {
                                   if (value == null) {
-                                    return S.of(context).selectRiderHubValidation;
+                                    return S
+                                        .of(context)
+                                        .selectRiderHubValidation;
                                   }
                                   return null;
                                 },
@@ -95,9 +98,9 @@ class ChangeRiderHubScreenState extends State<ChangeRiderHubScreen> {
                                 function: () {
                                   if (_formKey.currentState!.validate()) {
                                     context.read<RiderCubit>().changeRiderHub(
-                                      widget.riderId,
-                                      _selectedHub!.id!,
-                                    );
+                                          widget.riderId,
+                                          _selectedHub!.id!,
+                                        );
                                   }
                                 },
                                 context: context,

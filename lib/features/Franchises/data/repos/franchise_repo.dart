@@ -5,6 +5,6 @@ import 'package:tayar_admin_panel/features/Branches/data/models/franchise_model/
 abstract class FranchiseRepo {
   Future<Either<Failure, List<FranchiseModel>>> getFranchises();
   Future<Either<Failure, dynamic>> addFranchise(String name);
-  Future<Either<Failure, dynamic>> updateFranchise(String name , int id);
+  Future<Either<Failure, dynamic>> updateFranchise(String name, int id);
   Future<Either<Failure, dynamic>> deleteFranchise(int id);
 }
