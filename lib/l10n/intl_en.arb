@@ -109,5 +109,7 @@
     "arabic": "Arabic",
     "settings": "Settings",
     "timeMargin" : "Time Margin",
-    "valideMunites": "Please enter valid minutes"
+    "valideMunites": "Please enter valid minutes",
+    "rolesAndPermissions":"Roles and Permissions",
+    "addRole": "Add Role"
 }

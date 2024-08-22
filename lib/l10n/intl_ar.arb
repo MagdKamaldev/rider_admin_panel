@@ -109,5 +109,7 @@
     "arabic": "العربية",
     "settings":"الإعدادات",
     "timeMargin" : "الوقت المحدد",
-     "valideMunites": "الرجاء إدخال دقائق صالحة"
+     "valideMunites": "الرجاء إدخال دقائق صالحة",
+     "rolesAndPermissions":"الأدوار والأذونات",
+      "addRole": "إضافة دور"
 }

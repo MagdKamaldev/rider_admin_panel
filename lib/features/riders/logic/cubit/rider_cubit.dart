@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tayar_admin_panel/core/networks/error_snackbar.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/features/Hubs/data/models/rider_model/rider_model.dart';
 import 'package:tayar_admin_panel/features/Managers/data/models/manager_model/hub.dart';
@@ -10,7 +11,7 @@ part 'rider_state.dart';
 class RiderCubit extends Cubit<RiderState> {
   final RiderRepoImpl repo;
   RiderCubit(this.repo) : super(RiderInitial());
-  static  RiderCubit get(context) => BlocProvider.of(context);
+  static RiderCubit get(context) => BlocProvider.of(context);
 
   List<RiderModel> riders = [];
 
@@ -26,9 +27,11 @@ class RiderCubit extends Cubit<RiderState> {
     );
   }
 
-  void addRider(String name,String nationalId,String phoneNumber,String password) async {
+  void addRider(String name, String nationalId, String phoneNumber,
+      String password) async {
     emit(AddRiderLoading());
-    final response = await repo.addRider(name, nationalId, phoneNumber,password);
+    final response =
+        await repo.addRider(name, nationalId, phoneNumber, password);
     response.fold(
       (l) => emit(AddRiderFailure(l.message)),
       (r) {
@@ -85,17 +88,20 @@ class RiderCubit extends Cubit<RiderState> {
     );
   }
 
-  void changeRiderShiftTime(int riderId,DateTime startTime,DateTime endTime,Duration shiftDuration,context,int timeMargin) async {
+  void changeRiderShiftTime(int riderId, DateTime startTime, DateTime endTime,
+      Duration shiftDuration, context, int timeMargin) async {
     emit(ChangeRiderShiftTimeLoading());
-    final response = await repo.changeRiderShiftTime(riderId, startTime, endTime,shiftDuration,timeMargin);
+    final response = await repo.changeRiderShiftTime(
+        riderId, startTime, endTime, shiftDuration, timeMargin);
     response.fold(
-      (l) => emit(ChangeRiderShiftTimeFailure(l.message)),
+      (l) {
+        showErrorSnackbar(context, l.message);
+        emit(ChangeRiderShiftTimeFailure(l.message));
+      },
       (r) {
         navigateAndFinish(context, const HomeScreen());
         emit(ChangeRiderShiftTimeSuccess(r));
       },
     );
   }
-
-
 }

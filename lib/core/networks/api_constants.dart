@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String serverIp = "172.20.10.7";
+  static const String serverIp = "192.168.1.116";
   static const String baseUrl = 'http://$serverIp:3006/api/';
   static const String login = 'login';
   //User
@@ -30,5 +30,7 @@ class ApiConstants {
   static const String deleteRider = "admin/DeleteRider";
   static const String editRiderHub = "admin/EditRiderHub";
   static const String editRiderShiftTime = "admin/SetRiderShift";
-//
+//Roles
+  static const String fetchRoles = "admin/FetchRoles";
+  static const String fetchPermissionGroups = "admin/FetchPermissionGroups";
 }

@@ -173,7 +173,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return S.of(context).emptyValidation;
-                              }else if(int.tryParse(value) == null){
+                              } else if (int.tryParse(value) == null) {
                                 return S.of(context).valideMunites;
                               }
                               return null;
@@ -226,7 +226,9 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                                 startDateTime,
                                                 endDateTime,
                                                 _shiftDuration,
-                                                context,int.parse(_timeMarginController.text));
+                                                context,
+                                                int.parse(_timeMarginController
+                                                    .text));
                                       }
                                     }
                                   },

@@ -200,7 +200,7 @@ class AddRiderScreenState extends State<AddRiderScreen> {
                               const Center(
                                 child: CircularProgressIndicator(),
                               ),
-                               SizedBox(height: size.height * 0.1),
+                            SizedBox(height: size.height * 0.1),
                           ],
                         ),
                       ),

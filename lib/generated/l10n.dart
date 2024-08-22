@@ -1159,6 +1159,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Roles and Permissions`
+  String get rolesAndPermissions {
+    return Intl.message(
+      'Roles and Permissions',
+      name: 'rolesAndPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Role`
+  String get addRole {
+    return Intl.message(
+      'Add Role',
+      name: 'addRole',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -29,7 +29,8 @@ class RiderCard extends StatelessWidget {
         return 'N/A';
       }
       try {
-        final DateTime dateTime = DateTime.parse(time).toLocal(); // Convert to local time
+        final DateTime dateTime =
+            DateTime.parse(time).toLocal(); // Convert to local time
         return timeFormat.format(dateTime);
       } catch (e) {
         return 'N/A';
@@ -158,7 +159,8 @@ class RiderCard extends StatelessWidget {
             Text('${S.of(context).nationalId} ${rider.nationalId ?? 'N/A'}'),
             Text('${S.of(context).phone} ${rider.mobileNumber ?? 'N/A'}'),
             Text('${S.of(context).queueNo} ${rider.queueNo ?? 'N/A'}'),
-            Text('${S.of(context).currentOrderId} ${rider.currentOrderId ?? 'N/A'}'),
+            Text(
+                '${S.of(context).currentOrderId} ${rider.currentOrderId ?? 'N/A'}'),
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

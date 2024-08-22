@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addHub": MessageLookupByLibrary.simpleMessage("إضافة مركز"),
         "addManager": MessageLookupByLibrary.simpleMessage("إضافة مدير"),
         "addRider": MessageLookupByLibrary.simpleMessage("إضافة راكب"),
+        "addRole": MessageLookupByLibrary.simpleMessage("إضافة دور"),
         "appName": MessageLookupByLibrary.simpleMessage("تطبيق الإدارة"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("عنوان الفرع"),
@@ -144,6 +145,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "riderPhoneNumber":
             MessageLookupByLibrary.simpleMessage("رقم هاتف الراكب"),
         "riders": MessageLookupByLibrary.simpleMessage("السائقين"),
+        "rolesAndPermissions":
+            MessageLookupByLibrary.simpleMessage("الأدوار والأذونات"),
         "selectBranchFranchise":
             MessageLookupByLibrary.simpleMessage("اختر امتياز الفرع"),
         "selectBranchFranchiseValidation":

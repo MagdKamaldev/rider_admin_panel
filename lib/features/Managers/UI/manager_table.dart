@@ -55,8 +55,7 @@ class ManagersTableState extends State<ManagersTable> {
       dividerThickness: 0.0,
       headingRowColor: WidgetStateProperty.resolveWith<Color>(
         (Set<WidgetState> states) {
-          return const Color.fromRGBO(
-              241, 243, 249, 1); 
+          return const Color.fromRGBO(241, 243, 249, 1);
         },
       ),
       headingRowHeight: 45,

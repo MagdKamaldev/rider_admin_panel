@@ -13,6 +13,7 @@ import 'package:tayar_admin_panel/features/Managers/UI/managers_screen.dart';
 import 'package:tayar_admin_panel/features/home/logic/cubit/home_cubit.dart';
 import 'package:tayar_admin_panel/features/login/Ui/login_screen.dart';
 import 'package:tayar_admin_panel/features/riders/Ui/riders_screen.dart';
+import 'package:tayar_admin_panel/features/roles/UI/roles_screen.dart';
 import 'package:tayar_admin_panel/features/settings/Ui/settings_screen.dart';
 import 'package:tayar_admin_panel/generated/l10n.dart';
 import 'package:tayar_admin_panel/main.dart'; // Import your localization file
@@ -38,6 +39,7 @@ class HomeScreenState extends State<HomeScreen> {
       S.of(context).managers,
       S.of(context).franchises,
       S.of(context).riders,
+      S.of(context).rolesAndPermissions,
       S.of(context).settings,
     ];
     return BlocProvider(
@@ -59,6 +61,8 @@ class HomeScreenState extends State<HomeScreen> {
               case 5:
                 return const RidersScreen();
               case 6:
+                return const RolesAndPermissionsScreen();
+              case 7:
                 return const SettingsScreen();
               default:
                 return const DashboardScreen();
@@ -82,7 +86,8 @@ class HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.logout),
                     )
                   ],
-                  toolbarHeight: size.height* 0.2 > 120?120: size.height*0.2,
+                  toolbarHeight:
+                      size.height * 0.2 > 120 ? 120 : size.height * 0.2,
                   backgroundColor: AppColors.prussianBlue,
                   title: Text(
                     titles[HomeCubit.get(context)
