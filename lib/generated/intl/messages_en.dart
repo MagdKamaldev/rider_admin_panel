@@ -168,10 +168,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "shiftDuration":
             MessageLookupByLibrary.simpleMessage("Shift Duration:"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start Time"),
+        "timeMargin": MessageLookupByLibrary.simpleMessage("Time Margin"),
         "updateFranchise":
             MessageLookupByLibrary.simpleMessage("Update Franchise"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("Updated At"),
         "userId": MessageLookupByLibrary.simpleMessage("User ID:"),
+        "valideMunites":
+            MessageLookupByLibrary.simpleMessage("Please enter valid minutes"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

@@ -1139,6 +1139,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Time Margin`
+  String get timeMargin {
+    return Intl.message(
+      'Time Margin',
+      name: 'timeMargin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter valid minutes`
+  String get valideMunites {
+    return Intl.message(
+      'Please enter valid minutes',
+      name: 'valideMunites',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

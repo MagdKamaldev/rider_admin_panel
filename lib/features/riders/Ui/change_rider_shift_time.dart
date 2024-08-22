@@ -22,6 +22,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
       const Duration(hours: 1, minutes: 0); // Default 1 hour shift duration
   final _hoursController = TextEditingController();
   final _minutesController = TextEditingController();
+  final _timeMarginController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _selectStartTime() async {
@@ -60,7 +61,6 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
   @override
   void initState() {
     super.initState();
-    // Initialize text controllers with default values
     _hoursController.text = _shiftDuration.inHours.toString();
     _minutesController.text = (_shiftDuration.inMinutes % 60).toString();
   }
@@ -115,7 +115,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                             ),
                           ),
                         ),
-                        SizedBox(height: size.height * 0.1),
+                        SizedBox(height: size.height * 0.05),
                         Text(
                           S.of(context).shiftDuration,
                           style: TextStyles.headings
@@ -155,6 +155,35 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        SizedBox(height: size.height * 0.05),
+                        Text(
+                          S.of(context).timeMargin,
+                          style: TextStyles.headings
+                              .copyWith(color: AppColors.prussianBlue),
+                        ),
+                        SizedBox(height: size.height * 0.05),
+                        SizedBox(
+                          width:
+                              size.width * 0.8 < 600 ? size.width * 0.8 : 600,
+                          child: TextFormField(
+                            controller: _timeMarginController,
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return S.of(context).emptyValidation;
+                              }else if(int.tryParse(value) == null){
+                                return S.of(context).valideMunites;
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: S.of(context).minutes,
+                              border: const OutlineInputBorder(),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                            ),
                           ),
                         ),
                         SizedBox(height: size.height * 0.1),
@@ -197,7 +226,7 @@ class ChangeShiftTimesState extends State<ChangeShiftTimes> {
                                                 startDateTime,
                                                 endDateTime,
                                                 _shiftDuration,
-                                                context);
+                                                context,int.parse(_timeMarginController.text));
                                       }
                                     }
                                   },

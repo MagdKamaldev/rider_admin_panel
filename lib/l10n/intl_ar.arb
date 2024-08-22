@@ -86,7 +86,7 @@
     "changeShiftTimes": "تغيير أوقات الورديات",
     "selectStartTime": "اختر وقت البدء",
     "startTime": "وقت البدء",
-    "shiftDuration": "مدة الوردة:",
+    "shiftDuration": "مدة الوردية:",
     "hours": "ساعات",
     "minutes": "دقائق",
     "endTime": "وقت الانتهاء",
@@ -107,5 +107,7 @@
     "selectLanguage": "اختر اللغة",
     "english": "الإنجليزية",
     "arabic": "العربية",
-    "settings":"الإعدادات"
+    "settings":"الإعدادات",
+    "timeMargin" : "الوقت المحدد",
+     "valideMunites": "الرجاء إدخال دقائق صالحة"
 }

@@ -113,7 +113,7 @@ class RiderRepoImpl implements RidersRepo {
 
   @override
   Future<Either<Failure, RiderModel>> changeRiderShiftTime(int riderId,
-      DateTime startTime, DateTime endTime, Duration shiftDuration) async {
+      DateTime startTime, DateTime endTime, Duration shiftDuration,int timeMargin) async {
     try {
       final response = await apiServices.post(
         data: {
@@ -121,6 +121,7 @@ class RiderRepoImpl implements RidersRepo {
           "open_at": _formatDateTimeWithOffset(startTime),
           "close_at": _formatDateTimeWithOffset(endTime),
           "duration": shiftDuration.inSeconds,
+          "time_margin": timeMargin
         },
         jwt: kTokenBox.get(kTokenBoxString),
         endPoint: ApiConstants.editRiderShiftTime,

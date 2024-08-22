@@ -167,12 +167,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectStartTimeError":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار وقت البدء."),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
-        "shiftDuration": MessageLookupByLibrary.simpleMessage("مدة الوردة:"),
+        "shiftDuration": MessageLookupByLibrary.simpleMessage("مدة الوردية:"),
         "startTime": MessageLookupByLibrary.simpleMessage("وقت البدء"),
+        "timeMargin": MessageLookupByLibrary.simpleMessage("الوقت المحدد"),
         "updateFranchise":
             MessageLookupByLibrary.simpleMessage("تحديث الامتياز"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("تاريخ التحديث"),
         "userId": MessageLookupByLibrary.simpleMessage("معرف المستخدم:"),
+        "valideMunites":
+            MessageLookupByLibrary.simpleMessage("الرجاء إدخال دقائق صالحة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم")
       };
 }

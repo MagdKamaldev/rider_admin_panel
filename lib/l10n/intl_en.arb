@@ -107,5 +107,7 @@
     "selectLanguage": "Select Language",
     "english": "English",
     "arabic": "Arabic",
-    "settings": "Settings"
+    "settings": "Settings",
+    "timeMargin" : "Time Margin",
+    "valideMunites": "Please enter valid minutes"
 }

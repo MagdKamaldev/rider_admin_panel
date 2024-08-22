@@ -85,9 +85,9 @@ class RiderCubit extends Cubit<RiderState> {
     );
   }
 
-  void changeRiderShiftTime(int riderId,DateTime startTime,DateTime endTime,Duration shiftDuration,context) async {
+  void changeRiderShiftTime(int riderId,DateTime startTime,DateTime endTime,Duration shiftDuration,context,int timeMargin) async {
     emit(ChangeRiderShiftTimeLoading());
-    final response = await repo.changeRiderShiftTime(riderId, startTime, endTime,shiftDuration);
+    final response = await repo.changeRiderShiftTime(riderId, startTime, endTime,shiftDuration,timeMargin);
     response.fold(
       (l) => emit(ChangeRiderShiftTimeFailure(l.message)),
       (r) {
