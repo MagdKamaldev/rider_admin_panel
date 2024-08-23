@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editHub": MessageLookupByLibrary.simpleMessage("تحرير المركز"),
         "editManager": MessageLookupByLibrary.simpleMessage("تحرير المدير"),
         "editRider": MessageLookupByLibrary.simpleMessage("تعديل السائق"),
+        "editRole": MessageLookupByLibrary.simpleMessage("تعديل الدور"),
         "emptyValidation": MessageLookupByLibrary.simpleMessage(
             "لا يمكن أن يكون الحقل فارغًا"),
         "endTime": MessageLookupByLibrary.simpleMessage("وقت الانتهاء"),
@@ -145,8 +146,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "riderPhoneNumber":
             MessageLookupByLibrary.simpleMessage("رقم هاتف الراكب"),
         "riders": MessageLookupByLibrary.simpleMessage("السائقين"),
+        "roleName": MessageLookupByLibrary.simpleMessage("اسم الدور"),
         "rolesAndPermissions":
             MessageLookupByLibrary.simpleMessage("الأدوار والأذونات"),
+        "saveRole": MessageLookupByLibrary.simpleMessage("حفظ الدور"),
         "selectBranchFranchise":
             MessageLookupByLibrary.simpleMessage("اختر امتياز الفرع"),
         "selectBranchFranchiseValidation":
@@ -161,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectHubManagerValidation":
             MessageLookupByLibrary.simpleMessage("يرجى اختيار مدير المركز!"),
         "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
+        "selectPermission":
+            MessageLookupByLibrary.simpleMessage("الرجاء تحديد الأذونات"),
         "selectRiderHub":
             MessageLookupByLibrary.simpleMessage("اختر مركز السائق"),
         "selectRiderHubValidation":

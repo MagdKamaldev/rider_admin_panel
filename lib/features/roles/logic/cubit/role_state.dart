@@ -27,3 +27,21 @@ final class GetPermissionGroupFailure extends RoleState {
   final String message;
   GetPermissionGroupFailure(this.message);
 }
+
+final class AddRoleLoading extends RoleState{}
+
+final class AddRoleSuccess extends RoleState{}
+
+final class AddRoleFailure extends RoleState {
+  final String message;
+  AddRoleFailure(this.message);
+}
+
+final class EditRoleLoading extends RoleState{}
+
+final class EditRoleSuccess extends RoleState{}
+
+final class EditRoleFailure extends RoleState {
+  final String message;
+  EditRoleFailure(this.message);
+}

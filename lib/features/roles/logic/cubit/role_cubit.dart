@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tayar_admin_panel/core/networks/error_snackbar.dart';
+import 'package:tayar_admin_panel/core/themes/components.dart';
+import 'package:tayar_admin_panel/features/home/Ui/home_screen.dart';
 import 'package:tayar_admin_panel/features/roles/data/models/permission_group_model/permission_group_model.dart';
 import 'package:tayar_admin_panel/features/roles/data/models/role_model/role_model.dart';
 import 'package:tayar_admin_panel/features/roles/data/repos/roles_repo_impl.dart';
@@ -30,7 +32,7 @@ class RoleCubit extends Cubit<RoleState> {
 
   List<PermissionGroupModel> groups = [];
 
-  void getGroups(context) async {
+  Future getGroups(context) async {
   emit(GetPermissionGroupLoading());
   final response = await repo.getPermissionGroups();
   response.fold(
@@ -44,4 +46,36 @@ class RoleCubit extends Cubit<RoleState> {
     },
   );
 }
+
+
+
+void addRole(context, String name, List<int> ids) async {
+  emit(AddRoleLoading());
+  final response = await repo.addRoles(name, ids);
+  response.fold(
+    (l) {
+      showErrorSnackbar(context, l.message);
+      emit(AddRoleFailure(l.message));
+    },
+    (r) {
+      navigateAndFinish(context, const HomeScreen());
+      emit(AddRoleSuccess());
+    },
+  );
+}
+
+void editRole(context, int id, String name, List<int> ids) async {
+  emit(EditRoleLoading());
+  final response = await repo.editRole(id, name, ids);
+  response.fold(
+    (l) {
+      showErrorSnackbar(context, l.message);
+      emit(EditRoleFailure(l.message));
+    },
+    (r) {
+      navigateAndFinish(context, const HomeScreen());
+      emit(EditRoleSuccess());
+    },
+  );
+  }
 }

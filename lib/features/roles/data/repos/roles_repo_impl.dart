@@ -37,10 +37,48 @@ class RolesRepoImpl extends RolesRepo {
         jwt: kTokenBox.get(kTokenBoxString),
       );
       List<PermissionGroupModel> groups = [];
-      for (var groups in response['data']) {
-        groups.add(PermissionGroupModel.fromJson(groups));
+      for (var group in response['data']) {
+        groups.add(PermissionGroupModel.fromJson(group));
       }
       return Right(groups);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> addRoles(String name, List<int> ids) async {
+    final permissions = ids.map((id) => {"ID": id}).toList();
+    final data = {
+      "name": name,
+      "permissions": permissions,
+    };
+    try {
+      final response = await apiServices.post(
+          endPoint: ApiConstants.createRole,
+          data: data,
+          jwt: kTokenBox.get(kTokenBoxString));
+      return Right(response);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> editRole(
+      int id, String name, List<int> ids) async {
+    final permissions = ids.map((id) => {"ID": id}).toList();
+    final data = {
+      "ID": id,
+      "name": name,
+      "permissions": permissions,
+    };
+    try {
+      final response = await apiServices.post(
+          endPoint: ApiConstants.editRole,
+          data: data,
+          jwt: kTokenBox.get(kTokenBoxString));
+      return Right(response);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

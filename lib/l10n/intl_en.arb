@@ -108,8 +108,12 @@
     "english": "English",
     "arabic": "Arabic",
     "settings": "Settings",
-    "timeMargin" : "Time Margin",
+    "timeMargin": "Time Margin",
     "valideMunites": "Please enter valid minutes",
-    "rolesAndPermissions":"Roles and Permissions",
-    "addRole": "Add Role"
+    "rolesAndPermissions": "Roles and Permissions",
+    "addRole": "Add Role",
+    "roleName": "Role Name",
+    "selectPermission": "Please select permissions",
+    "editRole":"Edit Role",
+    "saveRole":"Save Role"
 }

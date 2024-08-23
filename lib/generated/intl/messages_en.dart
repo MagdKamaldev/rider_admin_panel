@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editHub": MessageLookupByLibrary.simpleMessage("Edit Hub"),
         "editManager": MessageLookupByLibrary.simpleMessage("Edit Manager"),
         "editRider": MessageLookupByLibrary.simpleMessage("Edit Rider"),
+        "editRole": MessageLookupByLibrary.simpleMessage("Edit Role"),
         "emptyValidation":
             MessageLookupByLibrary.simpleMessage("Field cannot be empty"),
         "endTime": MessageLookupByLibrary.simpleMessage("End Time"),
@@ -142,8 +143,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "riderPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Rider Phone Number"),
         "riders": MessageLookupByLibrary.simpleMessage("Riders"),
+        "roleName": MessageLookupByLibrary.simpleMessage("Role Name"),
         "rolesAndPermissions":
             MessageLookupByLibrary.simpleMessage("Roles and Permissions"),
+        "saveRole": MessageLookupByLibrary.simpleMessage("Save Role"),
         "selectBranchFranchise":
             MessageLookupByLibrary.simpleMessage("Select Branch Franchise"),
         "selectBranchFranchiseValidation": MessageLookupByLibrary.simpleMessage(
@@ -159,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please select a Hub Manager!"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
+        "selectPermission":
+            MessageLookupByLibrary.simpleMessage("Please select permissions"),
         "selectRiderHub":
             MessageLookupByLibrary.simpleMessage("Select Rider Hub"),
         "selectRiderHubValidation":

@@ -1179,6 +1179,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Role Name`
+  String get roleName {
+    return Intl.message(
+      'Role Name',
+      name: 'roleName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select permissions`
+  String get selectPermission {
+    return Intl.message(
+      'Please select permissions',
+      name: 'selectPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Role`
+  String get editRole {
+    return Intl.message(
+      'Edit Role',
+      name: 'editRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Role`
+  String get saveRole {
+    return Intl.message(
+      'Save Role',
+      name: 'saveRole',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

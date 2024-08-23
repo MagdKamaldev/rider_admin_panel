@@ -6,5 +6,7 @@ import 'package:tayar_admin_panel/features/roles/data/models/role_model/role_mod
 abstract class RolesRepo {
   Future<Either<Failure, List<RoleModel>>> getRoles();
   Future<Either<Failure, List<PermissionGroupModel>>> getPermissionGroups();
-  
+  Future<Either<Failure, dynamic>> addRoles(String name,List<int> ids);
+  Future<Either<Failure, dynamic>> editRole(int id, String name, List<int> ids);
+
 }

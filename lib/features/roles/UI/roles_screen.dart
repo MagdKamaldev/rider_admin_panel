@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
 import 'package:tayar_admin_panel/features/roles/UI/add_role_screen.dart';
+import 'package:tayar_admin_panel/features/roles/UI/edit_role.dart';
 import 'package:tayar_admin_panel/features/roles/data/repos/roles_repo_impl.dart';
 import 'package:tayar_admin_panel/features/roles/logic/cubit/role_cubit.dart';
 import 'package:tayar_admin_panel/generated/l10n.dart';
 
 class RolesAndPermissionsScreen extends StatelessWidget {
   const RolesAndPermissionsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -51,14 +50,30 @@ class RolesAndPermissionsScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Text(
-                              RoleCubit.get(context).roles[index].name!,
-                              style: TextStyles.headings.copyWith(
-                                color: AppColors.prussianBlue,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                child: Text(
+                                  RoleCubit.get(context).roles[index].name!,
+                                  style: TextStyles.headings.copyWith(
+                                    color: AppColors.prussianBlue,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                child: IconButton(
+                                    onPressed: () {
+                                       navigateTo(context, EditRole(role: RoleCubit.get(context).roles[index],));
+                                    },
+                                    icon: const Icon(Icons.edit)),
+                              ),
+                            ],
                           ),
                         );
                       },
@@ -78,3 +93,4 @@ class RolesAndPermissionsScreen extends StatelessWidget {
     );
   }
 }
+

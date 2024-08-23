@@ -107,9 +107,13 @@
     "selectLanguage": "اختر اللغة",
     "english": "الإنجليزية",
     "arabic": "العربية",
-    "settings":"الإعدادات",
-    "timeMargin" : "الوقت المحدد",
-     "valideMunites": "الرجاء إدخال دقائق صالحة",
-     "rolesAndPermissions":"الأدوار والأذونات",
-      "addRole": "إضافة دور"
+    "settings": "الإعدادات",
+    "timeMargin": "الوقت المحدد",
+    "valideMunites": "الرجاء إدخال دقائق صالحة",
+    "rolesAndPermissions": "الأدوار والأذونات",
+    "addRole": "إضافة دور",
+    "roleName": "اسم الدور",
+    "selectPermission": "الرجاء تحديد الأذونات",
+     "editRole":"تعديل الدور",
+     "saveRole":"حفظ الدور"
 }
