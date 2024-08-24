@@ -115,5 +115,7 @@
     "roleName": "Role Name",
     "selectPermission": "Please select permissions",
     "editRole":"Edit Role",
-    "saveRole":"Save Role"
+    "saveRole":"Save Role",
+    "users":"Users",
+    "addUser":"Add User"
 }

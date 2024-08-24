@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addManager": MessageLookupByLibrary.simpleMessage("إضافة مدير"),
         "addRider": MessageLookupByLibrary.simpleMessage("إضافة راكب"),
         "addRole": MessageLookupByLibrary.simpleMessage("إضافة دور"),
+        "addUser": MessageLookupByLibrary.simpleMessage("إضافة مستخدم"),
         "appName": MessageLookupByLibrary.simpleMessage("تطبيق الإدارة"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("عنوان الفرع"),
@@ -182,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تحديث الامتياز"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("تاريخ التحديث"),
         "userId": MessageLookupByLibrary.simpleMessage("معرف المستخدم:"),
+        "users": MessageLookupByLibrary.simpleMessage("المستخدمين"),
         "valideMunites":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال دقائق صالحة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم")

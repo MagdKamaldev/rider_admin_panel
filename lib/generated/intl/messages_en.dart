@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addManager": MessageLookupByLibrary.simpleMessage("Add Manager"),
         "addRider": MessageLookupByLibrary.simpleMessage("Add Rider"),
         "addRole": MessageLookupByLibrary.simpleMessage("Add Role"),
+        "addUser": MessageLookupByLibrary.simpleMessage("Add User"),
         "appName": MessageLookupByLibrary.simpleMessage("Tayaar App"),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch Address"),
@@ -181,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update Franchise"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("Updated At"),
         "userId": MessageLookupByLibrary.simpleMessage("User ID:"),
+        "users": MessageLookupByLibrary.simpleMessage("Users"),
         "valideMunites":
             MessageLookupByLibrary.simpleMessage("Please enter valid minutes"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

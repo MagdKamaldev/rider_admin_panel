@@ -115,5 +115,7 @@
     "roleName": "اسم الدور",
     "selectPermission": "الرجاء تحديد الأذونات",
      "editRole":"تعديل الدور",
-     "saveRole":"حفظ الدور"
+     "saveRole":"حفظ الدور",
+     "users":"المستخدمين",
+     "addUser":"إضافة مستخدم"
 }

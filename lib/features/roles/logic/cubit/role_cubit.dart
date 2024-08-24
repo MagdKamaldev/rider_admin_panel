@@ -33,49 +33,47 @@ class RoleCubit extends Cubit<RoleState> {
   List<PermissionGroupModel> groups = [];
 
   Future getGroups(context) async {
-  emit(GetPermissionGroupLoading());
-  final response = await repo.getPermissionGroups();
-  response.fold(
-    (l) {
-      showErrorSnackbar(context, l.message);
-      emit(GetPermissionGroupFailure(l.message));
-    },
-    (r) {
-      groups = r;
-      emit(GetPermissionGroupSuccess(r));
-    },
-  );
-}
+    emit(GetPermissionGroupLoading());
+    final response = await repo.getPermissionGroups();
+    response.fold(
+      (l) {
+        showErrorSnackbar(context, l.message);
+        emit(GetPermissionGroupFailure(l.message));
+      },
+      (r) {
+        groups = r;
+        emit(GetPermissionGroupSuccess(r));
+      },
+    );
+  }
 
+  void addRole(context, String name, List<int> ids) async {
+    emit(AddRoleLoading());
+    final response = await repo.addRoles(name, ids);
+    response.fold(
+      (l) {
+        showErrorSnackbar(context, l.message);
+        emit(AddRoleFailure(l.message));
+      },
+      (r) {
+        navigateAndFinish(context, const HomeScreen());
+        emit(AddRoleSuccess());
+      },
+    );
+  }
 
-
-void addRole(context, String name, List<int> ids) async {
-  emit(AddRoleLoading());
-  final response = await repo.addRoles(name, ids);
-  response.fold(
-    (l) {
-      showErrorSnackbar(context, l.message);
-      emit(AddRoleFailure(l.message));
-    },
-    (r) {
-      navigateAndFinish(context, const HomeScreen());
-      emit(AddRoleSuccess());
-    },
-  );
-}
-
-void editRole(context, int id, String name, List<int> ids) async {
-  emit(EditRoleLoading());
-  final response = await repo.editRole(id, name, ids);
-  response.fold(
-    (l) {
-      showErrorSnackbar(context, l.message);
-      emit(EditRoleFailure(l.message));
-    },
-    (r) {
-      navigateAndFinish(context, const HomeScreen());
-      emit(EditRoleSuccess());
-    },
-  );
+  void editRole(context, int id, String name, List<int> ids) async {
+    emit(EditRoleLoading());
+    final response = await repo.editRole(id, name, ids);
+    response.fold(
+      (l) {
+        showErrorSnackbar(context, l.message);
+        emit(EditRoleFailure(l.message));
+      },
+      (r) {
+        navigateAndFinish(context, const HomeScreen());
+        emit(EditRoleSuccess());
+      },
+    );
   }
 }

@@ -54,7 +54,8 @@ class EditRoleState extends State<EditRole> {
 
   void onEditRoleButtonPressed(String name, RoleCubit cubit) {
     List<int> ids = getSelectedPermissionIds();
-    cubit.editRole(context, widget.role.id!, name, ids); // Ensure editRole method is defined
+    cubit.editRole(context, widget.role.id!, name,
+        ids); // Ensure editRole method is defined
   }
 
   @override

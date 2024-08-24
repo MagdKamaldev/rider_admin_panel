@@ -4,20 +4,19 @@ import 'package:tayar_admin_panel/core/service_locator/service_locator.dart';
 import 'package:tayar_admin_panel/core/themes/colors.dart';
 import 'package:tayar_admin_panel/core/themes/components.dart';
 import 'package:tayar_admin_panel/core/themes/text_styles.dart';
-import 'package:tayar_admin_panel/features/roles/UI/add_role_screen.dart';
-import 'package:tayar_admin_panel/features/roles/UI/edit_role.dart';
-import 'package:tayar_admin_panel/features/roles/data/repos/roles_repo_impl.dart';
-import 'package:tayar_admin_panel/features/roles/logic/cubit/role_cubit.dart';
+import 'package:tayar_admin_panel/features/users/UI/edit_user.dart';
+import 'package:tayar_admin_panel/features/users/data/repos/users_repo_impl.dart'; // Update this path based on your project structure
+import 'package:tayar_admin_panel/features/users/logic/cubit/users_cubit.dart';
 import 'package:tayar_admin_panel/generated/l10n.dart';
 
-class RolesAndPermissionsScreen extends StatelessWidget {
-  const RolesAndPermissionsScreen({super.key});
+class UsersScreen extends StatelessWidget {
+  const UsersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RoleCubit(getIt<RolesRepoImpl>())..getRoles(context),
-      child: BlocBuilder<RoleCubit, RoleState>(
+      create: (context) => UsersCubit(getIt<UsersRepoImpl>())..getUsers(context),
+      child: BlocBuilder<UsersCubit, UsersState>(
         builder: (context, state) {
           Size size = MediaQuery.of(context).size;
 
@@ -38,23 +37,23 @@ class RolesAndPermissionsScreen extends StatelessWidget {
               children: [
                 defaultButton(
                   function: () {
-                    navigateTo(context, const AddRole());
+                    // Navigate to AddUser screen if applicable
                   },
-                  text: S.of(context).addRole,
+                  text: S.of(context).addUser, // Update localization key
                   context: context,
                   width: size.width * 0.2 > 200 ? 200 : size.width * 0.2,
                 ),
                 const SizedBox(height: 16.0),
-                if (state is! GetRoleLoading)
+                if (state is! GetUsersLoading)
                   Expanded(
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount,
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
-                        childAspectRatio: 3, // Adjust for role name fit
+                        childAspectRatio: 3, // Adjust for user name fit
                       ),
-                      itemCount: RoleCubit.get(context).roles.length,
+                      itemCount: UsersCubit.get(context).users.length,
                       itemBuilder: (context, index) {
                         return Card(
                           color: AppColors.ivory,
@@ -71,7 +70,7 @@ class RolesAndPermissionsScreen extends StatelessWidget {
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    RoleCubit.get(context).roles[index].name!,
+                                    UsersCubit.get(context).users[index].username!,
                                     style: TextStyles.headings.copyWith(
                                       color: AppColors.prussianBlue,
                                       overflow: TextOverflow.ellipsis,
@@ -84,9 +83,9 @@ class RolesAndPermissionsScreen extends StatelessWidget {
                                   onPressed: () {
                                     navigateTo(
                                       context,
-                                      EditRole(
-                                        role:
-                                            RoleCubit.get(context).roles[index],
+                                      EditUser(
+                                        user:
+                                            UsersCubit.get(context).users[index],
                                       ),
                                     );
                                   },

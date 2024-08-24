@@ -16,9 +16,9 @@ final class GetRoleFailure extends RoleState {
   GetRoleFailure(this.message);
 }
 
-final class GetPermissionGroupLoading extends RoleState{}
+final class GetPermissionGroupLoading extends RoleState {}
 
-final class GetPermissionGroupSuccess extends RoleState{
+final class GetPermissionGroupSuccess extends RoleState {
   final List<PermissionGroupModel> permissionGroups;
   GetPermissionGroupSuccess(this.permissionGroups);
 }
@@ -28,18 +28,18 @@ final class GetPermissionGroupFailure extends RoleState {
   GetPermissionGroupFailure(this.message);
 }
 
-final class AddRoleLoading extends RoleState{}
+final class AddRoleLoading extends RoleState {}
 
-final class AddRoleSuccess extends RoleState{}
+final class AddRoleSuccess extends RoleState {}
 
 final class AddRoleFailure extends RoleState {
   final String message;
   AddRoleFailure(this.message);
 }
 
-final class EditRoleLoading extends RoleState{}
+final class EditRoleLoading extends RoleState {}
 
-final class EditRoleSuccess extends RoleState{}
+final class EditRoleSuccess extends RoleState {}
 
 final class EditRoleFailure extends RoleState {
   final String message;
