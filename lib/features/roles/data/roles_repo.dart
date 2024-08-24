@@ -8,4 +8,5 @@ abstract class RolesRepo {
   Future<Either<Failure, List<PermissionGroupModel>>> getPermissionGroups();
   Future<Either<Failure, dynamic>> addRoles(String name, List<int> ids);
   Future<Either<Failure, dynamic>> editRole(int id, String name, List<int> ids);
+  Future<Either<Failure,dynamic>> assignUserToRole(int userId, int roleId);
 }

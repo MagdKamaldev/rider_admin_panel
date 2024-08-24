@@ -114,8 +114,11 @@
     "addRole": "إضافة دور",
     "roleName": "اسم الدور",
     "selectPermission": "الرجاء تحديد الأذونات",
-     "editRole":"تعديل الدور",
-     "saveRole":"حفظ الدور",
-     "users":"المستخدمين",
-     "addUser":"إضافة مستخدم"
+    "editRole": "تعديل الدور",
+    "saveRole": "حفظ الدور",
+    "users": "المستخدمين",
+    "addUser": "إضافة مستخدم",
+    "noRole": "لا يوجد دور بعد !",
+    "assignRole": "تعيين الدور",
+    "assign": "تعيين"
 }

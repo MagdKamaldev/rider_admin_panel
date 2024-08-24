@@ -41,4 +41,5 @@ class ApiConstants {
   static const String deleteUser = "admin/DeleteUser";
   static const String editUser = "admin/EditUser";
   static const String addUser = "admin/AddUser";
+  static const String assignUserRole = "admin/AssignUserRole";
 }

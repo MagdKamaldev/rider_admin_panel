@@ -76,4 +76,21 @@ class RoleCubit extends Cubit<RoleState> {
       },
     );
   }
+
+  void assignUserToRole(context, int userId, int roleId)
+  {
+    emit(AssignUserToRoleLoading());
+    repo.assignUserToRole(userId, roleId).then((value) {
+      value.fold(
+        (l) {
+          showErrorSnackbar(context, l.message);
+          emit(AssignUserToRoleFailure(l.message));
+        },
+        (r) {
+          navigateAndFinish(context, const HomeScreen());
+          emit(AssignUserToRoleSuccess());
+        },
+      );
+    });
+  }
 }

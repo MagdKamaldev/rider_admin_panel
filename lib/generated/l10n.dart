@@ -1239,6 +1239,36 @@ class S {
       args: [],
     );
   }
+
+  /// `No Role Yet !`
+  String get noRole {
+    return Intl.message(
+      'No Role Yet !',
+      name: 'noRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Role`
+  String get assignRole {
+    return Intl.message(
+      'Assign Role',
+      name: 'assignRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign`
+  String get assign {
+    return Intl.message(
+      'Assign',
+      name: 'assign',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

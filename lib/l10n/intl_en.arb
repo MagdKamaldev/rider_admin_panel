@@ -117,5 +117,8 @@
     "editRole":"Edit Role",
     "saveRole":"Save Role",
     "users":"Users",
-    "addUser":"Add User"
+    "addUser":"Add User",
+    "noRole":"No Role Yet !",
+    "assignRole":"Assign Role",
+    "assign":"Assign"
 }

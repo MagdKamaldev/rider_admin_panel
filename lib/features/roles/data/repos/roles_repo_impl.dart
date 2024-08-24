@@ -83,4 +83,21 @@ class RolesRepoImpl extends RolesRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, dynamic>> assignUserToRole(int userId, int roleId) async{
+    final data = {
+      "user_id": userId,
+      "role_id": roleId,
+    };
+    try {
+      final response = await apiServices.post(
+          endPoint: ApiConstants.assignUserRole,
+          data: data,
+          jwt: kTokenBox.get(kTokenBoxString));
+      return Right(response);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

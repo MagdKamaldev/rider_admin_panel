@@ -45,3 +45,12 @@ final class EditRoleFailure extends RoleState {
   final String message;
   EditRoleFailure(this.message);
 }
+
+final class AssignUserToRoleLoading extends RoleState {}
+
+final class AssignUserToRoleSuccess extends RoleState {}
+
+final class AssignUserToRoleFailure extends RoleState {
+  final String message;
+  AssignUserToRoleFailure(this.message);
+}

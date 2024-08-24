@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addUser": MessageLookupByLibrary.simpleMessage("Add User"),
         "appName": MessageLookupByLibrary.simpleMessage("Tayaar App"),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "assign": MessageLookupByLibrary.simpleMessage("Assign"),
+        "assignRole": MessageLookupByLibrary.simpleMessage("Assign Role"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch Address"),
         "branchFranchise":
             MessageLookupByLibrary.simpleMessage("Branch Franchise"),
@@ -107,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noManagersYet":
             MessageLookupByLibrary.simpleMessage("No Managers Yet!"),
         "noRidersYet": MessageLookupByLibrary.simpleMessage("No Riders Yet!"),
+        "noRole": MessageLookupByLibrary.simpleMessage("No Role Yet !"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone:"),
         "pleaseEnterBranchAddress": MessageLookupByLibrary.simpleMessage(

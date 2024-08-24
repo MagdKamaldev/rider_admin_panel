@@ -31,7 +31,7 @@ class BranchesScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: size.height * 0.4,
+                    height: size.height * 0.3,
                   ),
                   Text(
                     S

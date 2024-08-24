@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addUser": MessageLookupByLibrary.simpleMessage("إضافة مستخدم"),
         "appName": MessageLookupByLibrary.simpleMessage("تطبيق الإدارة"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+        "assign": MessageLookupByLibrary.simpleMessage("تعيين"),
+        "assignRole": MessageLookupByLibrary.simpleMessage("تعيين الدور"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("عنوان الفرع"),
         "branchFranchise": MessageLookupByLibrary.simpleMessage("امتياز الفرع"),
         "branchHub": MessageLookupByLibrary.simpleMessage("مركز الفرع"),
@@ -109,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد مديرون بعد!"),
         "noRidersYet":
             MessageLookupByLibrary.simpleMessage("لا يوجد سائقون بعد!"),
+        "noRole": MessageLookupByLibrary.simpleMessage("لا يوجد دور بعد !"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "phone": MessageLookupByLibrary.simpleMessage("الهاتف:"),
         "pleaseEnterBranchAddress":
