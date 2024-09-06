@@ -22,7 +22,6 @@ class AddRiderScreenState extends State<AddRiderScreen> {
   TextEditingController nationalIdController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String? selectedHub;
   List<String> hubs = []; // Replace with actual hub data source
 
   @override
@@ -30,7 +29,7 @@ class AddRiderScreenState extends State<AddRiderScreen> {
     Size size = MediaQuery.of(context).size;
 
     return BlocProvider(
-        create: (context) => RiderCubit(getIt<RiderRepoImpl>())..fetchHubs(),
+        create: (context) => RiderCubit(getIt<RiderRepoImpl>()),
         child: BlocConsumer<RiderCubit, RiderState>(listener: (context, state) {
           if (state is AddRiderSuccess) {
             navigateAndFinish(context, const HomeScreen());
@@ -145,36 +144,6 @@ class AddRiderScreenState extends State<AddRiderScreen> {
                                 prefix: Icons.lock,
                                 context: context,
                                 onSubmit: () {},
-                              ),
-                            ),
-                            SizedBox(height: size.height * 0.05),
-                            SizedBox(
-                              width: size.width * 0.8 < 700
-                                  ? size.width * 0.8
-                                  : 700,
-                              child: DropdownButtonFormField<String>(
-                                value: selectedHub,
-                                decoration: InputDecoration(
-                                  labelText: S.of(context).selectHub,
-                                  border: const OutlineInputBorder(),
-                                ),
-                                items: hubs.map((hub) {
-                                  return DropdownMenuItem<String>(
-                                    value: hub,
-                                    child: Text(hub),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedHub = value;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null) {
-                                    return S.of(context).pleaseSelectHub;
-                                  }
-                                  return null;
-                                },
                               ),
                             ),
                             SizedBox(height: size.height * 0.1),
