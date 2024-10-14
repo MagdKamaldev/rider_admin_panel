@@ -1,16 +1,32 @@
-Tayar Admin Panel
+# Tayar Admin Panel
 
-Welcome to the Tayar Admin Panel, a Flutter-based application designed for efficient management and operations within the Tayar system.
+Welcome to the **Tayar Admin Panel**! This dashboard is designed to provide an easy and efficient interface for managing and monitoring the application's key administrative functions.
 
-Try the Dashboard
 
-You can try the Tayar Admin Panel by visiting the following link:
+## Live Demo
 
-Try the Tayar Admin Panel
+You can access the admin panel via the link below:
 
-Login Credentials
+[Try the Tayar Admin Panel](http://165.22.31.49:3006/admin_panel/)
 
-	•	Username: admin
-	•	Password: 123456
+### Admin Credentials:
+- **Username**: admin
+- **Password**: 123456
 
-This version focuses on the core elements: the project name, purpose, and a direct link to try the dashboard, along with the login credentials.
+## How to Use
+
+1. **Visit the link** provided above to access the live admin panel.
+2. **Login** using the credentials:
+   - Username: `admin`
+   - Password: `123456`
+3. Once logged in, explore the various features, including user management, system settings, and data analytics.
+
+## Technologies Used
+
+- **Flutter**: The front end of the admin panel is built using Flutter, ensuring a responsive and intuitive interface.
+- **Dart**: The main programming language used for Flutter development.
+- **Backend**: Powered by a robust backend for handling data efficiently.
+
+---
+
+For any issues or feedback regarding the dashboard, don't hesitate to contact the project administrator.
