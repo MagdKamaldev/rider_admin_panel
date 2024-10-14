@@ -1,16 +1,16 @@
-# tayar_admin_panel
+Tayar Admin Panel
 
-A new Flutter project.
+Welcome to the Tayar Admin Panel, a Flutter-based application designed for efficient management and operations within the Tayar system.
 
-## Getting Started
+Try the Dashboard
 
-This project is a starting point for a Flutter application.
+You can try the Tayar Admin Panel by visiting the following link:
 
-A few resources to get you started if this is your first Flutter project:
+Try the Tayar Admin Panel
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Login Credentials
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+	•	Username: admin
+	•	Password: 123456
+
+This version focuses on the core elements: the project name, purpose, and a direct link to try the dashboard, along with the login credentials.
