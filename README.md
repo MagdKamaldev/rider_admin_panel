@@ -1,4 +1,4 @@
-# Tayar Admin Panel
+# Tayar Admin Panel Beta
 
 Welcome to the **Tayar Admin Panel**! This dashboard is designed to provide an easy and efficient interface for managing and monitoring the application's key administrative functions.
 
